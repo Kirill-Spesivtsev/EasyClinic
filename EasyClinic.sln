@@ -3,9 +3,47 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthService", "AuthService", "{22F0B5ED-5517-41DB-AAAD-64687528B106}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.AuthService.Api", "src\AuthService\EasyClinic.AuthService.Api\EasyClinic.AuthService.Api.csproj", "{5C490EA2-538A-41A6-B76F-B105EA580D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyClinic.AuthService.Infrastructure", "src\AuthService\EasyClinic.AuthService.Infrastructure\EasyClinic.AuthService.Infrastructure.csproj", "{6073FCE4-D081-441D-9FE7-A005E5AD615B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyClinic.AuthService.Domain", "src\AuthService\EasyClinic.AuthService.Domain\EasyClinic.AuthService.Domain.csproj", "{C0CF5C89-ABDA-4536-9FFD-400A8EDB8234}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyClinic.AuthService.Application", "src\AuthService\EasyClinic.AuthService.Application\EasyClinic.AuthService.Application.csproj", "{2D8C950F-8AEB-47D7-8D0E-6348EE11C097}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C490EA2-538A-41A6-B76F-B105EA580D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C490EA2-538A-41A6-B76F-B105EA580D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C490EA2-538A-41A6-B76F-B105EA580D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C490EA2-538A-41A6-B76F-B105EA580D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6073FCE4-D081-441D-9FE7-A005E5AD615B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6073FCE4-D081-441D-9FE7-A005E5AD615B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6073FCE4-D081-441D-9FE7-A005E5AD615B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6073FCE4-D081-441D-9FE7-A005E5AD615B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0CF5C89-ABDA-4536-9FFD-400A8EDB8234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0CF5C89-ABDA-4536-9FFD-400A8EDB8234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0CF5C89-ABDA-4536-9FFD-400A8EDB8234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0CF5C89-ABDA-4536-9FFD-400A8EDB8234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D8C950F-8AEB-47D7-8D0E-6348EE11C097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D8C950F-8AEB-47D7-8D0E-6348EE11C097}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D8C950F-8AEB-47D7-8D0E-6348EE11C097}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D8C950F-8AEB-47D7-8D0E-6348EE11C097}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5C490EA2-538A-41A6-B76F-B105EA580D77} = {22F0B5ED-5517-41DB-AAAD-64687528B106}
+		{6073FCE4-D081-441D-9FE7-A005E5AD615B} = {22F0B5ED-5517-41DB-AAAD-64687528B106}
+		{C0CF5C89-ABDA-4536-9FFD-400A8EDB8234} = {22F0B5ED-5517-41DB-AAAD-64687528B106}
+		{2D8C950F-8AEB-47D7-8D0E-6348EE11C097} = {22F0B5ED-5517-41DB-AAAD-64687528B106}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88709383-0404-47D0-ACEB-3EA631AD9993}
