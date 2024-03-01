@@ -2,6 +2,7 @@ using EasyClinic.AuthService.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using EasyClinic.AuthService.Domain.Entities;
+using EasyClinic.AuthService.Api.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication();
 
 builder.Services.AddDbContext<IdentityServiceDbContext>(options =>
-    options.UseSqlServer(builder.Configuration["ConnectionStrings:IdentityServiceConnection"])
+    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceConnection"])
 );
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
@@ -43,6 +44,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-
+await AutoMigrationHelper.ApplyMigrationsIfAny<IdentityServiceDbContext>(app);
 
 app.Run();

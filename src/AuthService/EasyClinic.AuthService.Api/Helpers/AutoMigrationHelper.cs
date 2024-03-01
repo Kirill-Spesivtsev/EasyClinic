@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace DMarket.Api.Helpers
+namespace EasyClinic.AuthService.Api.Helpers
 {
-    public static class MigrationHelper
+    public static class AutoMigrationHelper
     {
         public static async Task ApplyMigrationsIfAny<T>(WebApplication app) where T : DbContext
         {
