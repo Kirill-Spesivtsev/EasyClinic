@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 namespace EasyClinic.AuthService.Domain.Entities
 {
-#pragma warning disable S2094 // Classes should not be empty
-    public class ApplicationUser : IdentityUser
-    {
-    }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S2094:Classes should not be empty", Justification = "<Pending>")]
+    public class ApplicationUser : IdentityUser {}
 }
