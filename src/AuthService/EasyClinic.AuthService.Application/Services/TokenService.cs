@@ -15,7 +15,7 @@ namespace EasyClinic.AuthService.Application.Services
             _configuration = configuration;
         }
 
-        public string GenerateToken(ApplicationUser user)
+        public string GenerateJwtToken(ApplicationUser user)
         {
             var claims = new List<Claim>
             {

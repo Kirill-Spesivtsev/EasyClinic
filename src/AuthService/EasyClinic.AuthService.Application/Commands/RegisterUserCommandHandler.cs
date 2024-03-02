@@ -23,7 +23,7 @@ namespace EasyClinic.AuthService.Application.Commands
 
         public async Task<UserToReturnDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-           var user = new ApplicationUser
+            var user = new ApplicationUser
             {
                 Email = request.Email,
                 UserName = request.Email,
@@ -43,7 +43,7 @@ namespace EasyClinic.AuthService.Application.Commands
                 throw new BadRequestException("Passwords do not match");
             } 
 
-            if (!register.Succeeded) 
+            if (!register.Succeeded)
             { 
                 throw new BadRequestException("Invalid data provided");
             } 
@@ -53,7 +53,7 @@ namespace EasyClinic.AuthService.Application.Commands
                 Id = user.Id,
                 Email = user.Email!,
                 Username = user.UserName!,
-                Token = _tokenService.GenerateToken(user),
+                Token = _tokenService.GenerateJwtToken(user),
             };
 
             return result;

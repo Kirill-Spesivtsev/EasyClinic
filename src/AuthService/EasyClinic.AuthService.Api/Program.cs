@@ -14,6 +14,7 @@ using EasyClinic.AuthService.Application.Services;
 using EasyClinic.AuthService.Application.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using EmailSender;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,10 +76,12 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireLowercase = false;
         options.Password.RequiredLength = 6;
-        
+        options.User.RequireUniqueEmail = true;
+        options.SignIn.RequireConfirmedAccount = false;
     })
     .AddEntityFrameworkStores<IdentityServiceDbContext>()
-    .AddSignInManager<SignInManager<ApplicationUser>>();
+    .AddSignInManager<SignInManager<ApplicationUser>>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -95,10 +98,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddScoped<ITokenService, TokenService>();
+
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<LoginUserCommand>());
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IEmailSender, EmailSender.EmailSender>();
+builder.Services.AddScoped<IEmailPatternService, EmailPatternService>();
 
 
 var app = builder.Build();
