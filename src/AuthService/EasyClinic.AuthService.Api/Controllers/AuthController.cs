@@ -88,6 +88,15 @@ namespace EasyClinic.AuthService.Api.Controllers
             return Ok();
         }
         
+        [Authorize]
+        [HttpPost("send-password-reset")]
+        public async Task<IActionResult> SendPasswordResetEmail(CancellationToken cancellationToken = default)
+        {
+            var request = new SendPasswordResetCommand{Username = User.Identity?.Name!};
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok();
+        }
 
     }
 }
