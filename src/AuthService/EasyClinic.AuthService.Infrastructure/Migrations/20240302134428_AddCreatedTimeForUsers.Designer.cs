@@ -3,6 +3,7 @@ using System;
 using EasyClinic.AuthService.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EasyClinic.AuthService.Infrastructure.Migrations
 {
     [DbContext(typeof(IdentityServiceDbContext))]
-    partial class IdentityServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240302134428_AddCreatedTimeForUsers")]
+    partial class AddCreatedTimeForUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

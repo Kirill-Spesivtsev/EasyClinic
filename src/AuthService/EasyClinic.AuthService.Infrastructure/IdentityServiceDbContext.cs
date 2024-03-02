@@ -11,6 +11,7 @@ namespace EasyClinic.AuthService.Infrastructure
         public IdentityServiceDbContext(DbContextOptions<IdentityServiceDbContext> options) 
             : base(options)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
     }
