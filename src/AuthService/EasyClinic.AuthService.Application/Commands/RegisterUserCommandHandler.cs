@@ -52,6 +52,7 @@ namespace EasyClinic.AuthService.Application.Commands
             {
                 Id = user.Id,
                 Email = user.Email!,
+                Username = user.UserName!,
                 Token = _tokenService.GenerateToken(user),
             };
 

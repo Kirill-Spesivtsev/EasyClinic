@@ -21,6 +21,7 @@ namespace EasyClinic.AuthService.Application.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id), 
                 new Claim(ClaimTypes.Email, user.Email!),
+                new Claim(ClaimTypes.Name, user.UserName!),
             };
 
             var key = Encoding.ASCII.GetBytes(_configuration["JwtOrigin:Key"]!);
