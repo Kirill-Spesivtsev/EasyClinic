@@ -12,13 +12,16 @@ namespace EasyClinic.AuthService.Application.Commands
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ITokenService _tokenService;
+        private readonly IEmailPatternService _emailService;
 
         public RegisterUserCommandHandler(
             UserManager<ApplicationUser> userManager,
-            ITokenService tokenService)
+            ITokenService tokenService,
+            IEmailPatternService emailService)
         {
             _userManager = userManager;
             _tokenService = tokenService;
+            _emailService = emailService;
         }
 
         public async Task<UserToReturnDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -47,6 +50,8 @@ namespace EasyClinic.AuthService.Application.Commands
             { 
                 throw new BadRequestException("Invalid data provided");
             } 
+
+            await _emailService.SendAccountConfirmEmailAsync(user);
 
             var result = new UserToReturnDto
             {

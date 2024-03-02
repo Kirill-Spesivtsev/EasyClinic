@@ -77,7 +77,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
         options.Password.RequireLowercase = false;
         options.Password.RequiredLength = 6;
         options.User.RequireUniqueEmail = true;
-        options.SignIn.RequireConfirmedAccount = false;
+        options.SignIn.RequireConfirmedAccount = true;
     })
     .AddEntityFrameworkStores<IdentityServiceDbContext>()
     .AddSignInManager<SignInManager<ApplicationUser>>()

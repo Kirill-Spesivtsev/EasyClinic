@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EasyClinic.AuthService.Api.Controllers
 {
     [ApiController]
-    [Route("api/v1/auth")]
+    [Route("api/v1/account")]
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -27,6 +27,7 @@ namespace EasyClinic.AuthService.Api.Controllers
             CancellationToken cancellationToken = default)
         {
             var userData = await _mediator.Send(request, cancellationToken);
+
             return Ok(userData);
         }
 
@@ -38,19 +39,22 @@ namespace EasyClinic.AuthService.Api.Controllers
             CancellationToken cancellationToken = default)
         {
             var userData = await _mediator.Send(request, cancellationToken);
+
             return Ok(userData);
         }
 
         [HttpGet("email-exists")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] CheckEmailExistenceQuery request,
+        public async Task<ActionResult<bool>> CheckEmailExistence(
+            [FromQuery] CheckEmailExistenceQuery request,
             CancellationToken cancellationToken = default)
         {
             var result = await _mediator.Send(request, cancellationToken);
+
             return Ok(result);
         }
 
-        [HttpGet("fetch-user")]
+        [HttpGet("fetch-current-user")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -59,7 +63,31 @@ namespace EasyClinic.AuthService.Api.Controllers
         {
             var request = new GetCurrentUserQuery{User = User};
             var result = await _mediator.Send(request, cancellationToken);
+
             return Ok(result);
         }
+
+        [Authorize]
+        [HttpPost("send-account-confirm")]
+        public async Task<IActionResult> SendAccountConfirmationEmail(
+            CancellationToken cancellationToken = default)
+        {
+            var request = new ResendAccountConfirmCommand{Username = User.Identity?.Name!};
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok();
+        }
+
+        [HttpGet("verify-email")]
+        public async Task<IActionResult> VerifyEmail([FromQuery] string userId, [FromQuery] string token,
+            CancellationToken cancellationToken = default)
+        {
+            var request = new VerifyEmailCommand{UserId = userId, Token = token};
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok();
+        }
+        
+
     }
 }

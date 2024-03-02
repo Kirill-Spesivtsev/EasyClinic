@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace EasyClinic.AuthService.Application.Services
 {
@@ -28,7 +29,8 @@ namespace EasyClinic.AuthService.Application.Services
         {
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            string verificationRoute = $"{_configuration["Route:PublicApiHost"]}/api/v1/auth/verify-email?token={token}";
+            string verificationRoute = $"{_configuration["Route:PublicApiHost"]}/api/v1/account/verify-email"
+                + $"?userId={user.Id}" + $"&token={HttpUtility.UrlEncode(token)}";
 
             var message = new EmailMessageModel
             {
@@ -45,9 +47,10 @@ namespace EasyClinic.AuthService.Application.Services
 
         public async Task SendPasswordChangeEmailAsync(ApplicationUser user)
         {
-            string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            string passwordChangeRoute = $"{_configuration["Route:PublicApiHost"]}/api/v1/account/change-password?token={token}";
+            string passwordChangeRoute = $"{_configuration["Route:PublicApiHost"]}/api/v1/account/change-password" 
+                + $"?userId={user.Id}" + $"&token={HttpUtility.UrlEncode(token)}";
 
             var message = new EmailMessageModel
             {
