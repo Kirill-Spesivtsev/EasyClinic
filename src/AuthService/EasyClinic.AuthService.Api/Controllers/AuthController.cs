@@ -98,5 +98,29 @@ namespace EasyClinic.AuthService.Api.Controllers
             return Ok();
         }
 
+        [HttpGet("change-password")]
+        public async Task<IActionResult> ChangePassword([FromQuery] string userId, [FromQuery] string token,
+            CancellationToken cancellationToken = default)
+        {
+            var request = new ChangePasswordQuery{Token = token, UserId = userId};
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok();
+        }
+
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePasswordSubmit([FromQuery] string userId, [FromQuery] string token, 
+            [FromHeader] string newPassword, CancellationToken cancellationToken = default)
+        {
+            var request = new ChangePasswordSubmitCommand
+            {
+                Token = token, 
+                UserId = userId, 
+                NewPass = newPassword
+            };
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok();
+        }
     }
 }
