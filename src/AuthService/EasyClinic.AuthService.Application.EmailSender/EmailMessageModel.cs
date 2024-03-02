@@ -12,6 +12,6 @@ namespace EmailSender
 
         public string Content { get; set; } = null!;
 
-        public List<IFormFile> Attachments { get; set; } = null!;
+        public List<IFormFile> Attachments { get; set; } = new List<IFormFile>();
     }
 }

@@ -29,7 +29,7 @@ namespace EmailSender
             
             var builder = new BodyBuilder();
             builder.HtmlBody = messageDto.Content;
-            if (!messageDto.Attachments.Any())
+            if (messageDto.Attachments.Any())
             {
                 byte[] fileBytes;
                 foreach (var file in messageDto.Attachments)
