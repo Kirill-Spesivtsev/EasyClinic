@@ -4,24 +4,30 @@ using EasyClinic.AuthService.Domain.Exceptions;
 using EasyClinic.AuthService.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using EasyClinic.AuthService.Domain.RepositoryContracts;
+using static System.Data.IsolationLevel;
 
 
 namespace EasyClinic.AuthService.Application.Commands
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, UserToReturnDto>
     {
+        private readonly IRepository<ApplicationUser> _userRepository;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly IEmailPatternService _emailService;
 
         public RegisterUserCommandHandler(
+            IRepository<ApplicationUser> userRepository,
             UserManager<ApplicationUser> userManager,
             ITokenService tokenService,
-            IEmailPatternService emailService)
+            IEmailPatternService emailService
+            )
         {
             _userManager = userManager;
             _tokenService = tokenService;
             _emailService = emailService;
+            _userRepository = userRepository;
         }
 
         public async Task<UserToReturnDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -39,19 +45,32 @@ namespace EasyClinic.AuthService.Application.Commands
                 throw new ConflictException("User with such email already exists");
             }
 
-            var register = await _userManager.CreateAsync(user, request.Password);
+            using var transaction = _userRepository.BeginTransaction(ReadCommitted);
 
-            if (request.Password != request.RepeatPassword) 
-            { 
-                throw new BadRequestException("Passwords do not match");
-            } 
+            try
+            {
+                var register = await _userManager.CreateAsync(user, request.Password);
 
-            if (!register.Succeeded)
-            { 
-                throw new BadRequestException("Invalid data provided");
-            } 
+                if (request.Password != request.RepeatPassword) 
+                { 
+                    throw new BadRequestException("Passwords do not match");
+                } 
 
-            await _emailService.SendAccountConfirmEmailAsync(user);
+                if (!register.Succeeded)
+                { 
+                    throw new BadRequestException("Invalid data provided");
+                } 
+
+                await _emailService.SendAccountConfirmEmailAsync(user);
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                throw;
+            }
+            
 
             var result = new UserToReturnDto
             {

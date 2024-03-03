@@ -29,6 +29,7 @@ namespace EmailSender
             
             var builder = new BodyBuilder();
             builder.HtmlBody = messageDto.Content;
+
             if (messageDto.Attachments.Any())
             {
                 byte[] fileBytes;
@@ -48,7 +49,9 @@ namespace EmailSender
             message.Body = builder.ToMessageBody();
 
             client.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-            client.Authenticate(_configuration["EmailSender:Username"], _configuration["EmailSender:Password"]);
+            client.Authenticate(_configuration["EmailSender:Username"], 
+                _configuration["EmailSender:Password"]);
+
             await client.SendAsync(message);
             client.Disconnect(true);
         }

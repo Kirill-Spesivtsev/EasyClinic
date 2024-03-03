@@ -67,17 +67,6 @@ namespace EasyClinic.AuthService.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize]
-        [HttpPost("send-account-confirm")]
-        public async Task<IActionResult> SendAccountConfirmationEmail(
-            CancellationToken cancellationToken = default)
-        {
-            var request = new ResendAccountConfirmCommand{Username = User.Identity?.Name!};
-            await _mediator.Send(request, cancellationToken);
-
-            return Ok();
-        }
-
         [HttpGet("verify-email")]
         public async Task<IActionResult> VerifyEmail([FromQuery] string userId, [FromQuery] string token,
             CancellationToken cancellationToken = default)

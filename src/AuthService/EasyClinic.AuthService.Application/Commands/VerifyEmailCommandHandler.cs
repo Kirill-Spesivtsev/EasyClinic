@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using EasyClinic.AuthService.Domain.Exceptions;
 using System.Web;
+using System.Text;
 
 namespace EasyClinic.AuthService.Application.Commands
 {
@@ -25,7 +26,8 @@ namespace EasyClinic.AuthService.Application.Commands
                 throw new NotFoundException($"User with id {request.UserId} does not exist");
             }
 
-            var tokenCheck = await _userManager.ConfirmEmailAsync(user, request.Token);
+            var tokenCheck = await _userManager.ConfirmEmailAsync(
+                user, HttpUtility.UrlDecode(request.Token, Encoding.UTF8));
 
             if (!tokenCheck.Succeeded)
             {
