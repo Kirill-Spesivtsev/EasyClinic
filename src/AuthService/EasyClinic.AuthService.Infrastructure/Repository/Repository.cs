@@ -1,7 +1,9 @@
 ﻿using EasyClinic.AuthService.Domain.RepositoryContracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,5 +48,10 @@ namespace EasyClinic.AuthService.Infrastructure.Repository
             await _context.SaveChangesAsync();
         }
 
+        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+        {
+            var transaction = _context.Database.BeginTransaction();
+            return transaction.GetDbTransaction();
+        }
     }
 }
