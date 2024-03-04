@@ -14,12 +14,14 @@ namespace EasyClinic.AuthService.Application.Commands
     {
         private readonly IRepository<ApplicationUser> _userRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ITokenService _tokenService;
         private readonly IEmailPatternService _emailService;
 
         public RegisterUserCommandHandler(
             IRepository<ApplicationUser> userRepository,
             UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             ITokenService tokenService,
             IEmailPatternService emailService
             )
@@ -28,6 +30,7 @@ namespace EasyClinic.AuthService.Application.Commands
             _tokenService = tokenService;
             _emailService = emailService;
             _userRepository = userRepository;
+            _roleManager = roleManager;
         }
 
         public async Task<UserToReturnDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)

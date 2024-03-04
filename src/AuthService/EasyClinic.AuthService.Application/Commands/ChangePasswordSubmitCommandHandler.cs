@@ -30,7 +30,7 @@ namespace EasyClinic.AuthService.Application.Commands
             }
 
             var tokenCheck = await _userManager.ResetPasswordAsync(
-                user, HttpUtility.UrlDecode(request.Token), request.NewPass);
+                user, request.Token, request.NewPass);
 
             if (!tokenCheck.Succeeded)
             {

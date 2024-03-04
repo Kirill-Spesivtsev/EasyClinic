@@ -30,7 +30,7 @@ namespace EasyClinic.AuthService.Application.Services
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
             string verificationRoute = $"{_configuration["Route:PublicApiHost"]}/api/v1/account/verify-email"
-                + $"?userId={user.Id}" + $"&token={HttpUtility.UrlEncode(token, Encoding.UTF8)}";
+                + $"?userId={user.Id}" + $"&token={HttpUtility.UrlEncode(token, Encoding.ASCII)}";
 
             var message = new EmailMessageModel
             {
