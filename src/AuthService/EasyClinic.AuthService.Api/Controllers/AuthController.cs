@@ -76,6 +76,17 @@ namespace EasyClinic.AuthService.Api.Controllers
 
             return Ok();
         }
+
+        [Authorize]
+        [HttpPost("resend-account-confirm")]
+        public async Task<IActionResult> ResendAccountConfirmationEmail(
+            CancellationToken cancellationToken = default)
+        {
+            var request = new ResendAccountConfirmCommand{Username = User.Identity?.Name!};
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok();
+        }
         
         [Authorize]
         [HttpPost("send-password-reset")]
