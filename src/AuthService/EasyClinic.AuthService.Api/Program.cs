@@ -15,6 +15,9 @@ using EasyClinic.AuthService.Application.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using EmailSender;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using System.Globalization;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -54,7 +57,7 @@ builder.Services.AddAuthentication();
 
 builder.Services.AddProblemDetails(options =>
 {
-    options.IncludeExceptionDetails = (ctx, ex) => 
+    options.IncludeExceptionDetails = (ctx, ex) =>
         (builder.Environment.IsDevelopment() || builder.Environment.IsStaging()) 
         && ex is not HttpResponseCodeException;
     options.ShouldLogUnhandledException = (_, ex, d) => 
@@ -62,6 +65,7 @@ builder.Services.AddProblemDetails(options =>
         && (d.Status is null or >= 400);
         options.Map<HttpResponseCodeException>(ex => new ProblemDetails() { 
         Title = ex.Title, Detail = ex.Message, Status = ex.Status, Type = ex.Type });
+        options.MapToStatusCode<Exception>(500);
 });
 
 builder.Services.AddDbContext<IdentityServiceDbContext>(options =>
@@ -78,6 +82,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
         options.Password.RequiredLength = 6;
         options.User.RequireUniqueEmail = true;
         options.SignIn.RequireConfirmedAccount = true;
+        options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultProvider;
+        options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultProvider;
     })
     .AddEntityFrameworkStores<IdentityServiceDbContext>()
     .AddSignInManager<SignInManager<ApplicationUser>>()
@@ -98,6 +104,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddFluentValidationAutoValidation(op => 
+    op.DisableDataAnnotationsValidation = true)
+    .AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserCommandValidator>();
+ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-GB");
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<LoginUserCommand>());
 
