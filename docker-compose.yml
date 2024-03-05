@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  easyclinic.authservice.api:
+    image: ${DOCKER_REGISTRY-}easyclinic-authservice-api
+    container_name: easyclinic.authservice.api
+    build:
+      context: .
+      dockerfile: src/AuthService/EasyClinic.AuthService.Api/Dockerfile
+
+  easyclinic.authservice.db:
+    image: postgres:16-alpine
+    container_name: easyclinic.authservice.db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pgadminpass@328
+      - POSTGRES_DB=AuthServiceDb
+    ports:
+      - "61002:5432"
+    restart: always
+    volumes:
+      - authservice_data:/var/lib/postgresql/data
+
+volumes:
+  authservice_data:
