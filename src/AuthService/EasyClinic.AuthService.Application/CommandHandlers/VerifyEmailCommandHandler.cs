@@ -7,8 +7,9 @@ using EasyClinic.AuthService.Domain.Exceptions;
 using System.Web;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using EasyClinic.AuthService.Application.Commands;
 
-namespace EasyClinic.AuthService.Application.Commands
+namespace EasyClinic.AuthService.Application.CommandHandlers
 {
     public class VerifyEmailCommandHandler : IRequestHandler<VerifyEmailCommand>
     {

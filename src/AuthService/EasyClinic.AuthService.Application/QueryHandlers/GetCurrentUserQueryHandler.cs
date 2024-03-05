@@ -3,8 +3,9 @@ using EasyClinic.AuthService.Domain.Entities;
 using EasyClinic.AuthService.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using EasyClinic.AuthService.Application.Queries;
 
-namespace EasyClinic.AuthService.Application.Queries
+namespace EasyClinic.AuthService.Application.QueryHandlers
 {
     public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, UserToReturnDto>
     {
@@ -12,7 +13,7 @@ namespace EasyClinic.AuthService.Application.Queries
         private readonly ITokenService _tokenService;
 
         public GetCurrentUserQueryHandler(
-            UserManager<ApplicationUser> userManager, 
+            UserManager<ApplicationUser> userManager,
             ITokenService tokenService)
         {
             _userManager = userManager;

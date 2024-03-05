@@ -18,6 +18,7 @@ using EmailSender;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using System.Globalization;
+using EasyClinic.AuthService.Application.Validators;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -69,7 +70,7 @@ builder.Services.AddProblemDetails(options =>
 });
 
 builder.Services.AddDbContext<IdentityServiceDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceConnection"])
+    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceContainerConnection"])
 );
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>

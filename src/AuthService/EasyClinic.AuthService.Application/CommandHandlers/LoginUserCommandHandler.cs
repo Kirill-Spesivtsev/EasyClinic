@@ -4,9 +4,9 @@ using EasyClinic.AuthService.Domain.Exceptions;
 using EasyClinic.AuthService.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using EasyClinic.AuthService.Application.Commands;
 
-
-namespace EasyClinic.AuthService.Application.Commands
+namespace EasyClinic.AuthService.Application.CommandHandlers
 {
     public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, UserToReturnDto>
     {
@@ -15,7 +15,7 @@ namespace EasyClinic.AuthService.Application.Commands
         private readonly ITokenService _tokenService;
 
         public LoginUserCommandHandler(
-            UserManager<ApplicationUser> userManager, 
+            UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ITokenService tokenService)
         {
@@ -24,7 +24,7 @@ namespace EasyClinic.AuthService.Application.Commands
             _tokenService = tokenService;
         }
 
-        public async Task<UserToReturnDto> Handle(LoginUserCommand request, 
+        public async Task<UserToReturnDto> Handle(LoginUserCommand request,
             CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);

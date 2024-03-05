@@ -1,4 +1,5 @@
-﻿using EasyClinic.AuthService.Application.Queries;
+﻿using EasyClinic.AuthService.Application.Commands;
+using EasyClinic.AuthService.Application.Queries;
 using EasyClinic.AuthService.Domain.Entities;
 using EasyClinic.AuthService.Domain.Exceptions;
 using MediatR;
@@ -10,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace EasyClinic.AuthService.Application.Commands
+namespace EasyClinic.AuthService.Application.CommandHandlers
 {
     public class ChangePasswordSubmitCommandHandler : IRequestHandler<ChangePasswordSubmitCommand>
     {

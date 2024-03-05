@@ -1,4 +1,5 @@
-﻿using EasyClinic.AuthService.Domain.Entities;
+﻿using EasyClinic.AuthService.Application.Queries;
+using EasyClinic.AuthService.Domain.Entities;
 using EasyClinic.AuthService.Domain.RepositoryContracts;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyClinic.AuthService.Application.Queries
+namespace EasyClinic.AuthService.Application.QueryHandlers
 {
     internal class CheckEmailExistenceQueryHandler : IRequestHandler<CheckEmailExistenceQuery, bool>
     {

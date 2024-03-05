@@ -1,8 +1,9 @@
-﻿using EasyClinic.AuthService.Application.DTO;
+﻿using EasyClinic.AuthService.Application.Commands;
+using EasyClinic.AuthService.Application.DTO;
 using FluentValidation;
 using MediatR;
 
-namespace EasyClinic.AuthService.Application.Commands
+namespace EasyClinic.AuthService.Application.Validators
 {
     public sealed class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
     {
@@ -12,7 +13,7 @@ namespace EasyClinic.AuthService.Application.Commands
                 .NotNull()
                 .NotEmpty().WithMessage("Please, enter the email")
                 .EmailAddress().WithMessage("You've entered an invalid email");
-            
+
             RuleFor(x => x.Password)
                 .NotNull()
                 .NotEmpty().WithMessage("Password should not be empty")

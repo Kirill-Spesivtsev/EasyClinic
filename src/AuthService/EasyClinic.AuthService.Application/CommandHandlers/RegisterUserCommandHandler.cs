@@ -6,9 +6,9 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using EasyClinic.AuthService.Domain.RepositoryContracts;
 using static System.Data.IsolationLevel;
+using EasyClinic.AuthService.Application.Commands;
 
-
-namespace EasyClinic.AuthService.Application.Commands
+namespace EasyClinic.AuthService.Application.CommandHandlers
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, UserToReturnDto>
     {
@@ -54,15 +54,15 @@ namespace EasyClinic.AuthService.Application.Commands
             {
                 var register = await _userManager.CreateAsync(user, request.Password);
 
-                if (request.Password != request.RepeatPassword) 
-                { 
+                if (request.Password != request.RepeatPassword)
+                {
                     throw new BadRequestException("Passwords do not match");
-                } 
+                }
 
                 if (!register.Succeeded)
-                { 
+                {
                     throw new BadRequestException("Invalid data provided");
-                } 
+                }
 
                 await _emailService.SendAccountConfirmEmailAsync(user);
 
@@ -73,7 +73,7 @@ namespace EasyClinic.AuthService.Application.Commands
                 transaction.Rollback();
                 throw;
             }
-            
+
 
             var result = new UserToReturnDto
             {
