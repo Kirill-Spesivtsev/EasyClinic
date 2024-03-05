@@ -70,7 +70,7 @@ builder.Services.AddProblemDetails(options =>
 });
 
 builder.Services.AddDbContext<IdentityServiceDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceContainerConnection"])
+    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceConnection"])
 );
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
@@ -86,8 +86,10 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
         options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultProvider;
         options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultProvider;
     })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<IdentityServiceDbContext>()
     .AddSignInManager<SignInManager<ApplicationUser>>()
+    .AddRoleManager<RoleManager<IdentityRole>>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -117,7 +119,6 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IEmailSender, EmailSender.EmailSender>();
 builder.Services.AddScoped<IEmailPatternService, EmailPatternService>();
-
 
 var app = builder.Build();
 
