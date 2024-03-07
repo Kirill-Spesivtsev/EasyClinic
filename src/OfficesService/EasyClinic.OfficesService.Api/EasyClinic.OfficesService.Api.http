@@ -1,0 +1,6 @@
+@EasyClinic.OfficesService.Api_HostAddress = http://localhost:5119
+
+GET {{EasyClinic.OfficesService.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
