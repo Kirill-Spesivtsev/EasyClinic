@@ -9,16 +9,16 @@ using System.Text;
 using EasyClinic.AuthService.Domain.Exceptions;
 using Hellang.Middleware.ProblemDetails;
 using EasyClinic.AuthService.Infrastructure.Repository;
-using EasyClinic.AuthService.Domain.RepositoryContracts;
 using EasyClinic.AuthService.Application.Services;
-using EasyClinic.AuthService.Application.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using EmailSender;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using System.Globalization;
-using EasyClinic.AuthService.Application.Validators;
+using EasyClinic.AuthService.Application.Commands.LoginUser;
+using EasyClinic.AuthService.Application.Commands.RegisterUser;
+using EasyClinic.OfficesService.Domain.RepositoryContracts;
 
 
 var builder = WebApplication.CreateBuilder(args);

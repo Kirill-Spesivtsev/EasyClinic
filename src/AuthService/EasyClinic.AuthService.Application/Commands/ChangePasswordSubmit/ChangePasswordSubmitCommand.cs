@@ -1,18 +1,19 @@
-﻿using EasyClinic.AuthService.Application.Commands;
-using EasyClinic.AuthService.Application.Queries;
+﻿using EasyClinic.AuthService.Application.DTO;
 using EasyClinic.AuthService.Domain.Entities;
 using EasyClinic.AuthService.Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+using System.Security.Claims;
 
-namespace EasyClinic.AuthService.Application.CommandHandlers
+namespace EasyClinic.AuthService.Application.Commands.ChangePasswordSubmit
 {
+    public record ChangePasswordSubmitCommand : IRequest
+    {
+        public string UserId { get; set; } = default!;
+        public string Token { get; set; } = default!;
+        public string NewPass { get; set; } = default!;
+    };
+
     public class ChangePasswordSubmitCommandHandler : IRequestHandler<ChangePasswordSubmitCommand>
     {
         private readonly UserManager<ApplicationUser> _userManager;

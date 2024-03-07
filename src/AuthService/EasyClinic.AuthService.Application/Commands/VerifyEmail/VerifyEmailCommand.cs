@@ -1,25 +1,28 @@
 ﻿using EasyClinic.AuthService.Application.DTO;
 using EasyClinic.AuthService.Domain.Entities;
-using EasyClinic.AuthService.Application.Services;
+using EasyClinic.AuthService.Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using EasyClinic.AuthService.Domain.Exceptions;
-using System.Web;
-using System.Text;
 using Microsoft.Extensions.Logging;
-using EasyClinic.AuthService.Application.Commands;
+using System.Security.Claims;
+using System.Text;
+using System.Web;
 
-namespace EasyClinic.AuthService.Application.CommandHandlers
+namespace EasyClinic.AuthService.Application.Commands.VerifyEmail
 {
+    public record VerifyEmailCommand : IRequest
+    {
+        public string UserId { get; set; } = default!;
+        public string Token { get; set; } = default!;
+    };
+
     public class VerifyEmailCommandHandler : IRequestHandler<VerifyEmailCommand>
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILogger<ChangePasswordSubmitCommandHandler> _logger;
 
-        public VerifyEmailCommandHandler(UserManager<ApplicationUser> userManager, ILogger<ChangePasswordSubmitCommandHandler> logger)
+        public VerifyEmailCommandHandler(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            _logger = logger;
         }
 
         public async Task Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
@@ -33,10 +36,6 @@ namespace EasyClinic.AuthService.Application.CommandHandlers
 
             var tokenCheck = await _userManager.ConfirmEmailAsync(
                 user, request.Token);
-
-            _logger.LogInformation(request.Token);
-            _logger.LogInformation(HttpUtility.UrlDecode(request.Token, Encoding.ASCII));
-            _logger.LogInformation(HttpUtility.UrlDecode(request.Token, Encoding.UTF8));
 
 
             if (!tokenCheck.Succeeded)

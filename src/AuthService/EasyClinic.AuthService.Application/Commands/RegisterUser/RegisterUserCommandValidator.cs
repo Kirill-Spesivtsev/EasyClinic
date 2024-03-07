@@ -1,9 +1,8 @@
-﻿using EasyClinic.AuthService.Application.Commands;
-using EasyClinic.AuthService.Application.DTO;
+﻿using EasyClinic.AuthService.Application.DTO;
 using FluentValidation;
 using MediatR;
 
-namespace EasyClinic.AuthService.Application.Validators
+namespace EasyClinic.AuthService.Application.Commands.RegisterUser
 {
     public sealed class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
     {

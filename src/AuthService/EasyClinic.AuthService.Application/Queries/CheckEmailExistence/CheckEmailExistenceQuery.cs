@@ -1,17 +1,16 @@
-﻿using EasyClinic.AuthService.Application.Queries;
-using EasyClinic.AuthService.Domain.Entities;
-using EasyClinic.AuthService.Domain.RepositoryContracts;
+﻿using EasyClinic.AuthService.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EasyClinic.AuthService.Application.QueryHandlers
+
+namespace EasyClinic.AuthService.Application.Queries.CheckEmailExistence
 {
-    internal class CheckEmailExistenceQueryHandler : IRequestHandler<CheckEmailExistenceQuery, bool>
+    public record CheckEmailExistenceQuery : IRequest<bool>
+    {
+        public string Email { get; set; } = default!;
+    }
+
+    public class CheckEmailExistenceQueryHandler : IRequestHandler<CheckEmailExistenceQuery, bool>
     {
         private readonly UserManager<ApplicationUser> _userManager;
         public CheckEmailExistenceQueryHandler(UserManager<ApplicationUser> userManager)

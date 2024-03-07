@@ -1,13 +1,19 @@
 ﻿using EasyClinic.AuthService.Application.DTO;
+using EasyClinic.AuthService.Application.Services;
 using EasyClinic.AuthService.Domain.Entities;
 using EasyClinic.AuthService.Domain.Exceptions;
-using EasyClinic.AuthService.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using EasyClinic.AuthService.Application.Commands;
 
-namespace EasyClinic.AuthService.Application.CommandHandlers
+namespace EasyClinic.AuthService.Application.Commands.LoginUser
 {
+    public record LoginUserCommand : IRequest<UserToReturnDto>
+    {
+        public string Email { get; set; } = default!;
+
+        public string Password { get; set; } = default!;
+    }
+
     public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, UserToReturnDto>
     {
         private readonly UserManager<ApplicationUser> _userManager;

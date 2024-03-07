@@ -1,12 +1,17 @@
 ﻿using EasyClinic.AuthService.Application.DTO;
-using EasyClinic.AuthService.Domain.Entities;
 using EasyClinic.AuthService.Application.Services;
+using EasyClinic.AuthService.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using EasyClinic.AuthService.Application.Queries;
+using System.Security.Claims;
 
-namespace EasyClinic.AuthService.Application.QueryHandlers
+namespace EasyClinic.AuthService.Application.Queries.GetCurrentUser
 {
+    public record GetCurrentUserQuery : IRequest<UserToReturnDto>
+    {
+        public ClaimsPrincipal User { get; set; } = default!;
+    };
+
     public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, UserToReturnDto>
     {
         private readonly UserManager<ApplicationUser> _userManager;

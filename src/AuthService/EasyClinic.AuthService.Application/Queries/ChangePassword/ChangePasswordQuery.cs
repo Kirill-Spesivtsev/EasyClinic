@@ -1,13 +1,18 @@
 ﻿using EasyClinic.AuthService.Application.DTO;
 using EasyClinic.AuthService.Domain.Entities;
-using EasyClinic.AuthService.Application.Services;
+using EasyClinic.AuthService.Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using EasyClinic.AuthService.Domain.Exceptions;
-using EasyClinic.AuthService.Application.Queries;
+using System.Security.Claims;
 
-namespace EasyClinic.AuthService.Application.QueryHandlers
+namespace EasyClinic.AuthService.Application.Queries.ChangePassword
 {
+    public record ChangePasswordQuery : IRequest
+    {
+        public string UserId { get; set; } = default!;
+        public string Token { get; set; } = default!;
+    };
+
     public class ChangePasswordQueryHandler : IRequestHandler<ChangePasswordQuery>
     {
         private readonly UserManager<ApplicationUser> _userManager;

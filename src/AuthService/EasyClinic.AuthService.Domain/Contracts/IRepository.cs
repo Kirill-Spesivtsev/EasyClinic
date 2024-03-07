@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyClinic.AuthService.Domain.RepositoryContracts
+namespace EasyClinic.AuthService.Domain.Contracts
 {
     public interface IRepository<T>
     {

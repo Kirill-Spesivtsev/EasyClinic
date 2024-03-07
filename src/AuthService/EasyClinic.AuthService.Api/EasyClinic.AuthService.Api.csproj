@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\OfficesService\EasyClinic.OfficesService.Domain\EasyClinic.OfficesService.Domain.csproj" />
     <ProjectReference Include="..\EasyClinic.AuthService.Application\EasyClinic.AuthService.Application.csproj" />
     <ProjectReference Include="..\EasyClinic.AuthService.Domain\EasyClinic.AuthService.Domain.csproj" />
     <ProjectReference Include="..\EasyClinic.AuthService.Infrastructure\EasyClinic.AuthService.Infrastructure.csproj" />

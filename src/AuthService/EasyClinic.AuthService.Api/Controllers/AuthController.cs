@@ -1,6 +1,15 @@
 using EasyClinic.AuthService.Application.Commands;
+using EasyClinic.AuthService.Application.Commands.ChangePasswordSubmit;
+using EasyClinic.AuthService.Application.Commands.LoginUser;
+using EasyClinic.AuthService.Application.Commands.RegisterUser;
+using EasyClinic.AuthService.Application.Commands.ResendAccountConfirmation;
+using EasyClinic.AuthService.Application.Commands.SendPasswordReset;
+using EasyClinic.AuthService.Application.Commands.VerifyEmail;
 using EasyClinic.AuthService.Application.DTO;
 using EasyClinic.AuthService.Application.Queries;
+using EasyClinic.AuthService.Application.Queries.ChangePassword;
+using EasyClinic.AuthService.Application.Queries.CheckEmailExistence;
+using EasyClinic.AuthService.Application.Queries.GetCurrentUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

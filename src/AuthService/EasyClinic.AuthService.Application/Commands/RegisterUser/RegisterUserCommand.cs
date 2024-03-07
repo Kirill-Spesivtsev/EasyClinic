@@ -1,15 +1,23 @@
 ﻿using EasyClinic.AuthService.Application.DTO;
+using EasyClinic.AuthService.Application.Services;
 using EasyClinic.AuthService.Domain.Entities;
 using EasyClinic.AuthService.Domain.Exceptions;
-using EasyClinic.AuthService.Application.Services;
+using EasyClinic.AuthService.Domain.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using EasyClinic.AuthService.Domain.RepositoryContracts;
 using static System.Data.IsolationLevel;
-using EasyClinic.AuthService.Application.Commands;
 
-namespace EasyClinic.AuthService.Application.CommandHandlers
+namespace EasyClinic.AuthService.Application.Commands.RegisterUser
 {
+    public record RegisterUserCommand : IRequest<UserToReturnDto>
+    {
+        public string Email { get; set; } = default!;
+
+        public string Password { get; set; } = default!;
+
+        public string RepeatPassword { get; set; } = default!;
+    }
+
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, UserToReturnDto>
     {
         private readonly IRepository<ApplicationUser> _userRepository;
@@ -73,7 +81,6 @@ namespace EasyClinic.AuthService.Application.CommandHandlers
                 transaction.Rollback();
                 throw;
             }
-
 
             var result = new UserToReturnDto
             {

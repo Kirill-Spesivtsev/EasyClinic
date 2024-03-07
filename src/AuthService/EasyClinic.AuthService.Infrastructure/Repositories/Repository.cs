@@ -1,4 +1,4 @@
-﻿using EasyClinic.AuthService.Domain.RepositoryContracts;
+﻿using EasyClinic.AuthService.Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
