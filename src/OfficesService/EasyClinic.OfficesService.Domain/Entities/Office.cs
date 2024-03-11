@@ -1,12 +1,11 @@
 ﻿using EasyClinic.OfficesService.Domain.Enums;
-using Microsoft.AspNetCore.Http;
 
 namespace EasyClinic.OfficesService.Domain.Entities
 {
     public class Office
     {
         public int Id { get; set; }
-        public IFormFile Photo { get; set; }
+        public byte[] PhotoBlob { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
         public int HouseNumber { get; set; }
