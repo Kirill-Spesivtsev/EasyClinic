@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyClinic.OfficesService.Application.Queries
+namespace EasyClinic.OfficesService.Application.Queries.GetAllOffices
 {
-    public record GetAllOfficesQuery : IRequest<List<Office>>{};
+    public record GetAllOfficesQuery : IRequest<List<Office>> { };
 
-    public class GetAllOfficesQueryHandler : IRequestHandler<GetAllOfficesQuery , List<Office>>
+    public class GetAllOfficesQueryHandler : IRequestHandler<GetAllOfficesQuery, List<Office>>
     {
         private readonly IRepository<Office> _officesRepository;
         public GetAllOfficesQueryHandler(IRepository<Office> officesRepository)

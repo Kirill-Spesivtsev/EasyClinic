@@ -13,8 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Globalization;
 using System.Text;
-using EasyClinic.OfficesService.Application.Queries;
 using Microsoft.AspNetCore.Mvc;
+using EasyClinic.OfficesService.Application.Queries.GetAllOffices;
 
 var builder = WebApplication.CreateBuilder(args);
 

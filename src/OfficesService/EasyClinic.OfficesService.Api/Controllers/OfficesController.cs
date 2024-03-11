@@ -1,7 +1,9 @@
-using EasyClinic.OfficesService.Application.Queries;
+using EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatusCommand;
+using EasyClinic.OfficesService.Application.Queries.GetAllOffices;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace EasyClinic.OfficesService.Api.Controllers
 {
@@ -27,6 +29,18 @@ namespace EasyClinic.OfficesService.Api.Controllers
             var offices = await _mediator.Send(request, cancellationToken);
 
             return Ok(offices);
+        }
+
+        [HttpPost("update-status")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> UpdateOfficeStatus(ChangeOfficeStatusCommand request,
+            CancellationToken cancellationToken = default)
+        {
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok(new { message = "Office status updated successfully" });
         }
     }
 }
