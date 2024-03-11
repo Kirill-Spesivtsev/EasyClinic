@@ -65,7 +65,7 @@ builder.Services.AddProblemDetails(options =>
 });
 
 builder.Services.AddDbContext<OfficesServiceDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceConnection"])
+    options.UseNpgsql(builder.Configuration["ConnectionStrings:OfficesServiceConnection"])
 );
 
 
@@ -87,10 +87,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddFluentValidationAutoValidation(op => 
     op.DisableDataAnnotationsValidation = true)
     .AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssemblyContaining<GetOfficesQuery>();
+builder.Services.AddValidatorsFromAssemblyContaining<GetAllOfficesQuery>();
 ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-GB");
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetOfficesQuery>());
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetAllOfficesQuery>());
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
