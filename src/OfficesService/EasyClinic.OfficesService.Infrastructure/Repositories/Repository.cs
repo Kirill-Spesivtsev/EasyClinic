@@ -19,7 +19,7 @@ namespace EasyClinic.OfficesService.Infrastructure.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync()
         {
             return await _context.Set<T>().AsNoTracking().ToListAsync();
         }

@@ -21,4 +21,8 @@
     <Folder Include="Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EasyClinic.OfficesService.Domain\EasyClinic.OfficesService.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

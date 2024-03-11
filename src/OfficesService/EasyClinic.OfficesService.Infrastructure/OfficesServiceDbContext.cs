@@ -1,11 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using EasyClinic.OfficesService.Domain.Entities;
 
 namespace EasyClinic.OfficesService.Infrastructure
 {
@@ -16,6 +10,8 @@ namespace EasyClinic.OfficesService.Infrastructure
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
+
+        public DbSet<Office> Offices { get; set; }
 
     }
 }
