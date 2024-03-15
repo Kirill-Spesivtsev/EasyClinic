@@ -1,5 +1,9 @@
-using EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatusCommand;
+using EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatus;
+using EasyClinic.OfficesService.Application.Commands.CreateOffice;
+using EasyClinic.OfficesService.Application.Commands.EditOffice;
+using EasyClinic.OfficesService.Application.Commands.UploadPhoto;
 using EasyClinic.OfficesService.Application.Queries.GetAllOffices;
+using EasyClinic.OfficesService.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +24,6 @@ namespace EasyClinic.OfficesService.Api.Controllers
             _mediator = mediator;
         }
 
-
         [HttpGet("list-offices")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetAllOffices(CancellationToken cancellationToken = default)
@@ -40,7 +43,19 @@ namespace EasyClinic.OfficesService.Api.Controllers
         {
             await _mediator.Send(request, cancellationToken);
 
-            return Ok(new { message = "Office status updated successfully" });
+            return Ok(new { message = "Office status was updated" });
+        }
+
+        [HttpPost("upload-image"), DisableRequestSizeLimit]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> UploadPhoto(IFormFile file,
+            CancellationToken cancellationToken = default)
+        {
+            var request = new UploadPhotoCommand{ File = file };
+            var imagePath = await _mediator.Send(request, cancellationToken);
+
+            return Ok(imagePath);
         }
     }
 }
