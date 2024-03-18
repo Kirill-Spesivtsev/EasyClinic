@@ -15,6 +15,8 @@ using System.Globalization;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using EasyClinic.OfficesService.Application.Queries.GetAllOffices;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,7 +70,6 @@ builder.Services.AddDbContext<OfficesServiceDbContext>(options =>
     options.UseNpgsql(builder.Configuration["ConnectionStrings:OfficesServiceConnection"])
 );
 
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -83,6 +84,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 builder.Configuration["JwtOrigin:Key"]!))
         };
     });
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddFluentValidationAutoValidation(op => 
     op.DisableDataAnnotationsValidation = true)
@@ -109,6 +112,13 @@ app.UseProblemDetails();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+    RequestPath = new PathString("/Resources")
+});
 
 await AutoMigrationHelper.ApplyMigrationsIfAny<OfficesServiceDbContext>(app);
 

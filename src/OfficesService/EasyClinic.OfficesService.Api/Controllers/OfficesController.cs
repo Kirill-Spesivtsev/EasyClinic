@@ -2,6 +2,7 @@ using EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatus;
 using EasyClinic.OfficesService.Application.Commands.CreateOffice;
 using EasyClinic.OfficesService.Application.Commands.EditOffice;
 using EasyClinic.OfficesService.Application.Commands.UploadPhoto;
+using EasyClinic.OfficesService.Application.DTO;
 using EasyClinic.OfficesService.Application.Queries.GetAllOffices;
 using EasyClinic.OfficesService.Domain.Entities;
 using MediatR;
@@ -44,6 +45,18 @@ namespace EasyClinic.OfficesService.Api.Controllers
             await _mediator.Send(request, cancellationToken);
 
             return Ok(new { message = "Office status was updated" });
+        }
+
+        [HttpPost("create")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> CreateOffice(OfficeDto office,
+            CancellationToken cancellationToken = default)
+        {
+            var request = new CreateOfficeCommand{ OfficeDto = office };
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok(new { message = "New Office was created" });
         }
 
         [HttpPost("upload-image"), DisableRequestSizeLimit]

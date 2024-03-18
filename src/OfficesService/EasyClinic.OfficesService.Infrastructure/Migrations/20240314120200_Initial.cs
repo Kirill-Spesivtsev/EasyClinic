@@ -17,11 +17,11 @@ namespace EasyClinic.OfficesService.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PhotoBlob = table.Column<byte[]>(type: "bytea", nullable: false),
+                    PhotoPath = table.Column<string>(type: "text", nullable: true),
                     City = table.Column<string>(type: "text", nullable: false),
                     Street = table.Column<string>(type: "text", nullable: false),
                     HouseNumber = table.Column<int>(type: "integer", nullable: false),
-                    OfficeNumber = table.Column<string>(type: "text", nullable: false),
+                    OfficeNumber = table.Column<int>(type: "integer", nullable: true),
                     RegistryPhone = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<byte>(type: "smallint", nullable: false)
                 },
