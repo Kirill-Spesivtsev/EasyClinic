@@ -59,6 +59,19 @@ namespace EasyClinic.OfficesService.Api.Controllers
             return Ok(new { message = "New Office was created" });
         }
 
+        [HttpPost("edit")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> EditOffice(int id, OfficeDto office,
+            CancellationToken cancellationToken = default)
+        {
+            var request = new EditOfficeCommand{ Id = id, OfficeDto = office };
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok(new { message = "Office was edited" });
+        }
+
         [HttpPost("upload-image"), DisableRequestSizeLimit]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

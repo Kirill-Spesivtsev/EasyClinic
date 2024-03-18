@@ -6,9 +6,9 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 
-namespace EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatusCommand
+namespace EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatus
 {
-    public class ChangeOfficeStatusCommand : IRequest
+    public record ChangeOfficeStatusCommand : IRequest
     {
         public int OfficeId { get; set; } = default!;
         public byte NewStatus { get; set; } = default!;
