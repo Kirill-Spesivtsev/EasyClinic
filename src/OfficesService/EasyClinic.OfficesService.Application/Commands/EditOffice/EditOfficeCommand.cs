@@ -10,7 +10,7 @@ namespace EasyClinic.OfficesService.Application.Commands.EditOffice
 {
     public record EditOfficeCommand : IRequest
     {
-        public required int Id { get; set; }
+        public required Guid Id { get; set; }
         public required OfficeDto OfficeDto { get; set; } = default!;
     }
 

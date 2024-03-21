@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Mvc;
 using EasyClinic.OfficesService.Application.Queries.GetAllOffices;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Azure;
+using System.Security.Cryptography.X509Certificates;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,8 +69,10 @@ builder.Services.AddProblemDetails(options =>
 });
 
 builder.Services.AddDbContext<OfficesServiceDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["ConnectionStrings:OfficesServiceConnection"])
-);
+	options.UseCosmos(
+    	builder.Configuration["ConnectionStrings:OfficesServiceAzureCosmosDbConnection"]!,
+        "ToDoList"
+    ));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -97,6 +101,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Ge
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -120,6 +125,6 @@ app.UseStaticFiles(new StaticFileOptions()
     RequestPath = new PathString("/Resources")
 });
 
-await AutoMigrationHelper.ApplyMigrationsIfAny<OfficesServiceDbContext>(app);
+await DbInitializer.Initialize<OfficesServiceDbContext>(app);
 
 app.Run();

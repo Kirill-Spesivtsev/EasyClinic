@@ -15,10 +15,8 @@ namespace EasyClinic.OfficesService.Domain.RepositoryContracts
 
         public Task DeleteAsync(T entity);
 
-        public Task<T?> GetByIdAsync(int id);
+        public Task<T?> GetByIdAsync(Guid id);
 
         public Task UpdateAsync(T entity);
-
-        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
     }
 }

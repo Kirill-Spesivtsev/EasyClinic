@@ -37,7 +37,7 @@ namespace EasyClinic.OfficesService.Infrastructure.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<T?> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(Guid id)
         {
             return await _context.Set<T>().FindAsync(id);
         }
@@ -48,10 +48,6 @@ namespace EasyClinic.OfficesService.Infrastructure.Repository
             await _context.SaveChangesAsync();
         }
 
-        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
-        {
-            var transaction = _context.Database.BeginTransaction();
-            return transaction.GetDbTransaction();
-        }
+
     }
 }

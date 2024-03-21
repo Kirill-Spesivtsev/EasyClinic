@@ -5,7 +5,7 @@ namespace EasyClinic.OfficesService.Domain.Entities
 {
     public class Office
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string? PhotoPath { get; set; }
         public string City { get; set; } = default!;
         public string Street { get; set; } = default!;

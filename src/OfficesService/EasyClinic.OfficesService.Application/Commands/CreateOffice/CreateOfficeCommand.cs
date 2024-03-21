@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace EasyClinic.OfficesService.Application.Commands.CreateOffice
 {
-    public record CreateOfficeCommand : IRequest
+    public record CreateOfficeCommand : IRequest<Office>
     {
         public required OfficeDto OfficeDto { get; set; } = default!;
     }
 
-    public class CreateOfficeCommandHandler : IRequestHandler<CreateOfficeCommand>
+    public class CreateOfficeCommandHandler : IRequestHandler<CreateOfficeCommand, Office>
     {
         private readonly IRepository<Office> _officesRepository;
         private readonly IMapper _mapper;
@@ -30,11 +30,13 @@ namespace EasyClinic.OfficesService.Application.Commands.CreateOffice
             _mapper = mapper;
         }
 
-        public async Task Handle(CreateOfficeCommand request, CancellationToken cancellationToken)
+        public async Task<Office> Handle(CreateOfficeCommand request, CancellationToken cancellationToken)
         {
             var office = _mapper.Map<OfficeDto, Office>(request.OfficeDto);
 
             await _officesRepository.AddAsync(office);
+
+            return office;
         }
     }
 }

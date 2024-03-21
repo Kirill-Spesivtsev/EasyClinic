@@ -10,7 +10,7 @@ namespace EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatus
 {
     public record ChangeOfficeStatusCommand : IRequest
     {
-        public int OfficeId { get; set; } = default!;
+        public Guid OfficeId { get; set; }
         public byte NewStatus { get; set; } = default!;
     }
 
