@@ -18,7 +18,8 @@ using FluentValidation;
 using System.Globalization;
 using EasyClinic.AuthService.Application.Commands.LoginUser;
 using EasyClinic.AuthService.Application.Commands.RegisterUser;
-using EasyClinic.OfficesService.Domain.RepositoryContracts;
+using EasyClinic.AuthService.Domain.Contracts;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -113,12 +114,13 @@ builder.Services.AddFluentValidationAutoValidation(op =>
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserCommandValidator>();
 ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-GB");
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<LoginUserCommand>());
-
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IEmailSender, EmailSender.EmailSender>();
 builder.Services.AddScoped<IEmailPatternService, EmailPatternService>();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<LoginUserCommand>());
+
 
 var app = builder.Build();
 

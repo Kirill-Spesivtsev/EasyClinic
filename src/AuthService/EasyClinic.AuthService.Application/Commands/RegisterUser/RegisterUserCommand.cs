@@ -22,14 +22,12 @@ namespace EasyClinic.AuthService.Application.Commands.RegisterUser
     {
         private readonly IRepository<ApplicationUser> _userRepository;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ITokenService _tokenService;
         private readonly IEmailPatternService _emailService;
 
         public RegisterUserCommandHandler(
             IRepository<ApplicationUser> userRepository,
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager,
             ITokenService tokenService,
             IEmailPatternService emailService
             )
@@ -38,7 +36,6 @@ namespace EasyClinic.AuthService.Application.Commands.RegisterUser
             _tokenService = tokenService;
             _emailService = emailService;
             _userRepository = userRepository;
-            _roleManager = roleManager;
         }
 
         public async Task<UserToReturnDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -60,37 +57,38 @@ namespace EasyClinic.AuthService.Application.Commands.RegisterUser
 
             try
             {
-                var register = await _userManager.CreateAsync(user, request.Password);
+                var registration = await _userManager.CreateAsync(user, request.Password);
+                var rolesTask = _userManager.GetRolesAsync(user);
 
                 if (request.Password != request.RepeatPassword)
                 {
                     throw new BadRequestException("Passwords do not match");
                 }
 
-                if (!register.Succeeded)
+                if (!registration.Succeeded)
                 {
                     throw new BadRequestException("Invalid data provided");
                 }
 
                 await _emailService.SendAccountConfirmEmailAsync(user);
 
+                var result = new UserToReturnDto
+                {
+                    Id = user.Id,
+                    Email = user.Email!,
+                    Username = user.UserName!,
+                    Token = _tokenService.GenerateJwtToken(user, await rolesTask),
+                };
+
                 transaction.Commit();
+
+                return result;
             }
             catch (Exception)
             {
                 transaction.Rollback();
                 throw;
             }
-
-            var result = new UserToReturnDto
-            {
-                Id = user.Id,
-                Email = user.Email!,
-                Username = user.UserName!,
-                Token = _tokenService.GenerateJwtToken(user),
-            };
-
-            return result;
         }
 
     }

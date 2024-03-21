@@ -34,14 +34,14 @@ namespace EasyClinic.AuthService.Application.Commands.LoginUser
             CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-
             if (user == null)
             {
                 throw new NotFoundException("User with such email does not exist");
             }
 
-            var login = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
+            var rolesTask = _userManager.GetRolesAsync(user);
 
+            var login = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
             if (!login.Succeeded)
             {
                 throw new UnauthorizedException("Invalid login credentials");
@@ -52,7 +52,7 @@ namespace EasyClinic.AuthService.Application.Commands.LoginUser
                 Id = user.Id,
                 Email = user.Email!,
                 Username = user.UserName!,
-                Token = _tokenService.GenerateJwtToken(user),
+                Token = _tokenService.GenerateJwtToken(user, await rolesTask),
             };
 
             return result;

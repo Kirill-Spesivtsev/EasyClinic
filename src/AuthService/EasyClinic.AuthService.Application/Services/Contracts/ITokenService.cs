@@ -4,6 +4,6 @@ namespace EasyClinic.AuthService.Application.Services
 {
     public interface ITokenService
     {
-        public string GenerateJwtToken(ApplicationUser user);
+        public string GenerateJwtToken(ApplicationUser user, IList<string> roles);
     }
 }

@@ -27,13 +27,15 @@ namespace EasyClinic.AuthService.Application.Queries.GetCurrentUser
         public async Task<UserToReturnDto> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
         {
             var user = await _userManager.GetUserAsync(request.User);
+            var userRoles = await _userManager.GetRolesAsync(user!);
+
 
             var result = new UserToReturnDto
             {
                 Id = user?.Id!,
                 Email = user?.Email!,
                 Username = user?.UserName!,
-                Token = _tokenService.GenerateJwtToken(user!),
+                Token = _tokenService.GenerateJwtToken(user!, userRoles),
             };
 
             return result;
