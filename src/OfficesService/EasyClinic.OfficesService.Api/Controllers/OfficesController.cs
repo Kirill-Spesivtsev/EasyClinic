@@ -4,6 +4,7 @@ using EasyClinic.OfficesService.Application.Commands.EditOffice;
 using EasyClinic.OfficesService.Application.Commands.UploadPhoto;
 using EasyClinic.OfficesService.Application.DTO;
 using EasyClinic.OfficesService.Application.Queries.GetAllOffices;
+using EasyClinic.OfficesService.Application.Queries.GetOfficeInfo;
 using EasyClinic.OfficesService.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -26,6 +27,7 @@ namespace EasyClinic.OfficesService.Api.Controllers
         }
 
         [HttpGet("list-offices")]
+        [Authorize(Roles = "Receptionist, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetAllOffices(CancellationToken cancellationToken = default)
         {
@@ -35,7 +37,21 @@ namespace EasyClinic.OfficesService.Api.Controllers
             return Ok(offices);
         }
 
+        [HttpPost("get-info")]
+        [Authorize(Roles = "Receptionist, Admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> GetOfficeInfo(GetOfficeInfoQuery request,
+            CancellationToken cancellationToken = default)
+        {
+            var office = await _mediator.Send(request, cancellationToken);
+
+            return Ok(office);
+        }
+
         [HttpPost("update-status")]
+        [Authorize(Roles = "Receptionist, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -48,22 +64,24 @@ namespace EasyClinic.OfficesService.Api.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize(Roles = "Receptionist, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateOffice(OfficeDto office,
+        public async Task<ActionResult> CreateOffice(OfficeDto officeDto,
             CancellationToken cancellationToken = default)
         {
-            var request = new CreateOfficeCommand{ OfficeDto = office };
-            await _mediator.Send(request, cancellationToken);
+            var request = new CreateOfficeCommand{ OfficeDto = officeDto };
+            var createdOffice = await _mediator.Send(request, cancellationToken);
 
-            return Ok(new { message = "New Office was created" });
+            return CreatedAtAction(nameof(CreateOffice), new { id = createdOffice.Id }, createdOffice);
         }
 
-        [HttpPost("edit")]
+        [HttpPost("edit"), DisableRequestSizeLimit]
+        [Authorize(Roles = "Receptionist, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> EditOffice(int id, OfficeDto office,
+        public async Task<ActionResult> EditOffice(Guid id, OfficeDto office,
             CancellationToken cancellationToken = default)
         {
             var request = new EditOfficeCommand{ Id = id, OfficeDto = office };
@@ -73,6 +91,7 @@ namespace EasyClinic.OfficesService.Api.Controllers
         }
 
         [HttpPost("upload-image"), DisableRequestSizeLimit]
+        [Authorize(Roles = "Receptionist, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> UploadPhoto(IFormFile file,
