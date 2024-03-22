@@ -19,6 +19,9 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Azure;
 using System.Security.Cryptography.X509Certificates;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,7 +73,7 @@ builder.Services.AddProblemDetails(options =>
 
 builder.Services.AddDbContext<OfficesServiceDbContext>(options =>
 	options.UseCosmos(
-    	builder.Configuration["ConnectionStrings:OfficesServiceAzureCosmosDbConnection"]!,
+    	builder.Configuration["ConnectionStrings-OfficesServiceAzureCosmosDbConnection"]!,
         "ToDoList"
     ));
 
@@ -101,6 +104,13 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Ge
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
+var vaultUri = builder.Configuration["Azure:KeyVault:KeyVaultUri"]!;
+var clientId = builder.Configuration["Azure:KeyVault:ClientId"]!;
+var clientSecret = builder.Configuration["Azure:KeyVault:ClientSecret"];
+var tenantId = builder.Configuration["Azure:KeyVault:TenantId"];
+var credentials = new ClientSecretCredential(tenantId, clientId, clientSecret);
+var secretClient = new SecretClient(new Uri(vaultUri), credentials);
+builder.Configuration.AddAzureKeyVault(secretClient, new AzureKeyVaultConfigurationOptions());
 
 var app = builder.Build();
 

@@ -10,11 +10,6 @@ services:
 
   easyclinic.authservice.db:
     image: postgres:16-alpine
-    container_name: easyclinic.authservice.db
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=pgadminpass@328
-      - POSTGRES_DB=AuthServiceDb
     ports:
       - "61002:5432"
     restart: always
@@ -23,3 +18,4 @@ services:
 
 volumes:
   authservice_data:
+

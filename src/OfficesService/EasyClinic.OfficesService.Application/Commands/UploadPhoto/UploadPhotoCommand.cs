@@ -30,7 +30,7 @@ namespace EasyClinic.OfficesService.Application.Commands.UploadPhoto
         public async Task<string> Handle(UploadPhotoCommand request, CancellationToken cancellationToken)
         {
             var blobContainerClient = new BlobContainerClient(
-                _configuration["ConnectionStrings:OfficesServiceAzureStorageConnection"],
+                _configuration["ConnectionStrings-OfficesServiceAzureStorageConnection"],
                 "api-image-storage");
 
             var createResponse = await blobContainerClient.CreateIfNotExistsAsync();
