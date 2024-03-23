@@ -19,13 +19,13 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OfficesService", "OfficesService", "{F886842C-98D6-4E88-BEC6-934B3946FCDE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.OfficesService.Api", "src\OfficesService\EasyClinic.OfficesService.Api\EasyClinic.OfficesService.Api.csproj", "{4AD0865F-1667-451E-A0F4-02D5644802BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.OfficesService.Api", "src\Services\OfficesService\EasyClinic.OfficesService.Api\EasyClinic.OfficesService.Api.csproj", "{4AD0865F-1667-451E-A0F4-02D5644802BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.OfficesService.Application", "src\OfficesService\EasyClinic.OfficesService.Application\EasyClinic.OfficesService.Application.csproj", "{DE577C7C-D377-4858-9925-695E856E7AFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.OfficesService.Application", "src\Services\OfficesService\EasyClinic.OfficesService.Application\EasyClinic.OfficesService.Application.csproj", "{DE577C7C-D377-4858-9925-695E856E7AFF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.OfficesService.Domain", "src\OfficesService\EasyClinic.OfficesService.Domain\EasyClinic.OfficesService.Domain.csproj", "{464A5623-C236-47A6-B226-CCC8CC5BF01A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.OfficesService.Domain", "src\Services\OfficesService\EasyClinic.OfficesService.Domain\EasyClinic.OfficesService.Domain.csproj", "{464A5623-C236-47A6-B226-CCC8CC5BF01A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.OfficesService.Infrastructure", "src\OfficesService\EasyClinic.OfficesService.Infrastructure\EasyClinic.OfficesService.Infrastructure.csproj", "{A198B174-122D-434A-B0D7-A56F88179A85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.OfficesService.Infrastructure", "src\Services\OfficesService\EasyClinic.OfficesService.Infrastructure\EasyClinic.OfficesService.Infrastructure.csproj", "{A198B174-122D-434A-B0D7-A56F88179A85}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E2498F8F-1B9A-4AE2-AD59-D214B12FA4CA}"
 EndProject
