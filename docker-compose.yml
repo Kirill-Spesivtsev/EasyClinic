@@ -6,7 +6,7 @@ services:
     container_name: easyclinic.authservice.api
     build:
       context: .
-      dockerfile: src/AuthService/EasyClinic.AuthService.Api/Dockerfile
+      dockerfile: src/Services/AuthService/EasyClinic.AuthService.Api/Dockerfile
 
   easyclinic.authservice.db:
     image: postgres:16-alpine
