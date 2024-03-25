@@ -20,10 +20,10 @@ namespace EasyClinic.OfficesService.Api.Controllers
         private readonly ILogger<OfficesController> _logger;
         private readonly IMediator _mediator;
 
-        public OfficesController(ILogger<OfficesController> logger, IMediator mediator)
+        public OfficesController(IMediator mediator, ILogger<OfficesController> logger)
         {
-            _logger = logger;
             _mediator = mediator;
+            _logger = logger;
         }
 
         /// <summary>

@@ -11,6 +11,8 @@ namespace EasyClinic.AuthService.Application.Commands.LoginUser
     {
         public LoginUserCommandValidator()
         {
+            RuleLevelCascadeMode = CascadeMode.Stop;
+
             RuleFor(x => x.Email)
                 .NotNull()
                 .NotEmpty().WithMessage("Please, enter the email")

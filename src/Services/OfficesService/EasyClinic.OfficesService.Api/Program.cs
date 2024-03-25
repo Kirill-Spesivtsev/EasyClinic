@@ -19,8 +19,16 @@ using Microsoft.Extensions.FileProviders;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatus;
+using EasyClinic.OfficesService.Application.Commands.CreateOffice;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddFluentValidationAutoValidation(op => 
+    op.DisableDataAnnotationsValidation = true)
+    .AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateOfficeCommandValidator>();
+ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-GB");
 
 builder.Services.AddControllers();
 
@@ -91,16 +99,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddFluentValidationAutoValidation(op => 
-    op.DisableDataAnnotationsValidation = true)
-    .AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssemblyContaining<GetAllOfficesQuery>();
-ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-GB");
-
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetAllOfficesQuery>());
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
 
 var vaultUri = builder.Configuration["Azure:KeyVault:KeyVaultUri"]!;
 var clientId = builder.Configuration["Azure:KeyVault:ClientId"]!;
@@ -127,11 +128,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseStaticFiles();
-app.UseStaticFiles(new StaticFileOptions()
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-    RequestPath = new PathString("/Resources")
-});
 
 await DbInitializer.Initialize<OfficesServiceDbContext>(app);
 
