@@ -12,7 +12,6 @@ using EasyClinic.AuthService.Application.Queries.CheckEmailExistence;
 using EasyClinic.AuthService.Application.Queries.GetCurrentUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EasyClinic.AuthService.Api.Controllers
@@ -21,7 +20,7 @@ namespace EasyClinic.AuthService.Api.Controllers
     /// Controller for user authentication and authorization
     /// </summary>
     [ApiController]
-    [Route("api/v1/auth")]
+    [Route("api/v1/account")]
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -57,18 +56,7 @@ namespace EasyClinic.AuthService.Api.Controllers
             return Ok(userData);
         }
 
-        [HttpGet("email-exists")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<bool>> CheckEmailExistence(
-            [FromQuery] CheckEmailExistenceQuery request,
-            CancellationToken cancellationToken = default)
-        {
-            var result = await _mediator.Send(request, cancellationToken);
-
-            return Ok(result);
-        }
-
-        [HttpGet("fetch-current-user")]
+        [HttpGet("get-current-user")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -92,7 +80,7 @@ namespace EasyClinic.AuthService.Api.Controllers
         }
 
         [Authorize]
-        [HttpPost("resend-account-confirm")]
+        [HttpPost("resend-account-confirmation-link")]
         public async Task<IActionResult> ResendAccountConfirmationEmail(
             CancellationToken cancellationToken = default)
         {
@@ -103,7 +91,7 @@ namespace EasyClinic.AuthService.Api.Controllers
         }
         
         [Authorize]
-        [HttpPost("send-password-reset")]
+        [HttpPost("send-password-reset-link")]
         public async Task<IActionResult> SendPasswordResetEmail(CancellationToken cancellationToken = default)
         {
             var request = new SendPasswordResetCommand{Username = User.Identity?.Name!};
@@ -123,18 +111,23 @@ namespace EasyClinic.AuthService.Api.Controllers
         }
 
         [HttpPost("change-password")]
-        public async Task<IActionResult> ChangePasswordSubmit([FromQuery] string userId, [FromQuery] string token, 
-            [FromHeader] string newPassword, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> ChangePasswordSubmit(ChangePasswordSubmitCommand request, CancellationToken cancellationToken = default)
         {
-            var request = new ChangePasswordSubmitCommand
-            {
-                Token = token, 
-                UserId = userId, 
-                NewPass = newPassword
-            };
             await _mediator.Send(request, cancellationToken);
 
             return Ok();
         }
+
+        [HttpGet("email-exists")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> CheckEmailExistence(
+            [FromQuery] CheckEmailExistenceQuery request,
+            CancellationToken cancellationToken = default)
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+
+            return Ok(result);
+        }
     }
+
 }

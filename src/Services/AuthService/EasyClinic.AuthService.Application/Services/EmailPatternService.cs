@@ -39,8 +39,8 @@ namespace EasyClinic.AuthService.Application.Services
         {
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            string verificationRoute = $"{_configuration["Route:PublicApiHost"]}/api/v1/account/verify-email"
-                + $"?userId={user.Id}" + $"&token={HttpUtility.UrlEncode(token, Encoding.ASCII)}";
+            string verificationRoute = $"{_configuration["Route:ClientAppHost"]}/account/verify-email"
+                + $"?userId={user.Id}" + $"&token={Uri.EscapeDataString(token)}";
 
             var message = new EmailMessageModel
             {
@@ -64,8 +64,8 @@ namespace EasyClinic.AuthService.Application.Services
         {
             string token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            string passwordChangeRoute = $"{_configuration["Route:PublicApiHost"]}/api/v1/account/change-password" 
-                + $"?userId={user.Id}" + $"&token={HttpUtility.UrlEncode(token)}";
+            string passwordChangeRoute = $"{_configuration["Route:ClientAppHost"]}/account/change-password" 
+                + $"?userId={user.Id}" + $"&token={Uri.EscapeDataString(token)}";
 
             var message = new EmailMessageModel
             {

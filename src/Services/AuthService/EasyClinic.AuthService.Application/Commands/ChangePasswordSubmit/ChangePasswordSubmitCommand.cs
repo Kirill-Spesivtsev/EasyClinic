@@ -4,6 +4,8 @@ using EasyClinic.AuthService.Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using System.Text;
+using System.Web;
 
 namespace EasyClinic.AuthService.Application.Commands.ChangePasswordSubmit
 {
@@ -14,7 +16,7 @@ namespace EasyClinic.AuthService.Application.Commands.ChangePasswordSubmit
     {
         public string UserId { get; set; } = default!;
         public string Token { get; set; } = default!;
-        public string NewPass { get; set; } = default!;
+        public string NewPassword { get; set; } = default!;
     };
 
     /// <summary>
@@ -50,8 +52,9 @@ namespace EasyClinic.AuthService.Application.Commands.ChangePasswordSubmit
                 throw new NotFoundException($"User with id {request.UserId} does not exist");
             }
 
-            var tokenCheck = await _userManager.ResetPasswordAsync(
-                user, request.Token, request.NewPass);
+            var token = Uri.UnescapeDataString(request.Token);
+
+            var tokenCheck = await _userManager.ResetPasswordAsync(user, token, request.NewPassword);
 
             if (!tokenCheck.Succeeded)
             {

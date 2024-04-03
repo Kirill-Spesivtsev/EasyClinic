@@ -71,7 +71,7 @@ builder.Services.AddProblemDetails(options =>
 });
 
 builder.Services.AddDbContext<IdentityServiceDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceConnection"])
+    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceContainerConnection"])
 );
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
@@ -108,6 +108,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("ApiCorsPolicy", policy =>
+    {
+        policy
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:*", "https://localhost:*");
+    });
+});
+
 builder.Services.AddFluentValidationAutoValidation(op => 
     op.DisableDataAnnotationsValidation = true)
     .AddFluentValidationClientsideAdapters();
@@ -130,7 +140,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+
+app.UseCors("ApiCorsPolicy");
 
 app.UseProblemDetails();
 
