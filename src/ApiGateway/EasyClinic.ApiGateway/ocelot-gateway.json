@@ -1,0 +1,117 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:50001"
+  },
+
+    "Routes": [
+
+    // Auth Service
+
+      {
+        "UpstreamPathTemplate": "/account/register",
+        "UpstreamHttpMethod": [ "Post", "Options" ],
+        "DownstreamPathTemplate": "/api/v1/account/register",
+        "DownstreamScheme": "https",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 61011
+          }
+        ],
+        "SwaggerKey": "account"
+      },
+
+      {
+        "UpstreamPathTemplate": "/account/login",
+        "UpstreamHttpMethod": [ "Post", "Options" ],
+        "DownstreamPathTemplate": "/api/v1/account/login",
+        "DownstreamScheme": "https",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 61011
+          }
+        ]
+      },
+
+      {
+        "UpstreamPathTemplate": "/account/resend-account-confirmation-link",
+        "UpstreamHttpMethod": [ "Post", "Options" ],
+        "DownstreamPathTemplate": "/api/v1/account/resend-account-confirmation-link",
+        "DownstreamScheme": "https",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 61011
+          }
+        ]
+      },
+
+      {
+        "UpstreamPathTemplate": "/account/verify-email",
+        "UpstreamHttpMethod": [ "Get", "Options" ],
+        "DownstreamPathTemplate": "/api/v1/account/verify-email",
+        "DownstreamScheme": "https",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 61011
+          }
+        ]
+      },
+
+      {
+        "UpstreamPathTemplate": "/account/send-password-reset-link",
+        "UpstreamHttpMethod": [ "Post", "Options" ],
+        "DownstreamPathTemplate": "/api/v1/account/send-password-reset-link",
+        "DownstreamScheme": "https",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 61011
+          }
+        ]
+      },
+
+      {
+        "UpstreamPathTemplate": "/account/change-password",
+        "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
+        "DownstreamPathTemplate": "/api/v1/account/change-password",
+        "DownstreamScheme": "https",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 61011
+          }
+        ]
+      },
+
+      {
+        "UpstreamPathTemplate": "/account/get-current-user",
+        "UpstreamHttpMethod": [ "Get", "Options" ],
+        "DownstreamPathTemplate": "/api/v1/account/get-current-user",
+        "DownstreamScheme": "https",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 61011
+          }
+        ],
+        "SwaggerKey": "account"
+      },
+
+      {
+        "UpstreamPathTemplate": "/account/email-exists",
+        "UpstreamHttpMethod": [ "Get", "Options" ],
+        "DownstreamPathTemplate": "/api/v1/account/email-exists",
+        "DownstreamScheme": "https",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 61011
+          }
+        ]
+      }
+
+    ]
+}

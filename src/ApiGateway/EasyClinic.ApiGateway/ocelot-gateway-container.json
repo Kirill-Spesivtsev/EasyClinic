@@ -1,0 +1,115 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:50001"
+  },
+
+  "Routes": [
+
+    // Auth Service
+
+    {
+      "UpstreamPathTemplate": "/account/register",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamPathTemplate": "/api/v1/account/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "easyclinic.authservice.api",
+          "Port": 61001
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/account/login",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamPathTemplate": "/api/v1/account/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "easyclinic.authservice.api",
+          "Port": 61001
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/account/resend-account-confirmation-link",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamPathTemplate": "/api/v1/account/resend-account-confirmation-link",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "easyclinic.authservice.api",
+          "Port": 61001
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/account/verify-email",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+      "DownstreamPathTemplate": "/api/v1/account/verify-email",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "easyclinic.authservice.api",
+          "Port": 61001
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/account/send-password-reset-link",
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "DownstreamPathTemplate": "/api/v1/account/send-password-reset-link",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "easyclinic.authservice.api",
+          "Port": 61001
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/account/change-password",
+      "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
+      "DownstreamPathTemplate": "/api/v1/account/change-password",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "easyclinic.authservice.api",
+          "Port": 61001
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/account/get-current-user",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+      "DownstreamPathTemplate": "/api/v1/account/get-current-user",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "easyclinic.authservice.api",
+          "Port": 61001
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/account/email-exists",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+      "DownstreamPathTemplate": "/api/v1/account/email-exists",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "easyclinic.authservice.api",
+          "Port": 61001
+        }
+      ]
+    }
+
+  ]
+}
