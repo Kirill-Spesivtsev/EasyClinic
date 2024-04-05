@@ -5,30 +5,29 @@ using EasyClinic.OfficesService.Domain.Exceptions;
 using EasyClinic.OfficesService.Domain.RepositoryContracts;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EasyClinic.OfficesService.Application.Commands
 {
     /// <summary>
     /// Command to update office by id.
     /// </summary>
-    public record EditOfficeCommand : IRequest
+    public record DeleteOfficeCommand : IRequest
     {
+        [FromRoute]
         public required Guid Id { get; set; }
-        public required OfficeDto OfficeDto { get; set; } = default!;
     }
 
     /// <summary>
-    /// Handler for <see cref="EditOfficeCommand"/>
+    /// Handler for <see cref="DeleteOfficeCommand"/>
     /// </summary>
-    public class EditOfficeCommandHandler : IRequestHandler<EditOfficeCommand>
+    public class DeleteOfficeCommandHandler : IRequestHandler<DeleteOfficeCommand>
     {
         private readonly IRepository<Office> _officesRepository;
-        private readonly IMapper _mapper;
-        public EditOfficeCommandHandler(IMapper mapper,
+        public DeleteOfficeCommandHandler(IMapper mapper,
              IRepository<Office> officesRepository)
         {
             _officesRepository = officesRepository;
-            _mapper = mapper;
         }
 
         /// <summary>
@@ -40,7 +39,7 @@ namespace EasyClinic.OfficesService.Application.Commands
         /// <exception cref="NotFoundException">
         /// Thrown when office with gven id does not exist.
         /// </exception>
-        public async Task Handle(EditOfficeCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteOfficeCommand request, CancellationToken cancellationToken)
         {
             var office = await _officesRepository.GetByIdAsync(request.Id);
             if (office == null)
@@ -48,9 +47,7 @@ namespace EasyClinic.OfficesService.Application.Commands
                 throw new NotFoundException("Office with such id does not exist");
             }
 
-            _mapper.Map(request.OfficeDto, office);
-
-            await _officesRepository.UpdateAsync(office);
+            await _officesRepository.DeleteAsync(office);
         }
     }
 }

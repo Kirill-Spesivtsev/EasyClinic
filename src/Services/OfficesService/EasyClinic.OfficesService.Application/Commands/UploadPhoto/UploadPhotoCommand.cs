@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
-namespace EasyClinic.OfficesService.Application.Commands.UploadPhoto
+namespace EasyClinic.OfficesService.Application.Commands
 {
     /// <summary>
     /// Command to upload photo to the server

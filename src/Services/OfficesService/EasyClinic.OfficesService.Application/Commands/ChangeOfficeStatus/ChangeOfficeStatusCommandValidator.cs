@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatus
+namespace EasyClinic.OfficesService.Application.Commands
 {
 
     /// <summary>

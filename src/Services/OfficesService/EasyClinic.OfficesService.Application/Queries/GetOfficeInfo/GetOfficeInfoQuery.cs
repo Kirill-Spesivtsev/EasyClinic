@@ -3,7 +3,7 @@ using EasyClinic.OfficesService.Domain.Exceptions;
 using EasyClinic.OfficesService.Domain.RepositoryContracts;
 using MediatR;
 
-namespace EasyClinic.OfficesService.Application.Queries.GetOfficeInfo
+namespace EasyClinic.OfficesService.Application.Queries
 {
     /// <summary>
     /// Query to Get <see cref="Office"/> info by Id.

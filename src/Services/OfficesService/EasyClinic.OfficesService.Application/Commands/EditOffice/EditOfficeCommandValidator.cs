@@ -1,10 +1,10 @@
 ﻿using EasyClinic.OfficesService.Application.DTO;
 using FluentValidation;
 
-namespace EasyClinic.OfficesService.Application.Commands.EditOffice
+namespace EasyClinic.OfficesService.Application.Commands
 {
     /// <summary>
-    /// Validator for <see cref="EditOfficeCommand"/>
+    /// Validator for <see cref="DeleteOfficeCommand"/>
     /// </summary>
     public sealed class EditOfficeCommandValidator : AbstractValidator<OfficeDto>
     {

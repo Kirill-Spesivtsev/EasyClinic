@@ -14,13 +14,12 @@ using Microsoft.OpenApi.Models;
 using System.Globalization;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using EasyClinic.OfficesService.Application.Queries.GetAllOffices;
 using Microsoft.Extensions.FileProviders;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
-using EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatus;
-using EasyClinic.OfficesService.Application.Commands.CreateOffice;
+using EasyClinic.OfficesService.Application.Commands;
+using EasyClinic.OfficesService.Application.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -118,8 +117,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseProblemDetails();
 

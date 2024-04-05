@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyClinic.OfficesService.Application.Commands.CreateOffice
+namespace EasyClinic.OfficesService.Application.Commands
 {
     /// <summary>
     /// Command to create new office.

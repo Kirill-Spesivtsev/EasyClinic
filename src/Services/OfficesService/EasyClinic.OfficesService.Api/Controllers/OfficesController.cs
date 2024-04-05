@@ -1,11 +1,6 @@
-using EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatus;
-using EasyClinic.OfficesService.Application.Commands.CreateOffice;
-using EasyClinic.OfficesService.Application.Commands.EditOffice;
-using EasyClinic.OfficesService.Application.Commands.UploadPhoto;
+using EasyClinic.OfficesService.Application.Commands;
 using EasyClinic.OfficesService.Application.DTO;
-using EasyClinic.OfficesService.Application.Queries.GetAllOffices;
-using EasyClinic.OfficesService.Application.Queries.GetOfficeInfo;
-using EasyClinic.OfficesService.Domain.Entities;
+using EasyClinic.OfficesService.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +26,7 @@ namespace EasyClinic.OfficesService.Api.Controllers
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns>List of offices</returns>
-        [HttpGet("list")]
+        [HttpGet]
         [Authorize(Roles = "Receptionist, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetAllOffices(CancellationToken cancellationToken = default)
@@ -110,13 +105,26 @@ namespace EasyClinic.OfficesService.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> EditOffice([FromQuery] Guid id, OfficeDto office,
+        public async Task<ActionResult> EditOffice([FromRoute] Guid id, OfficeDto office,
             CancellationToken cancellationToken = default)
         {
             var request = new EditOfficeCommand{ Id = id, OfficeDto = office };
             await _mediator.Send(request, cancellationToken);
 
             return Ok(new { message = "Office was edited" });
+        }
+
+        [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "Receptionist, Admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> DeleteOffice([FromRoute] Guid id,
+            CancellationToken cancellationToken = default)
+        {
+            var request = new DeleteOfficeCommand{Id = id};
+            await _mediator.Send(request, cancellationToken);
+            return Ok();
         }
 
         /// <summary>

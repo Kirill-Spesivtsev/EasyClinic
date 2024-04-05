@@ -1,9 +1,9 @@
-﻿using EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatus;
+﻿using EasyClinic.OfficesService.Application.Commands;
 using EasyClinic.OfficesService.Application.DTO;
 using FluentValidation;
 
 
-namespace EasyClinic.OfficesService.Application.Commands.CreateOffice
+namespace EasyClinic.OfficesService.Application.Commands
 {
     /// <summary>
     /// Validator for <see cref="CreateOfficeCommand"/>

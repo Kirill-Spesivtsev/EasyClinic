@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 
-namespace EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatus
+namespace EasyClinic.OfficesService.Application.Commands
 {
     /// <summary>
     /// Commnd to change office status.

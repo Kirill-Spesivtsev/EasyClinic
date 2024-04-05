@@ -2,7 +2,7 @@
 using EasyClinic.OfficesService.Domain.RepositoryContracts;
 using MediatR;
 
-namespace EasyClinic.OfficesService.Application.Queries.GetAllOffices
+namespace EasyClinic.OfficesService.Application.Queries
 {
     /// <summary>
     /// Query to Get all offices.
