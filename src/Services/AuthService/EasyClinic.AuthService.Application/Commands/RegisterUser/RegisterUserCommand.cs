@@ -77,7 +77,7 @@ namespace EasyClinic.AuthService.Application.Commands.RegisterUser
             try
             {
                 var registration = await _userManager.CreateAsync(user, request.Password);
-                await _userManager.AddToRoleAsync(user, "Admin");
+
                 var rolesTask = _userManager.GetRolesAsync(user);
 
                 if (request.Password != request.RepeatPassword)

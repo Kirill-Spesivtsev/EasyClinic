@@ -20,8 +20,6 @@ using EasyClinic.AuthService.Application.Commands.LoginUser;
 using EasyClinic.AuthService.Application.Commands.RegisterUser;
 using EasyClinic.AuthService.Domain.Contracts;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -71,7 +69,7 @@ builder.Services.AddProblemDetails(options =>
 });
 
 builder.Services.AddDbContext<IdentityServiceDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceContainerConnection"])
+    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceConnection"])
 );
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
@@ -140,8 +138,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
-
 app.UseCors("ApiCorsPolicy");
 
 app.UseProblemDetails();
@@ -150,6 +146,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await AutoMigrationHelper.ApplyMigrationsIfAny<IdentityServiceDbContext>(app);
+await DatabaseSeeder.SeedData<IdentityServiceDbContext>(app);
 
 app.Run();

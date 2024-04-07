@@ -32,6 +32,12 @@ namespace EasyClinic.AuthService.Api.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Returns JWT token if authentication was successful.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -44,6 +50,13 @@ namespace EasyClinic.AuthService.Api.Controllers
             return Ok(userData);
         }
 
+        /// <summary>
+        /// Registers new user, sends confirmation email.
+        /// Returns JWT token if authentication was successful.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -56,6 +69,11 @@ namespace EasyClinic.AuthService.Api.Controllers
             return Ok(userData);
         }
 
+        /// <summary>
+        /// Gets current authenticated user.
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("get-current-user")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -69,7 +87,16 @@ namespace EasyClinic.AuthService.Api.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Verifies email address if the provided token is valid for user.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="token"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("verify-email")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> VerifyEmail([FromQuery] string userId, [FromQuery] string token,
             CancellationToken cancellationToken = default)
         {
@@ -79,8 +106,15 @@ namespace EasyClinic.AuthService.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Resends email (account) confirmation link to email.
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost("resend-account-confirmation-link")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ResendAccountConfirmationEmail(
             CancellationToken cancellationToken = default)
         {
@@ -90,8 +124,15 @@ namespace EasyClinic.AuthService.Api.Controllers
             return Ok();
         }
         
+        /// <summary>
+        /// Sends password reset link to email.
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost("send-password-reset-link")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> SendPasswordResetEmail(CancellationToken cancellationToken = default)
         {
             var request = new SendPasswordResetCommand{Username = User.Identity?.Name!};
@@ -100,7 +141,17 @@ namespace EasyClinic.AuthService.Api.Controllers
             return Ok();
         }
 
+
+        /// <summary>
+        /// Gets password change form.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="token"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("change-password")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ChangePassword([FromQuery] string userId, [FromQuery] string token,
             CancellationToken cancellationToken = default)
         {
@@ -110,7 +161,15 @@ namespace EasyClinic.AuthService.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Changes user's password if the token is valid for user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpPost("change-password")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ChangePasswordSubmit(ChangePasswordSubmitCommand request, CancellationToken cancellationToken = default)
         {
             await _mediator.Send(request, cancellationToken);
