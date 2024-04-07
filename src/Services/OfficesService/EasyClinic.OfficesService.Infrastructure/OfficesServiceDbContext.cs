@@ -11,7 +11,6 @@ namespace EasyClinic.OfficesService.Infrastructure
         public OfficesServiceDbContext(DbContextOptions<OfficesServiceDbContext> options) 
             : base(options)
         {
-            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

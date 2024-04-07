@@ -47,9 +47,10 @@ namespace EasyClinic.OfficesService.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> GetOfficeInfo(GetOfficeInfoQuery request,
+        public async Task<ActionResult> GetOfficeInfo([FromRoute] Guid id,
             CancellationToken cancellationToken = default)
         {
+            var request = new GetOfficeInfoQuery{Id = id};
             var office = await _mediator.Send(request, cancellationToken);
 
             return Ok(office);
@@ -77,17 +78,17 @@ namespace EasyClinic.OfficesService.Api.Controllers
         /// <summary>
         /// Creates a new office and returns it.
         /// </summary>
-        /// <param name="officeDto"></param>
+        /// <param name="officeData"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>Created office</returns>
         [HttpPost]
         [Authorize(Roles = "Receptionist, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateOffice(OfficeDto officeDto,
+        public async Task<ActionResult> CreateOffice(OfficeDto officeData,
             CancellationToken cancellationToken = default)
         {
-            var request = new CreateOfficeCommand{ OfficeDto = officeDto };
+            var request = new CreateOfficeCommand{ OfficeDto = officeData };
             var createdOffice = await _mediator.Send(request, cancellationToken);
 
             return CreatedAtAction(nameof(CreateOffice), new { id = createdOffice.Id }, createdOffice);
