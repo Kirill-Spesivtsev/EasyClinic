@@ -7,15 +7,62 @@ services:
     build:
       context: .
       dockerfile: src/Services/AuthService/EasyClinic.AuthService.Api/Dockerfile
+    depends_on:
+      - easyclinic.authservice.db
+    networks:
+      - api-gateway-net
+      - authservice-backend
 
   easyclinic.authservice.db:
     image: postgres:16-alpine
     ports:
-      - "61002:5432"
+      - "62001:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pgadminpass@328
+      - POSTGRES_DB=AuthServiceDb
     restart: always
     volumes:
-      - authservice_data:/var/lib/postgresql/data
+      - authservice_db_data:/var/lib/postgresql/data
+    networks:
+      - authservice-backend
+
+  easyclinic.officesservice.api:
+    image: ${DOCKER_REGISTRY-}easyclinic-officesservice-api
+    build:
+      context: .
+      dockerfile: src/Services/OfficesService/EasyClinic.OfficesService.Api/Dockerfile
+    networks:
+      - api-gateway-net
+
+  easyclinic.profilesservice.api:
+    image: ${DOCKER_REGISTRY-}easyclinic-profilesservice-api
+    build:
+      context: .
+      dockerfile: src/Services/ProfilesService/EasyClinic.ProfilesService.Api/Dockerfile
+    networks:
+      - api-gateway-net
+
+  easyclinic.apigateway:
+    image: ${DOCKER_REGISTRY-}easyclinicapigateway
+    build:
+      context: .
+      dockerfile: src/ApiGateway/EasyClinic.ApiGateway/Dockerfile
+    networks:
+      - api-gateway-net
+    depends_on:
+      - easyclinic.authservice.api
+      - easyclinic.officesservice.api
+      - easyclinic.profilesservice.api
+
+
+networks:
+  api-gateway-net:
+  authservice-backend:
 
 volumes:
-  authservice_data:
+  authservice_db_data:
+
+
+
 

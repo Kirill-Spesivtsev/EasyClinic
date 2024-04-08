@@ -8,7 +8,10 @@
       "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "serviceActions": {
         "easyclinic.authservice.api": "StartDebugging",
-        "easyclinic.authservice.db": "StartWithoutDebugging"
+        "easyclinic.authservice.db": "StartWithoutDebugging",
+        "easyclinic.officesservice.api": "StartDebugging",
+        "easyclinic.apigateway": "StartDebugging",
+        "easyclinic.profilesservice.api": "StartDebugging"
       }
     }
   }
