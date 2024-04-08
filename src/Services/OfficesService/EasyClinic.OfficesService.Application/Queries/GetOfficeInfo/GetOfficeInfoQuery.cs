@@ -13,6 +13,9 @@ namespace EasyClinic.OfficesService.Application.Queries
         public Guid Id { get; init; }
     };
 
+    /// <summary>
+    /// Handler for <see cref="GetOfficeInfoQuery"/>
+    /// </summary>
     public class GetOfficeInfoQueryHandler : IRequestHandler<GetOfficeInfoQuery, Office>
     {
         private readonly IRepository<Office> _officesRepository;
@@ -20,6 +23,14 @@ namespace EasyClinic.OfficesService.Application.Queries
         {
             _officesRepository = officesRepository;
         }
+
+        /// <summary>
+        /// Retrieves office by its id.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
         public async Task<Office> Handle(GetOfficeInfoQuery request, CancellationToken cancellationToken)
         {
             var office = await _officesRepository.GetByIdAsync(request.Id);

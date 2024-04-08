@@ -22,7 +22,6 @@ namespace EasyClinic.OfficesService.Application.Queries
         }
 
         /// <summary>
-        /// Handler for <see cref="GetAllOfficesQuery"/>.
         /// Retrieves all offices
         /// </summary>
         /// <param name="request"></param>

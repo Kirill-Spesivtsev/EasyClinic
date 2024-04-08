@@ -40,6 +40,7 @@ namespace EasyClinic.OfficesService.Api.Controllers
         /// <summary>
         /// Retrieves office information based on the providedid and returns it.
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>Office information</returns>
         [HttpGet("{id:guid}")]
