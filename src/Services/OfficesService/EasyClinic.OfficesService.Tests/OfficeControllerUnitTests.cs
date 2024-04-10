@@ -1,9 +1,7 @@
 ﻿using EasyClinic.OfficesService.Api.Controllers;
-using EasyClinic.OfficesService.Application.Commands.ChangeOfficeStatus;
-using EasyClinic.OfficesService.Application.Commands.EditOffice;
+using EasyClinic.OfficesService.Application.Commands;
 using EasyClinic.OfficesService.Application.DTO;
-using EasyClinic.OfficesService.Application.Queries.GetAllOffices;
-using EasyClinic.OfficesService.Application.Queries.GetOfficeInfo;
+using EasyClinic.OfficesService.Application.Queries;
 using EasyClinic.OfficesService.Domain.Entities;
 using EasyClinic.OfficesService.Domain.Enums;
 using EasyClinic.OfficesService.Domain.Exceptions;
@@ -109,10 +107,9 @@ namespace EasyClinic.OfficesService.Tests
             await _context.SaveChangesAsync();
             
             var testOffice = Offices[0];
-            var request = new GetOfficeInfoQuery{ Id = testOffice.Id };
 
             // Act
-            var apiResponse = await _controller.GetOfficeInfo(request);
+            var apiResponse = await _controller.GetOfficeInfo(testOffice.Id);
             var office = ((ObjectResult)apiResponse).Value as Office;
 
             // Assert
@@ -129,10 +126,9 @@ namespace EasyClinic.OfficesService.Tests
             await _context.SaveChangesAsync();
 
             var testOfficeId = Guid.Parse("39735a44-6698-4ea2-8b31-6d6fef9d6fcd");
-            var request = new GetOfficeInfoQuery{ Id = testOfficeId };
 
             // Act
-            var func = async () => await _controller.GetOfficeInfo(request);
+            var func = async () => await _controller.GetOfficeInfo(testOfficeId);
 
             // Assert
             await func.Should().ThrowExactlyAsync<NotFoundException>();
@@ -154,12 +150,11 @@ namespace EasyClinic.OfficesService.Tests
                 OfficeId = testOfficeId, 
                 NewStatus = newStatus
             };
-            var testQuery = new GetOfficeInfoQuery{ Id = testOfficeId };
 
             // Act
             await _controller.UpdateOfficeStatus(request);
 
-            var apiResponse = await _controller.GetOfficeInfo(testQuery);
+            var apiResponse = await _controller.GetOfficeInfo(testOfficeId);
             var office = ((ObjectResult)apiResponse).Value as Office;
 
             // Assert
@@ -208,12 +203,11 @@ namespace EasyClinic.OfficesService.Tests
                 Status = OfficeStatus.Occupied,
                 RegistryPhone = "47865532441"
             };
-            var testQuery = new GetOfficeInfoQuery{ Id = testOfficeId };
 
             // Act
             await _controller.EditOffice(testOfficeId, testOffice);
 
-            var apiResponse = await _controller.GetOfficeInfo(testQuery);
+            var apiResponse = await _controller.GetOfficeInfo(testOfficeId);
             var office = ((ObjectResult)apiResponse).Value as Office;
 
             // Assert
