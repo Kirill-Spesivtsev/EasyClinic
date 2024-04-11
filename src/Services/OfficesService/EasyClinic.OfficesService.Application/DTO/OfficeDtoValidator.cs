@@ -1,18 +1,17 @@
 ﻿using EasyClinic.OfficesService.Application.Commands;
-using EasyClinic.OfficesService.Application.DTO;
 using FluentValidation;
 
 
-namespace EasyClinic.OfficesService.Application.Commands
+namespace EasyClinic.OfficesService.Application.DTO
 {
     /// <summary>
     /// Validator for <see cref="CreateOfficeCommand"/>
     /// </summary>
-    public sealed class CreateOfficeCommandValidator : AbstractValidator<OfficeDto>
+    public sealed class OfficeDtoValidator : AbstractValidator<OfficeDto>
     {
         private const string PhoneRegex = @"^\+?[0-9]{1,4}?[-.\s]?\(?[0-9]{1,3}?\)?[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,9}$";
 
-        public CreateOfficeCommandValidator()
+        public OfficeDtoValidator()
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 

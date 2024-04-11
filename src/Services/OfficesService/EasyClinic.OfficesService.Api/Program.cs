@@ -18,15 +18,15 @@ using Microsoft.Extensions.FileProviders;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
-using EasyClinic.OfficesService.Application.Commands;
 using EasyClinic.OfficesService.Application.Queries;
+using EasyClinic.OfficesService.Application.DTO;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddFluentValidationAutoValidation(op => 
     op.DisableDataAnnotationsValidation = true)
     .AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssemblyContaining<CreateOfficeCommandValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<OfficeDtoValidator>();
 ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-GB");
 
 builder.Services.AddControllers();
