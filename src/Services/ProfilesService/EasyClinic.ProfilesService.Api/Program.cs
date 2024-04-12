@@ -101,6 +101,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreatePatientProfileCommand
 ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-GB");
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IDoctorProfilesRepository, DoctorProfilesRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
