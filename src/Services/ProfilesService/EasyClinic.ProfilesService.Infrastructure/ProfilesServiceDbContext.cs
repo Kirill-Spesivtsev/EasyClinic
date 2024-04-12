@@ -25,12 +25,36 @@ namespace EasyClinic.ProfilesService.Infrastructure
             modelBuilder.Entity<ReceptionistProfile>().HasKey(r => r.Id);
 
             modelBuilder.Entity<DoctorProfile>()
-                .HasOne(d => d.Specialization)
-                .WithMany();
+                .HasOne(d => d.MedicalSpecialization)
+                .WithMany()
+                .HasForeignKey(d => d.MedicalSpecializationId);
 
             modelBuilder.Entity<DoctorProfile>()
-                .HasOne(d => d.Status)
-                .WithMany();
+                .HasOne(d => d.EmployeeStatus)
+                .WithMany()
+                .HasForeignKey(d => d.EmployeeStatusId);
+            
+            modelBuilder.Entity<PatientProfile>()
+                .HasIndex(dp => dp.FirstName).IsUnique(false);
+            modelBuilder.Entity<PatientProfile>()
+                .HasIndex(dp => dp.LastName).IsUnique(false);
+            modelBuilder.Entity<PatientProfile>()
+                .HasIndex(dp => dp.FullName).IsUnique(false);
+
+            modelBuilder.Entity<DoctorProfile>()
+                .HasIndex(dp => dp.FirstName).IsUnique(false);
+            modelBuilder.Entity<DoctorProfile>()
+                .HasIndex(dp => dp.LastName).IsUnique(false);
+            modelBuilder.Entity<DoctorProfile>()
+                .HasIndex(dp => dp.FullName).IsUnique(false);
+
+            modelBuilder.Entity<ReceptionistProfile>()
+                .HasIndex(dp => dp.FirstName).IsUnique(false);
+            modelBuilder.Entity<ReceptionistProfile>()
+                .HasIndex(dp => dp.LastName).IsUnique(false);
+            modelBuilder.Entity<ReceptionistProfile>()
+                .HasIndex(dp => dp.FullName).IsUnique(false);
+
         }
 
         public DbSet<PatientProfile> PatientProfiles { get; set; }

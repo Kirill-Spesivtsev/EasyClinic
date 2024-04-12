@@ -9,16 +9,18 @@ namespace EasyClinic.ProfilesService.Domain.Entities
 {
     public class DoctorProfile : ProfileBase
     {
-        public DateTime DateOfBirth { get; set; }
+        public DateOnly DateOfBirth { get; set; }
 
         public string Email { get; set; } = default!;
 
-        public MedicalSpecialization Specialization { get; set; }  = default!;
-
-        public string OfficeId { get; set; } = default!;
+        public Guid OfficeId { get; set; }
 
         public string CareerStartYear { get; set; } = default!;
 
-        public EmployeeStatus Status { get; set; } = default!;
+        public Guid MedicalSpecializationId { get; set; }
+        public MedicalSpecialization MedicalSpecialization { get; set; }  = default!;
+
+        public Guid EmployeeStatusId { get; set; }
+        public EmployeeStatus EmployeeStatus { get; set; } = default!;
     }
 }

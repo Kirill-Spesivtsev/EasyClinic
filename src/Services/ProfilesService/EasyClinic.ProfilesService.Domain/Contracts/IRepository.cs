@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,7 +19,14 @@ namespace EasyClinic.ProfilesService.Domain.Contracts
         /// Get all entities.
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<T>> GetAllAsync();
+        public Task<List<T>> GetAllAsync();
+
+        /// <summary>
+        /// Get filtered entities.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public Task<List<T>> GetFilteredAsync(Expression<Func<T, bool>> predicate);
 
         /// <summary>
         /// Creates new entity.

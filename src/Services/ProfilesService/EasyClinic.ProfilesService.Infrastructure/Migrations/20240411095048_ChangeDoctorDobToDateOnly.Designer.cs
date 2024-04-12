@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyClinic.ProfilesService.Infrastructure.Migrations
 {
     [DbContext(typeof(ProfilesServiceDbContext))]
-    [Migration("20240404144205_Initial")]
-    partial class Initial
+    [Migration("20240411095048_ChangeDoctorDobToDateOnly")]
+    partial class ChangeDoctorDobToDateOnly
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,42 +38,51 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("EmployeeStatusId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("MedicalSpecializationId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OfficeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("OfficeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PhotoPath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SpecializationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("StatusId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SpecializationId");
+                    b.HasIndex("EmployeeStatusId");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("FirstName");
+
+                    b.HasIndex("FullName");
+
+                    b.HasIndex("LastName");
+
+                    b.HasIndex("MedicalSpecializationId");
 
                     b.ToTable("DoctorProfiles");
                 });
@@ -122,11 +131,15 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
@@ -139,6 +152,12 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FirstName");
+
+                    b.HasIndex("FullName");
+
+                    b.HasIndex("LastName");
 
                     b.ToTable("PatientProfiles");
                 });
@@ -158,11 +177,15 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
@@ -176,26 +199,32 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FirstName");
+
+                    b.HasIndex("FullName");
+
+                    b.HasIndex("LastName");
+
                     b.ToTable("ReceptionistProfiles");
                 });
 
             modelBuilder.Entity("EasyClinic.ProfilesService.Domain.Entities.DoctorProfile", b =>
                 {
-                    b.HasOne("EasyClinic.ProfilesService.Domain.Entities.MedicalSpecialization", "Specialization")
+                    b.HasOne("EasyClinic.ProfilesService.Domain.Entities.EmployeeStatus", "EmployeeStatus")
                         .WithMany()
-                        .HasForeignKey("SpecializationId")
+                        .HasForeignKey("EmployeeStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EasyClinic.ProfilesService.Domain.Entities.EmployeeStatus", "Status")
+                    b.HasOne("EasyClinic.ProfilesService.Domain.Entities.MedicalSpecialization", "MedicalSpecialization")
                         .WithMany()
-                        .HasForeignKey("StatusId")
+                        .HasForeignKey("MedicalSpecializationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Specialization");
+                    b.Navigation("EmployeeStatus");
 
-                    b.Navigation("Status");
+                    b.Navigation("MedicalSpecialization");
                 });
 #pragma warning restore 612, 618
         }

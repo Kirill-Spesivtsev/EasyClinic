@@ -25,6 +25,16 @@ namespace EasyClinic.ProfilesService.Domain.Entities
 
         public string? AccountId { get; set; } = default!;
 
+
+        public string FullName {
+            get => FirstName + " " + LastName + " " + MiddleName;
+            set
+            {
+                // Exists only for EF
+            }
+        }
+        
+
         [NotMapped]
         public bool IsLinkedToAccount 
         { 

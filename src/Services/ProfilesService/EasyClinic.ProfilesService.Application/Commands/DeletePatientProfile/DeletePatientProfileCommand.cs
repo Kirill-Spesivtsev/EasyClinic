@@ -21,9 +21,9 @@ public class DeletePatientProfileCommandHandler : IRequestHandler<DeletePatientP
 {
     private readonly IRepository<PatientProfile> _profilesRepository;
 
-    public DeletePatientProfileCommandHandler(IRepository<PatientProfile> officesRepository)
+    public DeletePatientProfileCommandHandler(IRepository<PatientProfile> profilesRepository)
     {
-        _profilesRepository = officesRepository;
+        _profilesRepository = profilesRepository;
     }
 
     /// <summary>

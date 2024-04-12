@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,9 +29,19 @@ namespace EasyClinic.ProfilesService.Infrastructure.Repository
         /// Gets all entities from database.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync()
         {
             return await _context.Set<T>().AsNoTracking().ToListAsync();
+        }
+
+        /// <summary>
+        /// Gets filtered entities from database.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public async Task<List<T>> GetFilteredAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().Where(predicate).AsNoTracking().ToListAsync();
         }
 
         /// <summary>

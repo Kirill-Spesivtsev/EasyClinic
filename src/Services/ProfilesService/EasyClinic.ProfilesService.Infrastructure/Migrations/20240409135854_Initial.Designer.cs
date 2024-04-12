@@ -4,6 +4,7 @@ using EasyClinic.ProfilesService.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyClinic.ProfilesService.Infrastructure.Migrations
 {
     [DbContext(typeof(ProfilesServiceDbContext))]
-    partial class ProfilesServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240409135854_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,8 +38,8 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("DateOfBirth")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -46,10 +49,6 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -74,8 +73,6 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                     b.HasIndex("EmployeeStatusId");
 
                     b.HasIndex("FirstName");
-
-                    b.HasIndex("FullName");
 
                     b.HasIndex("LastName");
 
@@ -130,10 +127,6 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -151,8 +144,6 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FirstName");
-
-                    b.HasIndex("FullName");
 
                     b.HasIndex("LastName");
 
@@ -176,10 +167,6 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -197,8 +184,6 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FirstName");
-
-                    b.HasIndex("FullName");
 
                     b.HasIndex("LastName");
 

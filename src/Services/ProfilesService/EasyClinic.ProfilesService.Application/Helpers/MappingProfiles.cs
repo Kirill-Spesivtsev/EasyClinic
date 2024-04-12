@@ -13,6 +13,10 @@ namespace EasyClinic.ProfilesService.Application.Helpers
         public MappingProfiles()
         {
             CreateMap<PatientProfileDto, PatientProfile>();
+            
+            CreateMap<ReceptionistProfileDto, ReceptionistProfile>();
+            
+            CreateMap<DoctorProfileDto, DoctorProfile>();
         }
     }
 }

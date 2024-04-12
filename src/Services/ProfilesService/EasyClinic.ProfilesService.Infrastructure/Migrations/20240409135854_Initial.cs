@@ -42,8 +42,8 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DateOfBirth = table.Column<DateOnly>(type: "date", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AccountId = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -60,8 +60,8 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OfficeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AccountId = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -78,12 +78,12 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SpecializationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OfficeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OfficeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CareerStartYear = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MedicalSpecializationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployeeStatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AccountId = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -92,28 +92,58 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_DoctorProfiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DoctorProfiles_EmployeeStatuses_StatusId",
-                        column: x => x.StatusId,
+                        name: "FK_DoctorProfiles_EmployeeStatuses_EmployeeStatusId",
+                        column: x => x.EmployeeStatusId,
                         principalTable: "EmployeeStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DoctorProfiles_MedicalSpecializations_SpecializationId",
-                        column: x => x.SpecializationId,
+                        name: "FK_DoctorProfiles_MedicalSpecializations_MedicalSpecializationId",
+                        column: x => x.MedicalSpecializationId,
                         principalTable: "MedicalSpecializations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DoctorProfiles_SpecializationId",
+                name: "IX_DoctorProfiles_EmployeeStatusId",
                 table: "DoctorProfiles",
-                column: "SpecializationId");
+                column: "EmployeeStatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DoctorProfiles_StatusId",
+                name: "IX_DoctorProfiles_FirstName",
                 table: "DoctorProfiles",
-                column: "StatusId");
+                column: "FirstName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoctorProfiles_LastName",
+                table: "DoctorProfiles",
+                column: "LastName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoctorProfiles_MedicalSpecializationId",
+                table: "DoctorProfiles",
+                column: "MedicalSpecializationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientProfiles_FirstName",
+                table: "PatientProfiles",
+                column: "FirstName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientProfiles_LastName",
+                table: "PatientProfiles",
+                column: "LastName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReceptionistProfiles_FirstName",
+                table: "ReceptionistProfiles",
+                column: "FirstName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReceptionistProfiles_LastName",
+                table: "ReceptionistProfiles",
+                column: "LastName");
         }
 
         /// <inheritdoc />

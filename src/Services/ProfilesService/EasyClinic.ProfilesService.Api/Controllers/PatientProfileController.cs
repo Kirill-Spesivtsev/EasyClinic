@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EasyClinic.ProfilesService.Api.Controllers;
 
-
 [ApiController]
 [Route("api/v1/patient/profile")]
 public class PatientProfileController : ControllerBase
@@ -30,15 +29,16 @@ public class PatientProfileController : ControllerBase
     [HttpPost]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreatePatientProfile(PatientProfileDto data,
         CancellationToken cancellationToken = default)
     {
         var request = new CreatePatientProfileCommand{ PatientProfileData = data };
 
-        var createdOffice = await _mediator.Send(request, cancellationToken);
+        var createdPatient = await _mediator.Send(request, cancellationToken);
 
-        return CreatedAtAction(nameof(CreatePatientProfile), new { id = createdOffice.Id }, createdOffice);
+        return CreatedAtAction(nameof(CreatePatientProfile), new { id = createdPatient.Id }, createdPatient);
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public class PatientProfileController : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPut("{id:guid}")]
-    [Authorize(Roles = "Receptionist, Admin")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -59,11 +59,11 @@ public class PatientProfileController : ControllerBase
         var request = new EditPatientProfileCommand{Id = id, PatientProfileData = profileData};
         await _mediator.Send(request, cancellationToken);
 
-        return Ok(new { message = "Office was edited" });
+        return Ok();
     }
 
     [HttpDelete("{id:guid}")]
-    [Authorize(Roles = "Receptionist, Admin")]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -75,24 +75,42 @@ public class PatientProfileController : ControllerBase
         return Ok();
     }
 
-        /// <summary>
-        /// Retrieves PatientProfile by id and returns it.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        [HttpGet("{id:guid}")]
-        [Authorize(Roles = "Receptionist, Admin")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> GetPatientProfile([FromRoute] Guid id,
-            CancellationToken cancellationToken = default)
-        {
-            var request = new GetPatientProfileByIdQuery{Id = id};
-            var office = await _mediator.Send(request, cancellationToken);
+    /// <summary>
+    /// Retrieves PatientProfile by id and returns it.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpGet("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> GetPatientProfile([FromRoute] Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        var request = new GetPatientProfileByIdQuery{Id = id};
+        var patient = await _mediator.Send(request, cancellationToken);
 
-            return Ok(office);
-        }
+        return Ok(patient);
+    }
+
+    /// <summary>
+    /// Uploads an image of person to the image store and returns its path.
+    /// </summary>
+    /// <param name="file"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>Image path string</returns>
+    [HttpPost("upload-image"), DisableRequestSizeLimit]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> UploadPhoto(IFormFile file,
+        CancellationToken cancellationToken = default)
+    {
+        var request = new UploadPhotoCommand{ File = file };
+        var imagePath = await _mediator.Send(request, cancellationToken);
+
+        return Ok(imagePath);
+    }
 
 }
