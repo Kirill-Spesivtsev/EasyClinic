@@ -109,6 +109,60 @@
           "Port": 61001
         }
       ]
+    },
+
+    // OfficesService
+
+    {
+      "UpstreamPathTemplate": "/offices",
+      "UpstreamHttpMethod": [ "GET", "POST", "PATCH" ],
+      "DownstreamPathTemplate": "/api/v1/offices",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 61002
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/offices/{id}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE", "PATCH" ],
+      "DownstreamPathTemplate": "/api/v1/offices/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 61002
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/offices/update-status",
+      "UpstreamHttpMethod": [ "POST", "PATCH" ],
+      "DownstreamPathTemplate": "/api/v1/offices/update-status",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 61002
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/offices/upload-image",
+      "UpstreamHttpMethod": [ "POST", "PATCH" ],
+      "DownstreamPathTemplate": "/api/v1/offices/upload-image",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 61002
+        }
+      ]
     }
 
   ]
