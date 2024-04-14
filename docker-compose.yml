@@ -44,7 +44,7 @@ services:
       - api-gateway-net
 
   easyclinic.apigateway:
-    image: ${DOCKER_REGISTRY-}easyclinicapigateway
+    image: ${DOCKER_REGISTRY-}easyclinic-apigateway
     build:
       context: .
       dockerfile: src/ApiGateway/EasyClinic.ApiGateway/Dockerfile
