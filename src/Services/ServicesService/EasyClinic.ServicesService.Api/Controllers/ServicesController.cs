@@ -82,6 +82,25 @@ public class ServiceController : ControllerBase
     }
 
     /// <summary>
+    /// Updates the status of an service by id.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPost("update-status")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> UpdateServiceStatus(ChangeServiceStatusCommand request,
+        CancellationToken cancellationToken = default)
+    {
+        await _mediator.Send(request, cancellationToken);
+
+        return Ok();
+    }
+
+    /// <summary>
     /// Retrieves an existing Service by id and returns it.
     /// </summary>
     /// <param name="id"></param>
@@ -116,6 +135,4 @@ public class ServiceController : ControllerBase
 
         return Ok(doctors);
     }
-
-
 }
