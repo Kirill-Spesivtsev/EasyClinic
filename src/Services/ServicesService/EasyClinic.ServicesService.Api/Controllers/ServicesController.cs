@@ -100,4 +100,20 @@ public class ServiceController : ControllerBase
 
         return Ok(doctor);
     }
+
+    /// <summary>
+    /// Retrieves all Services.
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns>List of Services</returns>
+    [HttpGet]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult> GetAllServices(CancellationToken cancellationToken = default)
+    {
+        var request = new GetAllServicesQuery();
+        var doctors = await _mediator.Send(request, cancellationToken);
+
+        return Ok(doctors);
+    }
 }
