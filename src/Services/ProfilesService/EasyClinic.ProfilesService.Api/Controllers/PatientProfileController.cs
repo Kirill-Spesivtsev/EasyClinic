@@ -62,6 +62,12 @@ public class PatientProfileController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Deletes an existing PatientProfile by id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpDelete("{id:guid}")]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]

@@ -62,6 +62,12 @@ public class DoctorProfileController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Deletes an existing DoctorProfile by id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpDelete("{id:guid}")]
     [Authorize(Roles = "Doctor, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]

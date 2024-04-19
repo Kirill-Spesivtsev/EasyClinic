@@ -62,6 +62,12 @@ public class ReceptionistProfileController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Deletes an existing ReceptionistProfile by id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpDelete("{id:guid}")]
     [Authorize(Roles = "Receptionist, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]

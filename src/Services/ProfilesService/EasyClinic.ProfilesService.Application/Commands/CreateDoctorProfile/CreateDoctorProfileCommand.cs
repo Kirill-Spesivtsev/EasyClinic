@@ -29,9 +29,9 @@ public class CreateDoctorProfileCommandHandler : IRequestHandler<CreateDoctorPro
     private readonly IMapper _mapper;
 
     public CreateDoctorProfileCommandHandler(IMapper mapper, 
-        IDoctorProfilesRepository officesRepository)
+        IDoctorProfilesRepository profilesRepository)
     {
-        _profilesRepository = officesRepository;
+        _profilesRepository = profilesRepository;
         _mapper = mapper;
     }
 

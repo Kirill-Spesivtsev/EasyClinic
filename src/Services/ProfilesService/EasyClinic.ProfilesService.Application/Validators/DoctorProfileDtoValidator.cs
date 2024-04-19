@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 namespace EasyClinic.ProfilesService.Application.Commands.CreateDoctorProfile;
 
 public class DoctorProfileDtoValidator : AbstractValidator<DoctorProfileDto>
-{
-    private const string PhoneRegexPattern = @"^\+?[0-9]{1,4}?[-.\s]?\(?[0-9]{1,3}?\)?[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,9}$";
-    
+{    
     private const string EmailRegexPattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
 
     public DoctorProfileDtoValidator()
     {
-       RuleFor(x => x.FirstName)
+        RuleLevelCascadeMode = CascadeMode.Stop;
+
+        RuleFor(x => x.FirstName)
             .NotEmpty().WithMessage("First name is required.")
-            .MaximumLength(100).WithMessage("First name must not exceed 50 characters.");
+            .MaximumLength(100).WithMessage("First name must not exceed 100 characters.");
 
         RuleFor(x => x.LastName)
             .NotEmpty().WithMessage("Last name is required.")
-            .MaximumLength(100).WithMessage("Last name must not exceed 50 characters.");
+            .MaximumLength(100).WithMessage("Last name must not exceed 100 characters.");
 
         RuleFor(x => x.MiddleName)
             .MaximumLength(100).WithMessage("Middle name must not exceed 50 characters.");

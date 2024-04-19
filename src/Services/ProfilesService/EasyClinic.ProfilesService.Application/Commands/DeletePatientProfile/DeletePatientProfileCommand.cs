@@ -7,7 +7,7 @@ using MediatR;
 namespace EasyClinic.ProfilesService.Application.Commands;
 
 /// <summary>
-/// Command to delete new PatientProfile.
+/// Command to delete PatientProfile.
 /// </summary>
 public class DeletePatientProfileCommand : IRequest
 {

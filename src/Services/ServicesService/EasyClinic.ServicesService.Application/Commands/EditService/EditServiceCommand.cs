@@ -22,13 +22,13 @@ public class EditServiceCommand : IRequest
 /// </summary>
 public class EditServiceCommandHandler : IRequestHandler<EditServiceCommand>
 {
-    private readonly IServicesRepository _profilesRepository;
+    private readonly IServicesRepository _servicesRepository;
     private readonly IMapper _mapper;
 
     public EditServiceCommandHandler(IMapper mapper, 
-        IServicesRepository profilesRepository)
+        IServicesRepository servicesRepository)
     {
-        _profilesRepository = profilesRepository;
+        _servicesRepository = servicesRepository;
         _mapper = mapper;
     }
 
@@ -38,7 +38,7 @@ public class EditServiceCommandHandler : IRequestHandler<EditServiceCommand>
     /// <returns></returns>
     public async Task Handle(EditServiceCommand request, CancellationToken cancellationToken)
     {
-        var Service = await _profilesRepository.GetByIdAsync(request.Id);
+        var Service = await _servicesRepository.GetByIdAsync(request.Id);
 
         if (Service == null)
         {
@@ -47,7 +47,7 @@ public class EditServiceCommandHandler : IRequestHandler<EditServiceCommand>
 
         _mapper.Map(request.ServiceData, Service);
 
-        await _profilesRepository.UpdateAsync(Service);
+        await _servicesRepository.UpdateAsync(Service);
 
     }
 

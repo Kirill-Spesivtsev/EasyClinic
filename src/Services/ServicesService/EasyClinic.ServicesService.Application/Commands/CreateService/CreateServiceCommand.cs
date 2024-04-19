@@ -25,13 +25,13 @@ public class CreateServiceCommand : IRequest<Service>
 /// </summary>
 public class CreateServiceCommandHandler : IRequestHandler<CreateServiceCommand, Service>
 {
-    private readonly IServicesRepository _profilesRepository;
+    private readonly IServicesRepository _servicesRepository;
     private readonly IMapper _mapper;
 
     public CreateServiceCommandHandler(IMapper mapper, 
-        IServicesRepository officesRepository)
+        IServicesRepository servicesRepository)
     {
-        _profilesRepository = officesRepository;
+        _servicesRepository = servicesRepository;
         _mapper = mapper;
     }
 
@@ -43,7 +43,7 @@ public class CreateServiceCommandHandler : IRequestHandler<CreateServiceCommand,
     {
         var office = _mapper.Map<ServiceDto, Service>(request.ServiceData);
 
-        await _profilesRepository.AddAsync(office);
+        await _servicesRepository.AddAsync(office);
 
         return office;
     }

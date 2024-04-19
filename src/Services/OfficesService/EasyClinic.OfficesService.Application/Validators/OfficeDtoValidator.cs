@@ -1,16 +1,17 @@
-﻿using EasyClinic.OfficesService.Application.DTO;
+﻿using EasyClinic.OfficesService.Application.Commands;
+using EasyClinic.OfficesService.Application.DTO;
 using FluentValidation;
 
-namespace EasyClinic.OfficesService.Application.Commands
+namespace EasyClinic.OfficesService.Application.Validators
 {
     /// <summary>
     /// Validator for <see cref="DeleteOfficeCommand"/>
     /// </summary>
-    public sealed class EditOfficeCommandValidator : AbstractValidator<OfficeDto>
+    public sealed class OfficeDtoValidator : AbstractValidator<OfficeDto>
     {
         private const string PhoneRegex = @"^\+?[0-9]{1,4}?[-.\s]?\(?[0-9]{1,3}?\)?[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,9}$";
 
-        public EditOfficeCommandValidator()
+        public OfficeDtoValidator()
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 
@@ -25,7 +26,6 @@ namespace EasyClinic.OfficesService.Application.Commands
             RuleFor(x => x.HouseNumber)
                 .NotNull()
                 .GreaterThan(0).WithMessage("Please, enter the positive House Number.");
-
 
             RuleFor(x => x.RegistryPhone)
                 .NotNull()

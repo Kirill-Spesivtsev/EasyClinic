@@ -3,7 +3,7 @@ using EasyClinic.ProfilesService.Domain.Contracts;
 using EasyClinic.ProfilesService.Domain.Entities;
 using MediatR;
 
-namespace EasyClinic.OfficesService.Application.Queries;
+namespace EasyClinic.ProfilesService.Application.Queries;
 
 /// <summary>
 /// Query to Get all doctor profiles.

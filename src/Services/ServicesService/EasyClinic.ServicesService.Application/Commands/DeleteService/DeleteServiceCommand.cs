@@ -19,11 +19,11 @@ public class DeleteServiceCommand : IRequest
 /// </summary>
 public class DeleteServiceCommandHandler : IRequestHandler<DeleteServiceCommand>
 {
-    private readonly IServicesRepository _profilesRepository;
+    private readonly IServicesRepository _servicesRepository;
 
-    public DeleteServiceCommandHandler(IServicesRepository profilesRepository)
+    public DeleteServiceCommandHandler(IServicesRepository servicesRepository)
     {
-        _profilesRepository = profilesRepository;
+        _servicesRepository = servicesRepository;
     }
 
     /// <summary>
@@ -32,14 +32,14 @@ public class DeleteServiceCommandHandler : IRequestHandler<DeleteServiceCommand>
     /// <returns></returns>
     public async Task Handle(DeleteServiceCommand request, CancellationToken cancellationToken)
     {
-        var Service = await _profilesRepository.GetByIdAsync(request.Id);
+        var Service = await _servicesRepository.GetByIdAsync(request.Id);
 
         if (Service == null)
         {
             throw new NotFoundException($"Doctor Profile with id {request.Id} not found.");
         }
 
-        await _profilesRepository.DeleteAsync(Service);
+        await _servicesRepository.DeleteAsync(Service);
 
     }
 

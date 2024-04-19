@@ -29,9 +29,9 @@ public class CreateReceptionistProfileCommandHandler : IRequestHandler<CreateRec
     private readonly IMapper _mapper;
 
     public CreateReceptionistProfileCommandHandler(IMapper mapper, 
-        IRepository<ReceptionistProfile> officesRepository)
+        IRepository<ReceptionistProfile> profilesRepository)
     {
-        _profilesRepository = officesRepository;
+        _profilesRepository = profilesRepository;
         _mapper = mapper;
     }
 

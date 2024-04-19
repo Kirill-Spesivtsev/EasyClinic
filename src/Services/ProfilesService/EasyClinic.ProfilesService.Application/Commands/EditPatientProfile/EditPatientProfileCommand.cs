@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 namespace EasyClinic.ProfilesService.Application.Commands;
 
 /// <summary>
-/// Command to update new PatientProfile.
+/// Command to update PatientProfile.
 /// </summary>
 public class EditPatientProfileCommand : IRequest
 {
