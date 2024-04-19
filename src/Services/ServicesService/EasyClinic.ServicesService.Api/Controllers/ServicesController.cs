@@ -81,4 +81,23 @@ public class ServiceController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Retrieves an existing Service by id and returns it.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>One Service by id</returns>
+    [HttpGet("{id:guid}")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> GetServiceById([FromRoute] Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        var request = new GetServiceByIdQuery{Id = id};
+        var doctor = await _mediator.Send(request, cancellationToken);
+
+        return Ok(doctor);
+    }
 }
