@@ -62,4 +62,23 @@ public class ServiceController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Deletes an existing Service by id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpDelete("{id:guid}")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> DeleteService([FromRoute] Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        var request = new DeleteServiceCommand{Id = id};
+        await _mediator.Send(request, cancellationToken);
+        return Ok();
+    }
+
 }
