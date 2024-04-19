@@ -1,0 +1,51 @@
+﻿using AutoMapper;
+using EasyClinic.ServicesService.Application.DTO;
+using EasyClinic.ServicesService.Domain.Contracts;
+using EasyClinic.ServicesService.Domain.Entities;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EasyClinic.ServicesService.Application.Commands;
+
+/// <summary>
+/// Command to create new Service.
+/// </summary>
+public class CreateServiceCommand : IRequest<Service>
+{
+    public required ServiceDto ServiceData { get; set; }
+}
+
+/// <summary>
+/// Command handler for <see cref="CreateServiceCommand"/>
+/// </summary>
+public class CreateServiceCommandHandler : IRequestHandler<CreateServiceCommand, Service>
+{
+    private readonly IServicesRepository _profilesRepository;
+    private readonly IMapper _mapper;
+
+    public CreateServiceCommandHandler(IMapper mapper, 
+        IServicesRepository officesRepository)
+    {
+        _profilesRepository = officesRepository;
+        _mapper = mapper;
+    }
+
+    /// <summary>
+    /// Creates new Service.
+    /// </summary>
+    /// <returns>Created <see cref="Service"/> instance</returns>
+    public async Task<Service> Handle(CreateServiceCommand request, CancellationToken cancellationToken)
+    {
+        var office = _mapper.Map<ServiceDto, Service>(request.ServiceData);
+
+        await _profilesRepository.AddAsync(office);
+
+        return office;
+    }
+
+}
