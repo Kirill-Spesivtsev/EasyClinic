@@ -41,4 +41,25 @@ public class ServiceController : ControllerBase
         return CreatedAtAction(nameof(CreateService), new { id = createdDoctor.Id }, createdDoctor);
     }
 
+    /// <summary>
+    /// Edits an existing Service by id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="profile"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPut("{id:guid}")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> EditService([FromRoute] Guid id, ServiceDto profileData,
+        CancellationToken cancellationToken = default)
+    {
+        var request = new EditServiceCommand{Id = id, ServiceData = profileData};
+        await _mediator.Send(request, cancellationToken);
+
+        return Ok();
+    }
+
 }
