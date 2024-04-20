@@ -34,6 +34,7 @@ namespace EasyClinic.ServicesService.Infrastructure.Repository
         {
             return await _context.Services
                 .Include(x => x.Category)
+                .Include(x => x.Specialization)
                 .AsNoTracking()
                 .ToListAsync();
         }
