@@ -15,11 +15,11 @@ public record GetAllServicesQuery : IRequest<List<Service>> { };
 /// </summary>
 public class GetAllServicesQueryHandler : IRequestHandler<GetAllServicesQuery, List<Service>>
 {
-    private readonly IServicesRepository _profilesRepository;
+    private readonly IServicesRepository _servicesRepository;
 
     public GetAllServicesQueryHandler(IServicesRepository profilesRepository)
     {
-        _profilesRepository = profilesRepository;
+        _servicesRepository = profilesRepository;
     }
 
     /// <summary>
@@ -30,6 +30,6 @@ public class GetAllServicesQueryHandler : IRequestHandler<GetAllServicesQuery, L
     /// <returns></returns>
     public async Task<List<Service>> Handle(GetAllServicesQuery request, CancellationToken cancellationToken)
     {
-        return await _profilesRepository.GetAllAsync();
+        return await _servicesRepository.GetAllAsync();
     }
 }

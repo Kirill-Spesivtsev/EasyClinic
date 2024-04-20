@@ -103,5 +103,19 @@ public class SpecializationController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Retrieves all Specializations.
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns>List of Specializations</returns>
+    [HttpGet]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult> GetAllSpecializations(CancellationToken cancellationToken = default)
+    {
+        var request = new GetAllSpecializationsQuery();
+        var doctors = await _mediator.Send(request, cancellationToken);
 
+        return Ok(doctors);
+    }
 }

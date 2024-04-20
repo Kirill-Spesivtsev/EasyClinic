@@ -12,6 +12,8 @@ namespace EasyClinic.ServicesService.Application.Helpers
         public MappingProfiles()
         {
             CreateMap<ServiceDto, Service>();
+
+            CreateMap<SpecializationDto, Specialization>();
         }
     }
 }
