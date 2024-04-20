@@ -16,6 +16,7 @@ using FluentValidation;
 using System.Globalization;
 using EasyClinic.ServicesService.Application.Commands;
 using EasyClinic.ServicesService.Domain.Contracts;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,10 +60,10 @@ builder.Services.AddProblemDetails(options =>
         && ex is not HttpResponseCodeException;
     options.ShouldLogUnhandledException = (_, ex, d) => 
         (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
-        && (d.Status is null or >= 400);
-        options.Map<HttpResponseCodeException>(ex => new ProblemDetails() { 
+        && (d.Status is null or >= 500);
+    options.Map<HttpResponseCodeException>(ex => new ProblemDetails() { 
         Title = ex.Title, Detail = ex.Message, Status = ex.Status, Type = ex.Type });
-        options.MapToStatusCode<Exception>(500);
+      options.MapToStatusCode<Exception>(500);
 });
 
 builder.Services.AddDbContext<ServicesServiceDbContext>(options =>
@@ -94,6 +95,9 @@ builder.Services.AddCors(options => {
     });
 });
 
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
+
 builder.Services.AddFluentValidationAutoValidation(op => 
     op.DisableDataAnnotationsValidation = true)
     .AddFluentValidationClientsideAdapters();
@@ -108,6 +112,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateServiceCommand>());
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {
