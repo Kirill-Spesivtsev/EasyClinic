@@ -42,6 +42,27 @@ public class SpecializationController : ControllerBase
             new { id = createdDoctor.Id }, createdDoctor);
     }
 
+    /// <summary>
+    /// Edits an existing Specialization by id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="profile"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPut("{id:guid}")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> EditSpecialization([FromRoute] Guid id, 
+        SpecializationDto specializationData,
+        CancellationToken cancellationToken = default)
+    {
+        var request = new EditSpecializationCommand{Id = id, SpecializationData = specializationData};
+        await _mediator.Send(request, cancellationToken);
+
+        return Ok();
+    }
 
 
 
