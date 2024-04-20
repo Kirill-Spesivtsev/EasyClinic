@@ -83,6 +83,25 @@ public class SpecializationController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Updates the status of an specialization by id.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPost("update-status")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> UpdateSpecializationStatus(
+        ChangeSpecializationStatusCommand request,
+        CancellationToken cancellationToken = default)
+    {
+        await _mediator.Send(request, cancellationToken);
+
+        return Ok();
+    }
 
 
 }

@@ -1,4 +1,5 @@
 ﻿using EasyClinic.ServicesService.Domain.Contracts;
+using EasyClinic.ServicesService.Domain.Entities;
 using EasyClinic.ServicesService.Domain.Enums;
 using EasyClinic.ServicesService.Domain.Exceptions;
 using MediatR;
@@ -11,18 +12,12 @@ using System.Threading.Tasks;
 namespace EasyClinic.ServicesService.Application.Commands;
 
 /// <summary>
-/// Commnd to change service status.
+/// Command to change service status.
 /// </summary>
 public record ChangeServiceStatusCommand : IRequest
 {
-    /// <summary>
-    /// Service Id to update.
-    /// </summary>
     public Guid ServiceId { get; set; }
 
-    /// <summary>
-    /// New status for the service.
-    /// </summary>
     public byte NewStatus { get; set; } = default!;
 }
 
@@ -31,15 +26,15 @@ public record ChangeServiceStatusCommand : IRequest
 /// </summary>
 public class ChangeServiceStatusCommandHandler : IRequestHandler<ChangeServiceStatusCommand>
 {
-    private readonly IServicesRepository _servicesRepository;
+    private readonly IRepository<Specialization> _servicesRepository;
 
-    public ChangeServiceStatusCommandHandler(IServicesRepository servicesRepository)
+    public ChangeServiceStatusCommandHandler(IRepository<Specialization> servicesRepository)
     {
         _servicesRepository = servicesRepository;
     }
 
     /// <summary>
-    /// Updates service status by the given ServiceId.
+    /// Updates service status by the given Service Id.
     /// </summary>
     public async Task Handle(ChangeServiceStatusCommand request, CancellationToken cancellationToken)
     {
