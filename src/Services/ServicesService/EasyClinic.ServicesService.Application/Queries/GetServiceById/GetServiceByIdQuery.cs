@@ -18,10 +18,10 @@ public record GetServiceByIdQuery : IRequest<Service>
 /// </summary>
 public class GetServiceByIdQueryHandler : IRequestHandler<GetServiceByIdQuery, Service>
 {
-    private readonly IRepository<Service> _profilesRepository;
-    public GetServiceByIdQueryHandler(IRepository<Service> officesRepository)
+    private readonly IServicesRepository _servicesRepository;
+    public GetServiceByIdQueryHandler(IServicesRepository servicesRepository)
     {
-        _profilesRepository = officesRepository;
+        _servicesRepository = servicesRepository;
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public class GetServiceByIdQueryHandler : IRequestHandler<GetServiceByIdQuery, S
     /// <exception cref="NotFoundException"></exception>
     public async Task<Service> Handle(GetServiceByIdQuery request, CancellationToken cancellationToken)
     {
-        var office = await _profilesRepository.GetByIdAsync(request.Id);
+        var office = await _servicesRepository.GetByIdAsync(request.Id);
         
         if (office == null)
         {

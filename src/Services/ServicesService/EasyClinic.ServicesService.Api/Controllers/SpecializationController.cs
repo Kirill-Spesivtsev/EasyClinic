@@ -84,7 +84,7 @@ public class SpecializationController : ControllerBase
     }
 
     /// <summary>
-    /// Updates the status of an specialization by id.
+    /// Updates the status of an Specialization by id.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -101,6 +101,26 @@ public class SpecializationController : ControllerBase
         await _mediator.Send(request, cancellationToken);
 
         return Ok();
+    }
+
+    /// <summary>
+    /// Retrieves an existing Specialization by id and returns it.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>One Specialization by id</returns>
+    [HttpGet("{id:guid}")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> GetSpecializationById([FromRoute] Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        var request = new GetSpecializationByIdQuery{Id = id};
+        var doctor = await _mediator.Send(request, cancellationToken);
+
+        return Ok(doctor);
     }
 
     /// <summary>
