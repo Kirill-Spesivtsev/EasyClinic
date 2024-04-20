@@ -1,6 +1,8 @@
+using EasyClinic.CategorysCategory.Application.Queries;
 using EasyClinic.ServicesService.Application.Commands;
 using EasyClinic.ServicesService.Application.DTO;
 using EasyClinic.ServicesService.Application.Queries;
+using EasyClinic.SpecializationsSpecialization.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,10 +33,10 @@ public class ServiceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateService(ServiceDto data,
+    public async Task<ActionResult> CreateService(ServiceDto inputData,
         CancellationToken cancellationToken = default)
     {
-        var request = new CreateServiceCommand{ ServiceData = data };
+        var request = new CreateServiceCommand{ ServiceData = inputData };
 
         var createdDoctor = await _mediator.Send(request, cancellationToken);
 
@@ -53,10 +55,10 @@ public class ServiceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> EditService([FromRoute] Guid id, ServiceDto profileData,
+    public async Task<ActionResult> EditService([FromRoute] Guid id, ServiceDto inputData,
         CancellationToken cancellationToken = default)
     {
-        var request = new EditServiceCommand{Id = id, ServiceData = profileData};
+        var request = new EditServiceCommand{Id = id, ServiceData = inputData};
         await _mediator.Send(request, cancellationToken);
 
         return Ok();
@@ -131,6 +133,22 @@ public class ServiceController : ControllerBase
     public async Task<ActionResult> GetAllServices(CancellationToken cancellationToken = default)
     {
         var request = new GetAllServicesQuery();
+        var doctors = await _mediator.Send(request, cancellationToken);
+
+        return Ok(doctors);
+    }
+
+    /// <summary>
+    /// Retrieves all service Categories.
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns>List of service Categories</returns>
+    [HttpGet("categories")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult> GetAllServiceCategories(CancellationToken cancellationToken = default)
+    {
+        var request = new GetAllCategoriesQuery();
         var doctors = await _mediator.Send(request, cancellationToken);
 
         return Ok(doctors);
