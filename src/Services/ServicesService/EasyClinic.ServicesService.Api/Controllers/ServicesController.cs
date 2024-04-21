@@ -84,7 +84,7 @@ public class ServiceController : ControllerBase
     }
 
     /// <summary>
-    /// Updates the status of an service by id.
+    /// Updates the status of a Service by id.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

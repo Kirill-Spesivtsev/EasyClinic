@@ -84,7 +84,7 @@ public class SpecializationController : ControllerBase
     }
 
     /// <summary>
-    /// Updates the status of an Specialization by id.
+    /// Updates the status of a Specialization by id.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
