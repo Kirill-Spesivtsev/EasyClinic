@@ -11,7 +11,7 @@ namespace EasyClinic.OfficesService.Domain.Enums
     /// </summary>
     public enum OfficeStatus: byte
     {
-        Available = 0,
-        Occupied = 1
+        Active = 0,
+        Inactive = 1
     }
 }

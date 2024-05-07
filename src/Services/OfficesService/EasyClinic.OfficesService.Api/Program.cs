@@ -96,6 +96,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("ApiCorsPolicy", policy =>
+    {
+        policy
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:*", "https://localhost:*");
+    });
+});
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetAllOfficesQuery>());
@@ -117,6 +127,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("ApiCorsPolicy");
 
 app.UseProblemDetails();
 

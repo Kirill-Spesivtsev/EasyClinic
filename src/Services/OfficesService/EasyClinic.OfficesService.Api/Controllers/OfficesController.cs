@@ -139,12 +139,12 @@ public class OfficesController : ControllerBase
     [Authorize(Roles = "Receptionist, Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UploadPhoto(IFormFile file,
+    public async Task<ActionResult> UploadPhoto([FromForm] IFormFile file,
         CancellationToken cancellationToken = default)
     {
         var request = new UploadPhotoCommand{ File = file };
         var imagePath = await _mediator.Send(request, cancellationToken);
 
-        return Ok(imagePath);
+        return Ok(new { ImagePath = imagePath });
     }
 }

@@ -1,4 +1,5 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure;
+using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using EasyClinic.OfficesService.Domain.Exceptions;
 using MediatR;
@@ -58,23 +59,32 @@ namespace EasyClinic.OfficesService.Application.Commands
 
             if (request.File.Length > 0)
             {
-                var azureResponse = new List<Azure.Response<BlobContentInfo>>();
-
-                string fileName = request.File.FileName;
-                if (string.IsNullOrEmpty(fileName))
+                try
                 {
-                    throw new BadRequestException("No file provided");
-                }
-                string filePath = Path.Combine("Images", "OfficesService", "ProfilePictures", fileName);
+                    var azureResponse = new List<Azure.Response<BlobContentInfo>>();
 
-                using var memoryStream = new MemoryStream();
+                    string fileName = request.File.FileName;
+                    if (string.IsNullOrEmpty(fileName))
+                    {
+                        throw new BadRequestException("No file provided");
+                    }
+                    string filePath = Path.Combine("Images", "OfficesService", fileName);
+
+                    using var memoryStream = new MemoryStream();
                 
-                request.File.CopyTo(memoryStream);
-                memoryStream.Position = 0;
-                var client = await blobContainerClient.UploadBlobAsync(filePath, memoryStream, default);
-                azureResponse.Add(client);
+                    request.File.CopyTo(memoryStream);
+                    memoryStream.Position = 0;
+                    var client = await blobContainerClient.UploadBlobAsync(filePath, memoryStream, default);
+                    azureResponse.Add(client);
+
+                    var fullPath = $"{blobContainerClient.Uri}/{filePath}";
                 
-                return filePath;
+                    return fullPath;
+                }
+                catch (RequestFailedException ex) when (ex.ErrorCode == BlobErrorCode.BlobAlreadyExists)
+                {
+                    throw new ConflictException($"An image with the name {request?.File?.FileName} already exists in the blob storage within the default path.");
+                }
             }
             else
             {
