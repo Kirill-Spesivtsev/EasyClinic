@@ -47,7 +47,7 @@ namespace EasyClinic.AuthService.Application.Queries.GetCurrentUser
                 Id = user?.Id!,
                 Email = user?.Email!,
                 Username = user?.UserName!,
-                Token = _tokenService.GenerateJwtToken(user!, userRoles),
+                Token = _tokenService.GenerateJwtToken(user!, userRoles)
             };
 
             return result;

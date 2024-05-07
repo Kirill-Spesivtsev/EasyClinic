@@ -9,10 +9,14 @@ using EasyClinic.AuthService.Application.DTO;
 using EasyClinic.AuthService.Application.Queries;
 using EasyClinic.AuthService.Application.Queries.ChangePassword;
 using EasyClinic.AuthService.Application.Queries.CheckEmailExistence;
+using EasyClinic.AuthService.Application.Queries.GetAllUserRolesById;
 using EasyClinic.AuthService.Application.Queries.GetCurrentUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Asn1.Ocsp;
+using System.Security.Claims;
+using System.Threading;
 
 namespace EasyClinic.AuthService.Api.Controllers
 {
@@ -187,6 +191,36 @@ namespace EasyClinic.AuthService.Api.Controllers
 
             return Ok(result);
         }
+		
+		[HttpGet("get-current-user-roles")]
+        [Authorize(Roles = "Receptionist, Admin")]
+		public async Task<IActionResult> GetCurrentUserRoles(
+            CancellationToken cancellationToken = default)
+		{
+			var userId = User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+            var request = new GetAllUserRolesByIdQuery{UserId = userId};
+
+            var roles = await _mediator.Send(request, cancellationToken);
+
+
+			return Ok(roles);
+		}
+
+        [HttpGet("get-user-roles")]
+        [Authorize(Roles = "Admin")]
+		public async Task<IActionResult> GetUserRoles(string userId,
+            CancellationToken cancellationToken = default)
+		{
+			var id = User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+            var request = new GetAllUserRolesByIdQuery{UserId = id};
+
+            var roles = await _mediator.Send(request, cancellationToken);
+
+
+			return Ok(roles);
+		}
     }
 
 }

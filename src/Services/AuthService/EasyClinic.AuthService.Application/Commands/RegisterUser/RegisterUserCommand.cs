@@ -78,7 +78,7 @@ namespace EasyClinic.AuthService.Application.Commands.RegisterUser
             {
                 var registration = await _userManager.CreateAsync(user, request.Password);
 
-                var rolesTask = _userManager.GetRolesAsync(user);
+                var roles = _userManager.GetRolesAsync(user);
 
                 if (request.Password != request.RepeatPassword)
                 {
@@ -97,7 +97,7 @@ namespace EasyClinic.AuthService.Application.Commands.RegisterUser
                     Id = user.Id,
                     Email = user.Email!,
                     Username = user.UserName!,
-                    Token = _tokenService.GenerateJwtToken(user, await rolesTask),
+                    Token = _tokenService.GenerateJwtToken(user, await roles)
                 };
 
                 transaction.Commit();

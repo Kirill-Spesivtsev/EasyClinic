@@ -69,7 +69,7 @@ builder.Services.AddProblemDetails(options =>
 });
 
 builder.Services.AddDbContext<IdentityServiceDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceConnection"])
+    options.UseNpgsql(builder.Configuration["ConnectionStrings:IdentityServiceContainerConnection"])
 );
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
@@ -81,7 +81,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
         options.Password.RequireLowercase = false;
         options.Password.RequiredLength = 6;
         options.User.RequireUniqueEmail = true;
-        options.SignIn.RequireConfirmedAccount = true;
+        options.SignIn.RequireConfirmedAccount = false;
         options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultProvider;
         options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultProvider;
     })

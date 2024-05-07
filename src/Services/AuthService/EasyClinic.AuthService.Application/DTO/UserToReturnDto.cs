@@ -11,9 +11,9 @@ namespace EasyClinic.AuthService.Application.DTO
     /// </summary>
     public class UserToReturnDto
     {
-        public string Id { get; set; } = default!;
-        public string Email { get; set; } = default!;
-        public string Username { get; set; } = default!;
-        public string Token { get; set; } = default!;
+        public required string Id { get; set; } = default!;
+        public required string Email { get; set; } = default!;
+        public required string Username { get; set; } = default!;
+        public required string Token { get; set; } = default!;
     }
 }

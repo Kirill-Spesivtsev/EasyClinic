@@ -57,7 +57,7 @@ namespace EasyClinic.AuthService.Application.Commands.LoginUser
                 throw new NotFoundException("User with such email does not exist");
             }
 
-            var rolesTask = _userManager.GetRolesAsync(user);
+            var roles = _userManager.GetRolesAsync(user);
 
             var login = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
             if (!login.Succeeded)
@@ -70,7 +70,7 @@ namespace EasyClinic.AuthService.Application.Commands.LoginUser
                 Id = user.Id,
                 Email = user.Email!,
                 Username = user.UserName!,
-                Token = _tokenService.GenerateJwtToken(user, await rolesTask),
+                Token = _tokenService.GenerateJwtToken(user, await roles)
             };
 
             return result;
