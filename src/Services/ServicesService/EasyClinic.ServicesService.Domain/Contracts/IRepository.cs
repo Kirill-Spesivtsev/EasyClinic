@@ -49,12 +49,5 @@ namespace EasyClinic.ServicesService.Domain.Contracts
         /// <param name="entity"></param>
         /// <returns></returns>
         public Task UpdateAsync(T entity);
-
-        /// <summary>
-        /// Returns transaction.
-        /// </summary>
-        /// <param name="isolationLevel"></param>
-        /// <returns><see cref="IDbTransaction"/> instance</returns>
-        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
     }
 }

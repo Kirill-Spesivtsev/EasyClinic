@@ -87,16 +87,5 @@ namespace EasyClinic.ProfilesService.Infrastructure.Repository
             _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();
         }
-
-        /// <summary>
-        /// Returns an a transaction.
-        /// </summary>
-        /// <param name="isolationLevel"></param>
-        /// <returns><see cref="IDbTransaction"/> instance</returns>
-        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
-        {
-            var transaction = _context.Database.BeginTransaction();
-            return transaction.GetDbTransaction();
-        }
     }
 }
