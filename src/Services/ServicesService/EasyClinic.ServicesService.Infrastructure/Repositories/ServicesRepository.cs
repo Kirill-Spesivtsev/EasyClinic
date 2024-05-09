@@ -27,6 +27,20 @@ namespace EasyClinic.ServicesService.Infrastructure.Repository
         }
 
         /// <summary>
+        /// Gets an entity by id from database.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public new async Task<Service?> GetByIdAsync(Guid id)
+        {
+            return await _context.Services
+                .Include(x => x.Category)
+                .Include(x => x.Specialization)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        /// <summary>
         /// Gets all entities from database.
         /// </summary>
         /// <returns></returns>

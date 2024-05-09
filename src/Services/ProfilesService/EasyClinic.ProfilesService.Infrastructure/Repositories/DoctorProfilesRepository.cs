@@ -20,6 +20,20 @@ namespace EasyClinic.ProfilesService.Infrastructure.Repository
         }
 
         /// <summary>
+        /// Gets an entity by id from database.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public new async Task<DoctorProfile?> GetByIdAsync(Guid id)
+        {
+            return await _context.DoctorProfiles
+                .Include(x => x.MedicalSpecialization)
+                .Include(x => x.EmployeeStatus)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        /// <summary>
         /// Gets all entities from database.
         /// </summary>
         /// <returns></returns>

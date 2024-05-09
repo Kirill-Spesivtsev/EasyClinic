@@ -26,6 +26,16 @@ namespace EasyClinic.ServicesService.Infrastructure.Repository
         }
 
         /// <summary>
+        /// Gets an entity by id from database.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<T?> GetByIdAsync(Guid id)
+        {
+            return await _context.Set<T>().FindAsync(id);
+        }
+
+        /// <summary>
         /// Gets all entities from database.
         /// </summary>
         /// <returns></returns>
@@ -65,16 +75,6 @@ namespace EasyClinic.ServicesService.Infrastructure.Repository
         {
             _context.Set<T>().Remove(entity);
             await _context.SaveChangesAsync();
-        }
-
-        /// <summary>
-        /// Gets an entity by id from database.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<T?> GetByIdAsync(Guid id)
-        {
-            return await _context.Set<T>().FindAsync(id);
         }
 
         /// <summary>
