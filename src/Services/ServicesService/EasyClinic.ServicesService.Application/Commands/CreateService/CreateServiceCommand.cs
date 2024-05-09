@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EasyClinic.ServicesService.Application.CQRS;
 using EasyClinic.ServicesService.Application.DTO;
 using EasyClinic.ServicesService.Domain.Contracts;
 using EasyClinic.ServicesService.Domain.Entities;
@@ -41,11 +42,11 @@ public class CreateServiceCommandHandler : IRequestHandler<CreateServiceCommand,
     /// <returns>Created <see cref="Service"/> instance</returns>
     public async Task<Service> Handle(CreateServiceCommand request, CancellationToken cancellationToken)
     {
-        var office = _mapper.Map<ServiceDto, Service>(request.ServiceData);
+        var service = _mapper.Map<ServiceDto, Service>(request.ServiceData);
 
-        await _servicesRepository.AddAsync(office);
+        await _servicesRepository.AddAsync(service);
 
-        return office;
+        return service;
     }
 
 }

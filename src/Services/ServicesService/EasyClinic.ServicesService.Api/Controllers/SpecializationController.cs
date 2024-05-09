@@ -36,10 +36,10 @@ public class SpecializationController : ControllerBase
     {
         var request = new CreateSpecializationCommand{ SpecializationData = inputData };
 
-        var createdDoctor = await _mediator.Send(request, cancellationToken);
+        var createdSpecialization = await _mediator.Send(request, cancellationToken);
 
         return CreatedAtAction(nameof(CreateSpecialization), 
-            new { id = createdDoctor.Id }, createdDoctor);
+            new { id = createdSpecialization.Id }, createdSpecialization);
     }
 
     /// <summary>
@@ -118,9 +118,9 @@ public class SpecializationController : ControllerBase
         CancellationToken cancellationToken = default)
     {
         var request = new GetSpecializationByIdQuery{Id = id};
-        var doctor = await _mediator.Send(request, cancellationToken);
+        var specialization = await _mediator.Send(request, cancellationToken);
 
-        return Ok(doctor);
+        return Ok(specialization);
     }
 
     /// <summary>
@@ -134,8 +134,8 @@ public class SpecializationController : ControllerBase
     public async Task<ActionResult> GetAllSpecializations(CancellationToken cancellationToken = default)
     {
         var request = new GetAllSpecializationsQuery();
-        var doctors = await _mediator.Send(request, cancellationToken);
+        var specializations = await _mediator.Send(request, cancellationToken);
 
-        return Ok(doctors);
+        return Ok(specializations);
     }
 }

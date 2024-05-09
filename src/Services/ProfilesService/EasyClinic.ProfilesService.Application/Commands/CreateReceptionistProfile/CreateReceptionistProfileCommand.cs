@@ -41,11 +41,11 @@ public class CreateReceptionistProfileCommandHandler : IRequestHandler<CreateRec
     /// <returns>Created <see cref="ReceptionistProfile"/> instance</returns>
     public async Task<ReceptionistProfile> Handle(CreateReceptionistProfileCommand request, CancellationToken cancellationToken)
     {
-        var office = _mapper.Map<ReceptionistProfileDto, ReceptionistProfile>(request.ReceptionistProfileData);
+        var profile = _mapper.Map<ReceptionistProfileDto, ReceptionistProfile>(request.ReceptionistProfileData);
 
-        await _profilesRepository.AddAsync(office);
+        await _profilesRepository.AddAsync(profile);
 
-        return office;
+        return profile;
     }
 
 }

@@ -33,13 +33,13 @@ public class GetSpecializationByIdQueryHandler : IRequestHandler<GetSpecializati
     /// <exception cref="NotFoundException"></exception>
     public async Task<Specialization> Handle(GetSpecializationByIdQuery request, CancellationToken cancellationToken)
     {
-        var office = await _specializationsRepository.GetByIdAsync(request.Id);
+        var specialization = await _specializationsRepository.GetByIdAsync(request.Id);
         
-        if (office == null)
+        if (specialization == null)
         {
             throw new NotFoundException("Doctor Profile with such id does not exist");
         }
 
-        return office;
+        return specialization;
     }
 }

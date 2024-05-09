@@ -11,6 +11,6 @@ namespace EasyClinic.ProfilesService.Domain.Entities
     {
         public string Email { get; set; } = default!;
 
-        public string OfficeId { get; set; } = default!;
+        public Guid OfficeId { get; set; }
     }
 }

@@ -35,11 +35,11 @@ public class CreateSpecializationCommandHandler : IRequestHandler<CreateSpeciali
     /// <returns>Created <see cref="Specialization"/> instance</returns>
     public async Task<Specialization> Handle(CreateSpecializationCommand request, CancellationToken cancellationToken)
     {
-        var office = _mapper.Map<SpecializationDto, Specialization>(request.SpecializationData);
+        var specialization = _mapper.Map<SpecializationDto, Specialization>(request.SpecializationData);
 
-        await _specializationsRepository.AddAsync(office);
+        await _specializationsRepository.AddAsync(specialization);
 
-        return office;
+        return specialization;
     }
 
 }

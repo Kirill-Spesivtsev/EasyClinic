@@ -1,4 +1,5 @@
 ﻿
+using EasyClinic.ServicesService.Application.CQRS;
 using EasyClinic.ServicesService.Domain.Contracts;
 using EasyClinic.ServicesService.Domain.Entities;
 using MediatR;
@@ -17,9 +18,9 @@ public class GetAllServicesQueryHandler : IRequestHandler<GetAllServicesQuery, L
 {
     private readonly IServicesRepository _servicesRepository;
 
-    public GetAllServicesQueryHandler(IServicesRepository profilesRepository)
+    public GetAllServicesQueryHandler(IServicesRepository servicesRepository)
     {
-        _servicesRepository = profilesRepository;
+        _servicesRepository = servicesRepository;
     }
 
     /// <summary>

@@ -15,11 +15,11 @@ public record GetAllCategoriesQuery : IRequest<List<ServiceCategory>> { };
 /// </summary>
 public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuery, List<ServiceCategory>>
 {
-    private readonly IRepository<ServiceCategory> _categorysRepository;
+    private readonly IRepository<ServiceCategory> _categoriesRepository;
 
-    public GetAllCategoriesQueryHandler(IRepository<ServiceCategory> categorysRepository)
+    public GetAllCategoriesQueryHandler(IRepository<ServiceCategory> categoriesRepository)
     {
-        _categorysRepository = categorysRepository;
+        _categoriesRepository = categoriesRepository;
     }
 
     /// <summary>
@@ -30,6 +30,6 @@ public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuer
     /// <returns></returns>
     public async Task<List<ServiceCategory>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
     {
-        return await _categorysRepository.GetAllAsync();
+        return await _categoriesRepository.GetAllAsync();
     }
 }

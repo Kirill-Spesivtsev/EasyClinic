@@ -19,6 +19,7 @@
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
 		<PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+		<PackageReference Include="MassTransit" Version="8.2.2" />
 		<PackageReference Include="MediatR" Version="12.2.0" />
 		<PackageReference Include="Microsoft.Azure.Cosmos" Version="3.38.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
@@ -28,6 +29,7 @@
 	</ItemGroup>
 	
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\MassTransitData\MassTransitData.csproj" />
     <ProjectReference Include="..\EasyClinic.ServicesService.Domain\EasyClinic.ServicesService.Domain.csproj" />
   </ItemGroup>
 	

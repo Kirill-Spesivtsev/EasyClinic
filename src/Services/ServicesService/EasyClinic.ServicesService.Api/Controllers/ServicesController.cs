@@ -38,9 +38,9 @@ public class ServiceController : ControllerBase
     {
         var request = new CreateServiceCommand{ ServiceData = inputData };
 
-        var createdDoctor = await _mediator.Send(request, cancellationToken);
+        var createdService = await _mediator.Send(request, cancellationToken);
 
-        return CreatedAtAction(nameof(CreateService), new { id = createdDoctor.Id }, createdDoctor);
+        return CreatedAtAction(nameof(CreateService), new { id = createdService.Id }, createdService);
     }
 
     /// <summary>
@@ -117,9 +117,9 @@ public class ServiceController : ControllerBase
         CancellationToken cancellationToken = default)
     {
         var request = new GetServiceByIdQuery{Id = id};
-        var doctor = await _mediator.Send(request, cancellationToken);
+        var service = await _mediator.Send(request, cancellationToken);
 
-        return Ok(doctor);
+        return Ok(service);
     }
 
     /// <summary>
@@ -133,9 +133,9 @@ public class ServiceController : ControllerBase
     public async Task<ActionResult> GetAllServices(CancellationToken cancellationToken = default)
     {
         var request = new GetAllServicesQuery();
-        var doctors = await _mediator.Send(request, cancellationToken);
+        var services = await _mediator.Send(request, cancellationToken);
 
-        return Ok(doctors);
+        return Ok(services);
     }
 
     /// <summary>
@@ -149,8 +149,28 @@ public class ServiceController : ControllerBase
     public async Task<ActionResult> GetAllServiceCategories(CancellationToken cancellationToken = default)
     {
         var request = new GetAllCategoriesQuery();
-        var doctors = await _mediator.Send(request, cancellationToken);
+        var serviceCategories = await _mediator.Send(request, cancellationToken);
 
-        return Ok(doctors);
+        return Ok(serviceCategories);
+    }
+
+    /// <summary>
+    /// Retrieves SerivceCategory slot size by Service id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>Slot Size value</returns>
+    [HttpGet("get-slot-size/{id:guid}")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> GetSlotsSizeByServiceId([FromRoute] Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        var request = new GetTimeSlotsNumberByServiceIdQuery{Id = id};
+        var slotSize = await _mediator.Send(request, cancellationToken);
+
+        return Ok(slotSize);
     }
 }

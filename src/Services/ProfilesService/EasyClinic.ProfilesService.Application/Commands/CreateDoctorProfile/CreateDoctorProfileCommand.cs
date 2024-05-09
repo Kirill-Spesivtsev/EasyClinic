@@ -41,11 +41,11 @@ public class CreateDoctorProfileCommandHandler : IRequestHandler<CreateDoctorPro
     /// <returns>Created <see cref="DoctorProfile"/> instance</returns>
     public async Task<DoctorProfile> Handle(CreateDoctorProfileCommand request, CancellationToken cancellationToken)
     {
-        var office = _mapper.Map<DoctorProfileDto, DoctorProfile>(request.DoctorProfileData);
+        var profile = _mapper.Map<DoctorProfileDto, DoctorProfile>(request.DoctorProfileData);
 
-        await _profilesRepository.AddAsync(office);
+        await _profilesRepository.AddAsync(profile);
 
-        return office;
+        return profile;
     }
 
 }

@@ -6,40 +6,40 @@ using MediatR;
 namespace EasyClinic.ServicesService.Application.Queries;
 
 /// <summary>
-/// Query to Get <see cref="Service"/> by Id.
+/// Query to Get Time slots size by Service Id.
 /// </summary>
-public record GetServiceByIdQuery : IRequest<Service>
+public record GetTimeSlotsNumberByServiceIdQuery : IRequest<int>
 {
     public Guid Id { get; init; }
 };
 
 /// <summary>
-/// Handler for <see cref="GetServiceByIdQuery"/>
+/// Handler for <see cref="GetTimeSlotsNumberByServiceIdQuery"/>
 /// </summary>
-public class GetServiceByIdQueryHandler : IRequestHandler<GetServiceByIdQuery, Service>
+public class GetTimeSlotsSizeByServiceIdQueryHandler : IRequestHandler<GetTimeSlotsNumberByServiceIdQuery, int>
 {
     private readonly IServicesRepository _servicesRepository;
-    public GetServiceByIdQueryHandler(IServicesRepository servicesRepository)
+    public GetTimeSlotsSizeByServiceIdQueryHandler(IServicesRepository servicesRepository)
     {
         _servicesRepository = servicesRepository;
     }
 
     /// <summary>
-    /// Retrieves <see cref="Service"/> by id.
+    /// Retrieves Time slots size by Service Id.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="NotFoundException"></exception>
-    public async Task<Service> Handle(GetServiceByIdQuery request, CancellationToken cancellationToken)
+    public async Task<int> Handle(GetTimeSlotsNumberByServiceIdQuery request, CancellationToken cancellationToken)
     {
         var service = await _servicesRepository.GetByIdAsync(request.Id);
         
         if (service == null)
         {
-            throw new NotFoundException("Doctor Profile with such id does not exist");
+            throw new NotFoundException("Service with such id does not exist");
         }
 
-        return service;
+        return service.Category.TimeSlotSize;
     }
 }
