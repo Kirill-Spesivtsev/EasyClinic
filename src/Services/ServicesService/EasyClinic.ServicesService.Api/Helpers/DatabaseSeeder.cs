@@ -16,7 +16,6 @@ namespace EasyClinic.ServicesService.Api.Helpers
         /// <summary>
         /// Migrates pending schema changes to database.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="app"></param>
         /// <returns></returns>
         public static async Task SeedData(WebApplication app)
@@ -30,17 +29,31 @@ namespace EasyClinic.ServicesService.Api.Helpers
         /// <summary>
         /// Seeds ServiceCategories table rows.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="context"></param>
         /// <returns></returns>
         private static async Task SeedTables(ServicesServiceDbContext context)
         {
-            string[] categories = { "Consultations", "Analyzes", "Diagnostics", "Surgery" };
-            var existingCategories = await context.Services.Select(r => r.Name).ToListAsync();
+            var categories = new[] 
+            { 
+                new { Name = "Analyzes", TimeSlotSize = 1 },
+                new { Name = "Consultations", TimeSlotSize = 2 },
+                new { Name = "Diagnostics", TimeSlotSize = 3 },
+                new { Name = "Surgery", TimeSlotSize = 8 }
+            };  
+
+            var existing = context.ServiceCategories
+                .Select(r => r.Name)
+                .Intersect(categories.Select(r => r.Name))
+                .AsEnumerable();
+
+            var missing = categories.Where(c => !existing.Contains(c.Name));
             
-            foreach (var name in categories.Except(existingCategories))
+            foreach (var category in missing)
             {
-                context.ServiceCategories.Add(new ServiceCategory{ Name = name });
+                context.ServiceCategories.Add(new ServiceCategory{ 
+                    Name = category.Name,
+                    TimeSlotSize = category.TimeSlotSize
+                });
             }
 
             await context.SaveChangesAsync();

@@ -40,19 +40,23 @@ public class ServicesServiceDbContext : DbContext
 
         modelBuilder.Entity<Service>()
             .Property(s => s.Name)
-                .HasMaxLength(200);
-
-        modelBuilder.Entity<Specialization>()
-            .Property(s => s.Name)
-                .HasMaxLength(200);
-
+            .HasMaxLength(200);
 
         modelBuilder.Entity<Service>()
             .Property(s => s.Price)
-                .HasColumnType("decimal(19, 5)"); 
+             .HasColumnType("decimal(19, 5)"); 
 
         modelBuilder.Entity<Service>()
             .HasIndex(dp => dp.Name);
+
+        modelBuilder.Entity<Specialization>()
+            .Property(s => s.Name)
+            .HasMaxLength(200);
+
+        modelBuilder.Entity<ServiceCategory>()
+            .Property(c => c.TimeSlotSize)
+            .HasDefaultValue(1);
+
     }
 
     public DbSet<Service> Services { get; set; }

@@ -9,6 +9,6 @@
 
         public string Name { get;set; } = null!;
 
-        
+        public int TimeSlotSize { get;set; } = 1;
     }
 }
