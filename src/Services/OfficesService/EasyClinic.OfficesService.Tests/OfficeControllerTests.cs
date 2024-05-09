@@ -20,7 +20,7 @@ using Moq;
 
 namespace EasyClinic.OfficesService.Tests
 {
-    public class OfficeControllerUnitTests
+    public class OfficeControllerTests
     {
         private readonly IMediator _mediator;
         private readonly OfficesController _controller;
@@ -36,7 +36,7 @@ namespace EasyClinic.OfficesService.Tests
                 Street = "Gray hill",
                 HouseNumber = 34,
                 OfficeNumber = 153,
-                Status = OfficeStatus.Available,
+                Status = OfficeStatus.Active,
                 RegistryPhone = "4786553244"
             },
             new Office
@@ -46,7 +46,7 @@ namespace EasyClinic.OfficesService.Tests
                 Street = "Liberation road",
                 HouseNumber = 27,
                 OfficeNumber = 111,
-                Status = OfficeStatus.Available,
+                Status = OfficeStatus.Active,
                 RegistryPhone = "98236574354"
             },
             new Office
@@ -55,12 +55,12 @@ namespace EasyClinic.OfficesService.Tests
                 City = "Seoul",
                 Street = "Shincha suo",
                 HouseNumber = 83,
-                Status = OfficeStatus.Available,
+                Status = OfficeStatus.Active,
                 RegistryPhone = "23715605473"
             }
         ];
 
-        public OfficeControllerUnitTests()
+        public OfficeControllerTests()
         {
             var loggerMock = new Mock<ILogger<OfficesController>>();
 
@@ -144,7 +144,7 @@ namespace EasyClinic.OfficesService.Tests
             await _context.SaveChangesAsync();
 
             var testOfficeId = Offices[0].Id;
-            var newStatus = (byte)OfficeStatus.Occupied;
+            var newStatus = (byte)OfficeStatus.Inactive;
             var request = new ChangeOfficeStatusCommand
             { 
                 OfficeId = testOfficeId, 
@@ -171,7 +171,7 @@ namespace EasyClinic.OfficesService.Tests
             await _context.SaveChangesAsync();
 
             var testOfficeId = Guid.Parse("39735a44-6698-4ea2-8b31-6d6fef9d6fcd");
-            var newStatus = (byte)OfficeStatus.Occupied;
+            var newStatus = (byte)OfficeStatus.Inactive;
             var request = new ChangeOfficeStatusCommand
             { 
                 OfficeId = testOfficeId, 
@@ -200,7 +200,7 @@ namespace EasyClinic.OfficesService.Tests
                 Street = "Red hill",
                 HouseNumber = 341,
                 OfficeNumber = 531,
-                Status = OfficeStatus.Occupied,
+                Status = OfficeStatus.Inactive,
                 RegistryPhone = "47865532441"
             };
 
@@ -235,7 +235,7 @@ namespace EasyClinic.OfficesService.Tests
                 Street = "Red hill",
                 HouseNumber = 341,
                 OfficeNumber = 531,
-                Status = OfficeStatus.Occupied,
+                Status = OfficeStatus.Inactive,
                 RegistryPhone = "47865532441"
             };
 
@@ -260,7 +260,7 @@ namespace EasyClinic.OfficesService.Tests
                 Street = "Red hill",
                 HouseNumber = 341,
                 OfficeNumber = 531,
-                Status = OfficeStatus.Occupied,
+                Status = OfficeStatus.Inactive,
                 RegistryPhone = "47865532441"
             };
 
