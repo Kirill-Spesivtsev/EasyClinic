@@ -1,4 +1,4 @@
-﻿namespace EmailSender
+﻿namespace KEmailSender
 {
     /// <summary>
     /// Sends emails.

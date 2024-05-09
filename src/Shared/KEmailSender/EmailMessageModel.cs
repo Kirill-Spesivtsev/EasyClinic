@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace EmailSender
+namespace KEmailSender
 {
     /// <summary>
     /// Model, representing an email message.

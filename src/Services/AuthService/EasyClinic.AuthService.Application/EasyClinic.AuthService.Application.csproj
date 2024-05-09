@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EasyClinic.AuthService.Application.EmailSender\EasyClinic.AuthService.Application.EmailSender.csproj" />
+    <ProjectReference Include="..\..\..\Shared\KEmailSender\KEmailSender.csproj" />
     <ProjectReference Include="..\EasyClinic.AuthService.Domain\EasyClinic.AuthService.Domain.csproj" />
   </ItemGroup>
 

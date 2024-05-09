@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using MimeKit;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
-namespace EmailSender
+namespace KEmailSender
 {
     /// <summary>
     /// Email Sending interface.

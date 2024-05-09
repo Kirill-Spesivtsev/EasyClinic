@@ -1,6 +1,6 @@
 ﻿using EasyClinic.AuthService.Domain.Entities;
 using EasyClinic.AuthService.Domain.Exceptions;
-using EmailSender;
+using KEmailSender;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using System;

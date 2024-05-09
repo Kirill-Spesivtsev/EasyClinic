@@ -12,13 +12,13 @@ using EasyClinic.AuthService.Infrastructure.Repository;
 using EasyClinic.AuthService.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-using EmailSender;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using System.Globalization;
 using EasyClinic.AuthService.Application.Commands.LoginUser;
 using EasyClinic.AuthService.Application.Commands.RegisterUser;
 using EasyClinic.AuthService.Domain.Contracts;
+using KEmailSender;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -124,7 +124,7 @@ ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-GB");
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IEmailSender, EmailSender.EmailSender>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IEmailPatternService, EmailPatternService>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<LoginUserCommand>());
