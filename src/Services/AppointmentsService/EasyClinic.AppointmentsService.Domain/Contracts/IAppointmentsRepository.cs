@@ -16,7 +16,7 @@ namespace EasyClinic.AppointmentsService.Domain.Contracts
 
         public new Task<List<Appointment>> GetAllAsync(Expression<Func<Appointment, bool>> predicate);
 
-        public new Task<PagedList<Appointment>> GetPagedAsync(Expression<Func<Appointment, bool>> predicate, int pageNumber = 1, int pageSize = 20);
+        public new Task<PagedList<Appointment>> GetAllPagedAsync(Expression<Func<Appointment, bool>> predicate, int pageNumber = 1, int pageSize = 20);
 
     }
 }

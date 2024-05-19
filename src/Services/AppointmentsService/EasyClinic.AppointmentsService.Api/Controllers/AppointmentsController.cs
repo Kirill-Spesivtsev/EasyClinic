@@ -134,5 +134,14 @@ public class AppointmentsController : ControllerBase
         return Ok();
     }
 
+    [HttpGet("service-timesheet")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    public async Task<IActionResult> GetDayTimesheetOfService([FromQuery] GetAllBookedTimeSlotsQuery request,
+        CancellationToken cancellation)
+    {
+        var appointments = await _mediator.Send(request, cancellation);
+
+        return Ok(appointments);
+    }
   
 }
