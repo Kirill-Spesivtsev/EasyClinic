@@ -125,22 +125,11 @@ builder.Services.AddMassTransit(m =>
     m.AddConsumers(Assembly.GetAssembly(typeof(CreateServiceCommand)));
     m.UsingAzureServiceBus((context, config) =>
     {
-        config.Host(builder.Configuration["ConnectionStrings:AzureServiceBusConnection"]);
+        config.Host(builder.Configuration["ConnectionStrings:AzureServiceBusConnection"]!);
 
-        config.UseMessageRetry(r =>
-        {
-            r.Interval(3, TimeSpan.FromSeconds(5));
-            r.Ignore<ApplicationException>();
-        });
-
-        config.UseInMemoryOutbox(context);
-
-        config.ReceiveEndpoint("easyclinicqueue", e =>
-        {
-            e.UseMessageRetry(r => r.Immediate(3));
-            e.UseInMemoryOutbox(context);
-        });
+        config.ConfigureEndpoints(context);
     });
+    
 });
 
 builder.Host.UseSerilog((context, configuration) =>

@@ -123,19 +123,7 @@ builder.Services.AddMassTransit(m =>
     {
         config.Host(builder.Configuration["ConnectionStrings:AzureServiceBusConnection"]);
 
-        config.UseMessageRetry(r =>
-        {
-            r.Interval(3, TimeSpan.FromSeconds(5));
-            r.Ignore<ApplicationException>();
-        });
-
-        config.UseInMemoryOutbox(context);
-
-        config.ReceiveEndpoint("easyclinicqueue", e =>
-        {
-            e.UseMessageRetry(r => r.Immediate(3));
-            e.UseInMemoryOutbox(context);
-        });
+        config.ConfigureEndpoints(context);
     });
 });
 
