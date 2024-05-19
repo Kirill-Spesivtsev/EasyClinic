@@ -114,5 +114,14 @@ public class AppointmentsController : ControllerBase
         return Ok();
     }
 
+    [HttpPatch("approve/{id}")]
+    public async Task<IActionResult> ApproveAppointment([FromRoute] Guid id, 
+        CancellationToken cancellation)
+    {
+        var request = new ApproveAppointmentCommand{Id = id};
+        await _mediator.Send(request, cancellation);
+
+        return Ok();
+    }
 
 }
