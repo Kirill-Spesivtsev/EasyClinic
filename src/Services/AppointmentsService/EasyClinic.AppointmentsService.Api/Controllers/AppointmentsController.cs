@@ -45,5 +45,21 @@ public class AppointmentsController : ControllerBase
 
         return Ok();
     }
+
+    [HttpGet]
+    [Authorize(Roles = "Receptionist, Admin")]
+    public async Task<IActionResult> GetAllAppointments([FromQuery] GetAppointmentsListQuery request,
+        CancellationToken cancellation)
+    {
+        var appointments = await _mediator.Send(request, cancellation);
+
+        return Ok(appointments);
+    }
+
+
+
+
+
+
   
 }
