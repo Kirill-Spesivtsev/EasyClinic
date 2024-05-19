@@ -1,4 +1,5 @@
 version: '3.4'
+name: easyclinic
 
 services:
   easyclinic.authservice.api:
@@ -42,6 +43,7 @@ services:
       dockerfile: src/Services/ProfilesService/EasyClinic.ProfilesService.Api/Dockerfile
     networks:
       - api-gateway-net
+    command: [""]
 
   easyclinic.apigateway:
     image: ${DOCKER_REGISTRY-}easyclinic-apigateway

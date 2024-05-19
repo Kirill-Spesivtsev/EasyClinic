@@ -15,7 +15,7 @@ namespace EasyClinic.OfficesService.Domain.Exceptions
         }
 
         public UnauthorizedException() 
-            : this($"This action requires authentication. Please login to your account first"){}
+            : this($"You are not authorized to perform this action"){}
     }
 }
 

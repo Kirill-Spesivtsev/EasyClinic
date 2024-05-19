@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyClinic.ProfilesService.Infrastructure.Migrations
 {
     [DbContext(typeof(ProfilesServiceDbContext))]
-    [Migration("20240411095048_ChangeDoctorDobToDateOnly")]
-    partial class ChangeDoctorDobToDateOnly
+    [Migration("20240509222652_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -190,9 +190,8 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                     b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OfficeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("OfficeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PhotoPath")
                         .HasColumnType("nvarchar(max)");

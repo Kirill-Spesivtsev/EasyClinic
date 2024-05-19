@@ -187,9 +187,8 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                     b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OfficeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("OfficeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PhotoPath")
                         .HasColumnType("nvarchar(max)");

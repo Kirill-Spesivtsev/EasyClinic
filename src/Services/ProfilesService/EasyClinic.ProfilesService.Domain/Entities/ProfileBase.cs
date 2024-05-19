@@ -27,7 +27,8 @@ namespace EasyClinic.ProfilesService.Domain.Entities
 
 
         public string FullName {
-            get => FirstName + " " + LastName + " " + MiddleName;
+            get => FirstName + " " + LastName
+                + (MiddleName != null ? " " + MiddleName : string.Empty);
             set
             {
                 // Exists only for EF

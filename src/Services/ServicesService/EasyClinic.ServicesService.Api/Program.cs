@@ -18,6 +18,9 @@ using EasyClinic.ServicesService.Application.Commands;
 using EasyClinic.ServicesService.Domain.Contracts;
 using Serilog;
 using System.Reflection;
+using MassTransit;
+using EasyClinic.ServicesService.Application.Queries;
+using EasyClinic.ServicesService.Application.MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -117,6 +120,17 @@ builder.Services.AddCors(options => {
     });
 });
 
+builder.Services.AddMassTransit(m =>
+{m.AddConsumers(Assembly.GetAssembly(typeof(CreateServiceCommand)));
+    m.UsingAzureServiceBus((context, config) =>
+    {
+        config.Host(builder.Configuration["ConnectionStrings:AzureServiceBusConnection"]!);
+
+        config.ConfigureEndpoints(context);
+    });
+    
+});
+
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
@@ -154,4 +168,6 @@ app.MapControllers();
 await DatabaseSeeder.SeedData(app);
 
 app.Run();
+
+
 

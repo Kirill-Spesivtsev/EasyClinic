@@ -3,15 +3,12 @@
     "Docker Compose": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
-      "composeLaunchAction": "LaunchBrowser",
-      "composeLaunchServiceName": "easyclinic.authservice.api",
-      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "serviceActions": {
         "easyclinic.authservice.api": "StartDebugging",
         "easyclinic.authservice.db": "StartWithoutDebugging",
-        "easyclinic.officesservice.api": "StartDebugging",
-        "easyclinic.apigateway": "StartDebugging",
-        "easyclinic.profilesservice.api": "StartDebugging"
+        "easyclinic.officesservice.api": "StartWithoutDebugging",
+        "easyclinic.apigateway": "StartWithoutDebugging",
+        "easyclinic.profilesservice.api": "DoNotStart"
       }
     }
   }

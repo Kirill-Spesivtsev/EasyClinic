@@ -15,7 +15,7 @@ namespace EasyClinic.OfficesService.Domain.Exceptions
             Type = @"https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.8";
         }
 
-        public ConflictException(Guid id) : this($"User with id: {id} already exists"){}
+        public ConflictException(string entityName, Guid id) : this($"{entityName} with id: {id} already exists"){}
     }
 }
 

@@ -5,6 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
     <ProjectGuid>19d03a3a-1dbe-48bc-8a48-75ba90dc7071</ProjectGuid>
+	<DockerComposeProjectName>easyclinic</DockerComposeProjectName>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>easyclinic.authservice.api</DockerServiceName>

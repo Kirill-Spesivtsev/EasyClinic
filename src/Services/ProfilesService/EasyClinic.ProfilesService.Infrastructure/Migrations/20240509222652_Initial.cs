@@ -46,7 +46,8 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                     LastName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccountId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    AccountId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,12 +60,13 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OfficeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OfficeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccountId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    AccountId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,7 +78,7 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateOfBirth = table.Column<DateOnly>(type: "date", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OfficeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CareerStartYear = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -86,7 +88,8 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                     LastName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccountId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    AccountId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -116,6 +119,11 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                 column: "FirstName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DoctorProfiles_FullName",
+                table: "DoctorProfiles",
+                column: "FullName");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DoctorProfiles_LastName",
                 table: "DoctorProfiles",
                 column: "LastName");
@@ -131,6 +139,11 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                 column: "FirstName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PatientProfiles_FullName",
+                table: "PatientProfiles",
+                column: "FullName");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PatientProfiles_LastName",
                 table: "PatientProfiles",
                 column: "LastName");
@@ -139,6 +152,11 @@ namespace EasyClinic.ProfilesService.Infrastructure.Migrations
                 name: "IX_ReceptionistProfiles_FirstName",
                 table: "ReceptionistProfiles",
                 column: "FirstName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReceptionistProfiles_FullName",
+                table: "ReceptionistProfiles",
+                column: "FullName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ReceptionistProfiles_LastName",
