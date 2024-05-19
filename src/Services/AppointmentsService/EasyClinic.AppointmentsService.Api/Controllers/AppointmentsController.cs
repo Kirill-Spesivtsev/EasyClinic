@@ -104,5 +104,15 @@ public class AppointmentsController : ControllerBase
         return Ok();
     }
 
+    [HttpPut]
+    [Authorize(Roles = "Doctor, Receptionist, Admin")]
+    public async Task<IActionResult> UpdateAppointmentResult(UpdateAppointmentResultCommand request, 
+        CancellationToken cancellation)
+    {
+        await _mediator.Send(request, cancellation); 
+
+        return Ok();
+    }
+
 
 }
