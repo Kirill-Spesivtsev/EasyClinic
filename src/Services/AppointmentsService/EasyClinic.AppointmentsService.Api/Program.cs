@@ -117,6 +117,28 @@ builder.Services.AddCors(options => {
     });
 });
 
+builder.Services.AddMassTransit(m =>
+{
+    m.UsingAzureServiceBus((context, config) =>
+    {
+        config.Host(builder.Configuration["ConnectionStrings:AzureServiceBusConnection"]);
+
+        config.UseMessageRetry(r =>
+        {
+            r.Interval(3, TimeSpan.FromSeconds(5));
+            r.Ignore<ApplicationException>();
+        });
+
+        config.UseInMemoryOutbox(context);
+
+        config.ReceiveEndpoint("easyclinicqueue", e =>
+        {
+            e.UseMessageRetry(r => r.Immediate(3));
+            e.UseInMemoryOutbox(context);
+        });
+    });
+});
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IAppointmentsRepository, AppointmentsRepository>();
 builder.Services.AddScoped<IAppointmentResultsRepository, AppointmentResultsRepository>();

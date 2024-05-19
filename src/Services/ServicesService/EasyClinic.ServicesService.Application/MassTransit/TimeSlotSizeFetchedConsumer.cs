@@ -21,9 +21,10 @@ public class TimeSlotSizeFetchedConsumer: IConsumer<GuidMessage>
 
     public async Task Consume(ConsumeContext<GuidMessage> context)
     {
+        _logger.LogInformation("Msg Received by consumer");
         var query = new GetTimeSlotsNumberByServiceIdQuery{Id = context.Message.Value};
         var slotSize = await _mediator.Send(query);
-
+        _logger.LogInformation(slotSize.ToString());
         await context.RespondAsync(new IntMessage {Value = slotSize});
 
     }
