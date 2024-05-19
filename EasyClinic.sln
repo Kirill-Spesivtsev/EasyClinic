@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.AuthService.Doma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.AuthService.Application", "src\Services\AuthService\EasyClinic.AuthService.Application\EasyClinic.AuthService.Application.csproj", "{2D8C950F-8AEB-47D7-8D0E-6348EE11C097}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.AuthService.Application.EmailSender", "src\Services\AuthService\EasyClinic.AuthService.Application.EmailSender\EasyClinic.AuthService.Application.EmailSender.csproj", "{6D9097A1-ADB4-4F34-95D0-7696E873FE15}"
-EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{19D03A3A-1DBE-48BC-8A48-75BA90DC7071}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OfficesService", "OfficesService", "{F886842C-98D6-4E88-BEC6-934B3946FCDE}"
@@ -47,13 +45,31 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.ApiGateway", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServicesService", "ServicesService", "{61BFC0FD-CAF4-44AA-8470-4774D874346A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyClinic.ServicesService.Application", "src\Services\ServicesService\EasyClinic.ServicesService.Application\EasyClinic.ServicesService.Application.csproj", "{EFBAC47F-AE29-4366-9370-730DF22D4924}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.ServicesService.Application", "src\Services\ServicesService\EasyClinic.ServicesService.Application\EasyClinic.ServicesService.Application.csproj", "{EFBAC47F-AE29-4366-9370-730DF22D4924}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyClinic.ServicesService.Domain", "src\Services\ServicesService\EasyClinic.ServicesService.Domain\EasyClinic.ServicesService.Domain.csproj", "{B7791E08-C010-4382-9CF2-A1DBBCBC50C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.ServicesService.Domain", "src\Services\ServicesService\EasyClinic.ServicesService.Domain\EasyClinic.ServicesService.Domain.csproj", "{B7791E08-C010-4382-9CF2-A1DBBCBC50C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyClinic.ServicesService.Infrastructure", "src\Services\ServicesService\EasyClinic.ServicesService.Infrastructure\EasyClinic.ServicesService.Infrastructure.csproj", "{57FD52CF-EE1A-47CA-8430-0F83BA8827C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.ServicesService.Infrastructure", "src\Services\ServicesService\EasyClinic.ServicesService.Infrastructure\EasyClinic.ServicesService.Infrastructure.csproj", "{57FD52CF-EE1A-47CA-8430-0F83BA8827C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyClinic.ServicesService.Api", "src\Services\ServicesService\EasyClinic.ServicesService.Api\EasyClinic.ServicesService.Api.csproj", "{74DF78A7-2D9D-4A20-AA86-4C5CBEE99BF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.ServicesService.Api", "src\Services\ServicesService\EasyClinic.ServicesService.Api\EasyClinic.ServicesService.Api.csproj", "{74DF78A7-2D9D-4A20-AA86-4C5CBEE99BF7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppointmentsService", "AppointmentsService", "{CABFA453-10FD-4B1D-9EFB-F1970CB80917}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.AppointmentsService.Api", "src\Services\AppointmentsService\EasyClinic.AppointmentsService.Api\EasyClinic.AppointmentsService.Api.csproj", "{97BBC994-4473-43A0-B70C-A9886A359F01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.AppointmentsService.Application", "src\Services\AppointmentsService\EasyClinic.AppointmentsService.Application\EasyClinic.AppointmentsService.Application.csproj", "{A730AF97-6B43-44B8-B12B-D6741B182AA3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.AppointmentsService.Infrastructure", "src\Services\AppointmentsService\EasyClinic.AppointmentsService.Infrastructure\EasyClinic.AppointmentsService.Infrastructure.csproj", "{FCA7A089-BFB3-497B-BE9A-D6594AC05B01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyClinic.AppointmentsService.Domain", "src\Services\AppointmentsService\EasyClinic.AppointmentsService.Domain\EasyClinic.AppointmentsService.Domain.csproj", "{26B1D872-188D-43C3-B76C-96E616360580}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{BF483E70-17DF-48A9-B28D-A48589504A93}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KEmailSender", "src\Shared\KEmailSender\KEmailSender.csproj", "{B6DFAB21-B263-4230-B1C2-DEF35772567B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransitData", "src\Shared\MassTransitData\MassTransitData.csproj", "{28EC1DE0-D255-45F0-85AB-FCCC00112380}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionsService", "src\Services\FunctionsService\FunctionsService.csproj", "{7B58233E-62E9-4A01-8135-9EDD201887BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,10 +93,6 @@ Global
 		{2D8C950F-8AEB-47D7-8D0E-6348EE11C097}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D8C950F-8AEB-47D7-8D0E-6348EE11C097}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D8C950F-8AEB-47D7-8D0E-6348EE11C097}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D9097A1-ADB4-4F34-95D0-7696E873FE15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D9097A1-ADB4-4F34-95D0-7696E873FE15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D9097A1-ADB4-4F34-95D0-7696E873FE15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D9097A1-ADB4-4F34-95D0-7696E873FE15}.Release|Any CPU.Build.0 = Release|Any CPU
 		{19D03A3A-1DBE-48BC-8A48-75BA90DC7071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{19D03A3A-1DBE-48BC-8A48-75BA90DC7071}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19D03A3A-1DBE-48BC-8A48-75BA90DC7071}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -141,6 +153,34 @@ Global
 		{74DF78A7-2D9D-4A20-AA86-4C5CBEE99BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74DF78A7-2D9D-4A20-AA86-4C5CBEE99BF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74DF78A7-2D9D-4A20-AA86-4C5CBEE99BF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97BBC994-4473-43A0-B70C-A9886A359F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97BBC994-4473-43A0-B70C-A9886A359F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97BBC994-4473-43A0-B70C-A9886A359F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97BBC994-4473-43A0-B70C-A9886A359F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A730AF97-6B43-44B8-B12B-D6741B182AA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A730AF97-6B43-44B8-B12B-D6741B182AA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A730AF97-6B43-44B8-B12B-D6741B182AA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A730AF97-6B43-44B8-B12B-D6741B182AA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCA7A089-BFB3-497B-BE9A-D6594AC05B01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCA7A089-BFB3-497B-BE9A-D6594AC05B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCA7A089-BFB3-497B-BE9A-D6594AC05B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCA7A089-BFB3-497B-BE9A-D6594AC05B01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26B1D872-188D-43C3-B76C-96E616360580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26B1D872-188D-43C3-B76C-96E616360580}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26B1D872-188D-43C3-B76C-96E616360580}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B1D872-188D-43C3-B76C-96E616360580}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6DFAB21-B263-4230-B1C2-DEF35772567B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6DFAB21-B263-4230-B1C2-DEF35772567B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6DFAB21-B263-4230-B1C2-DEF35772567B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6DFAB21-B263-4230-B1C2-DEF35772567B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28EC1DE0-D255-45F0-85AB-FCCC00112380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28EC1DE0-D255-45F0-85AB-FCCC00112380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28EC1DE0-D255-45F0-85AB-FCCC00112380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28EC1DE0-D255-45F0-85AB-FCCC00112380}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B58233E-62E9-4A01-8135-9EDD201887BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B58233E-62E9-4A01-8135-9EDD201887BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B58233E-62E9-4A01-8135-9EDD201887BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B58233E-62E9-4A01-8135-9EDD201887BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,7 +191,6 @@ Global
 		{6073FCE4-D081-441D-9FE7-A005E5AD615B} = {22F0B5ED-5517-41DB-AAAD-64687528B106}
 		{C0CF5C89-ABDA-4536-9FFD-400A8EDB8234} = {22F0B5ED-5517-41DB-AAAD-64687528B106}
 		{2D8C950F-8AEB-47D7-8D0E-6348EE11C097} = {22F0B5ED-5517-41DB-AAAD-64687528B106}
-		{6D9097A1-ADB4-4F34-95D0-7696E873FE15} = {22F0B5ED-5517-41DB-AAAD-64687528B106}
 		{F886842C-98D6-4E88-BEC6-934B3946FCDE} = {E2498F8F-1B9A-4AE2-AD59-D214B12FA4CA}
 		{4AD0865F-1667-451E-A0F4-02D5644802BD} = {F886842C-98D6-4E88-BEC6-934B3946FCDE}
 		{DE577C7C-D377-4858-9925-695E856E7AFF} = {F886842C-98D6-4E88-BEC6-934B3946FCDE}
@@ -169,6 +208,14 @@ Global
 		{B7791E08-C010-4382-9CF2-A1DBBCBC50C4} = {61BFC0FD-CAF4-44AA-8470-4774D874346A}
 		{57FD52CF-EE1A-47CA-8430-0F83BA8827C1} = {61BFC0FD-CAF4-44AA-8470-4774D874346A}
 		{74DF78A7-2D9D-4A20-AA86-4C5CBEE99BF7} = {61BFC0FD-CAF4-44AA-8470-4774D874346A}
+		{CABFA453-10FD-4B1D-9EFB-F1970CB80917} = {E2498F8F-1B9A-4AE2-AD59-D214B12FA4CA}
+		{97BBC994-4473-43A0-B70C-A9886A359F01} = {CABFA453-10FD-4B1D-9EFB-F1970CB80917}
+		{A730AF97-6B43-44B8-B12B-D6741B182AA3} = {CABFA453-10FD-4B1D-9EFB-F1970CB80917}
+		{FCA7A089-BFB3-497B-BE9A-D6594AC05B01} = {CABFA453-10FD-4B1D-9EFB-F1970CB80917}
+		{26B1D872-188D-43C3-B76C-96E616360580} = {CABFA453-10FD-4B1D-9EFB-F1970CB80917}
+		{B6DFAB21-B263-4230-B1C2-DEF35772567B} = {BF483E70-17DF-48A9-B28D-A48589504A93}
+		{28EC1DE0-D255-45F0-85AB-FCCC00112380} = {BF483E70-17DF-48A9-B28D-A48589504A93}
+		{7B58233E-62E9-4A01-8135-9EDD201887BF} = {E2498F8F-1B9A-4AE2-AD59-D214B12FA4CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88709383-0404-47D0-ACEB-3EA631AD9993}
