@@ -48,7 +48,27 @@ public class AppointmentsController : ControllerBase
 
     [HttpGet]
     [Authorize(Roles = "Receptionist, Admin")]
-    public async Task<IActionResult> GetAllAppointments([FromQuery] GetAppointmentsListQuery request,
+    public async Task<IActionResult> GetAppointmentsListForToday([FromQuery] GetAppointmentsListQuery request,
+        CancellationToken cancellation)
+    {
+        var appointments = await _mediator.Send(request, cancellation);
+
+        return Ok(appointments);
+    }
+
+    [HttpGet("for-doctor")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    public async Task<IActionResult> GetAppointmentsHistoryForDoctor([FromQuery] GetAppointmentsHistoryForDoctorQuery request,
+        CancellationToken cancellation)
+    {
+        var appointments = await _mediator.Send(request, cancellation);
+
+        return Ok(appointments);
+    }
+
+    [HttpGet("for-patient")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    public async Task<IActionResult> GetAppointmentsHistoryForPatient([FromQuery]GetAppointmentsHistoryForPatientQuery request,
         CancellationToken cancellation)
     {
         var appointments = await _mediator.Send(request, cancellation);
@@ -57,9 +77,4 @@ public class AppointmentsController : ControllerBase
     }
 
 
-
-
-
-
-  
 }
