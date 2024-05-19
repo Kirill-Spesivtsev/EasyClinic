@@ -76,5 +76,23 @@ public class AppointmentsController : ControllerBase
         return Ok(appointments);
     }
 
+    [HttpPost("result")]
+    [Authorize(Roles = "Doctor, Receptionist, Admin")]
+    public async Task<IActionResult> CreateAppointmentResult(CreateAppointmentResultCommand request, 
+        CancellationToken cancellation)
+    {
+        var username = User.FindFirst(ClaimTypes.Name)?.Value;
+
+        var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
+        request.Email = email;
+        request.UserName = username;
+
+        await _mediator.Send(request, cancellation);
+
+        return Ok();
+    }
+
+
 
 }
