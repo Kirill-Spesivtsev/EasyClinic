@@ -124,4 +124,15 @@ public class AppointmentsController : ControllerBase
         return Ok();
     }
 
+    [HttpPatch("reshedule/{id}")]
+    public async Task<IActionResult> ResheduleAppointment([FromRoute] Guid id, 
+        CancellationToken cancellation)
+    {
+        var request = new ResheduleAppointmentCommand{Id = id};
+        await _mediator.Send(request, cancellation);
+
+        return Ok();
+    }
+
+  
 }
