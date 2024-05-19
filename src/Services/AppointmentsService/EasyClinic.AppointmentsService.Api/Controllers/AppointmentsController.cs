@@ -93,6 +93,16 @@ public class AppointmentsController : ControllerBase
         return Ok();
     }
 
+    [HttpDelete("{id}")]
+    [Authorize(Roles = "Receptionist, Admin")]
+    public async Task<IActionResult> CancelAppointment([FromRoute] Guid id,
+        CancellationToken cancellation)
+    {
+        var request = new CancelAppointmentCommand{Id = id};
+        await _mediator.Send(request, cancellation); 
+
+        return Ok();
+    }
 
 
 }
