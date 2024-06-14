@@ -19,6 +19,8 @@ using MassTransit;
 using KEmailSender;
 using EasyClinic.AppointmentsService.Application.Services;
 using EasyClinic.AppointmentsService.Domain.Entities;
+using Serilog;
+using Microsoft.Extensions.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -107,6 +109,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.ConfigureAll<HttpClientFactoryOptions>(options =>
+{
+    options.HttpMessageHandlerBuilderActions.Add(b =>
+    {
+        b.AdditionalHandlers.Add(
+            new PolicyHttpMessageHandler(ResiliencePolicyHelper.GetRetryPolicy()));
+    });
+});
+
+
 builder.Services.AddCors(options => {
     options.AddPolicy("ApiCorsPolicy", policy =>
     {
@@ -127,6 +139,9 @@ builder.Services.AddMassTransit(m =>
     });
 });
 
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IAppointmentsRepository, AppointmentsRepository>();
 builder.Services.AddScoped<IAppointmentResultsRepository, AppointmentResultsRepository>();
@@ -143,6 +158,8 @@ builder.Services.AddMediatR(config =>
 });
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {
