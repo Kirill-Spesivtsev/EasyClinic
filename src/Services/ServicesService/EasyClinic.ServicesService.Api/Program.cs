@@ -132,8 +132,7 @@ builder.Services.AddMassTransit(m =>
     
 });
 
-builder.Host.UseSerilog((context, configuration) =>
-    configuration.ReadFrom.Configuration(context.Configuration));
+builder.Host.UseSerilog(LoggerConfig.ConfigureLogger);
 
 builder.Services.AddFluentValidationAutoValidation(op => 
     op.DisableDataAnnotationsValidation = true)
