@@ -1,6 +1,11 @@
 {
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:50001"
+    "BaseUrl": "https://localhost:50001",
+    "QoSOptions": {
+      "ExceptionsAllowedBeforeBreaking": 3,
+      "DurationOfBreak": 5000,
+      "TimeoutValue": 8000
+    }
   },
 
   "Routes": [
@@ -111,16 +116,42 @@
       ]
     },
 
+    {
+      "UpstreamPathTemplate": "/account/get-current-user-roles",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+      "DownstreamPathTemplate": "/api/v1/account/get-current-user-roles",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "easyclinic.authservice.api",
+          "Port": 61001
+        }
+      ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/account/get-user-roles",
+      "UpstreamHttpMethod": [ "Get", "Options" ],
+      "DownstreamPathTemplate": "/api/v1/account/get-user-roles",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "easyclinic.authservice.api",
+          "Port": 61001
+        }
+      ]
+    },
+
     // OfficesService
 
     {
       "UpstreamPathTemplate": "/offices",
-      "UpstreamHttpMethod": [ "GET", "POST", "PATCH" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "OPTIONS" ],
       "DownstreamPathTemplate": "/api/v1/offices",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "easyclinic.officesservice.api",
           "Port": 61002
         }
       ]
@@ -128,12 +159,12 @@
 
     {
       "UpstreamPathTemplate": "/offices/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE", "PATCH" ],
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE", "OPTIONS" ],
       "DownstreamPathTemplate": "/api/v1/offices/{id}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "easyclinic.officesservice.api",
           "Port": 61002
         }
       ]
@@ -141,12 +172,12 @@
 
     {
       "UpstreamPathTemplate": "/offices/update-status",
-      "UpstreamHttpMethod": [ "POST", "PATCH" ],
+      "UpstreamHttpMethod": [ "POST", "OPTIONS" ],
       "DownstreamPathTemplate": "/api/v1/offices/update-status",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "easyclinic.officesservice.api",
           "Port": 61002
         }
       ]
@@ -154,12 +185,12 @@
 
     {
       "UpstreamPathTemplate": "/offices/upload-image",
-      "UpstreamHttpMethod": [ "POST", "PATCH" ],
+      "UpstreamHttpMethod": [ "POST", "OPTIONS" ],
       "DownstreamPathTemplate": "/api/v1/offices/upload-image",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "easyclinic.officesservice.api",
           "Port": 61002
         }
       ]
